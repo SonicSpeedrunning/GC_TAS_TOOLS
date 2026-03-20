@@ -22,6 +22,5 @@ inspect important memory addresses more easily
 ## Scripts
 
 | Script | Description |
-| `Sonic_InspectTaskList.lua` | Searches for all objects of a specific type, displaying
-their memory address and position on-screen. Currently have to modify the script itself
-to configure |
+|--------|-------------|
+| `Sonic_InspectTaskList.lua` | Searches for all objects of a specific type, displaying their memory address and position on-screen. Currently have to modify the script itself to configure |
