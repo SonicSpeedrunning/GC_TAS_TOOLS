@@ -1,0 +1,4623 @@
+{
+	"structDefs": {
+        "rootNode": [
+            {
+                "struct": {
+                    "fieldList": [
+                        {
+                            "entry": {
+                                "absoluteBranch": false,
+                                "address": "0",
+                                "baseIndex": 0,
+                                "label": "prev",
+                                "pointerOffsets": [
+                                    "0"
+                                ],
+                                "structName": "Task",
+                                "typeIndex": 7,
+                                "unsigned": false
+                            },
+                            "length": 4,
+                            "offset": 0
+                        },
+                        {
+                            "entry": {
+                                "absoluteBranch": false,
+                                "address": "0",
+                                "baseIndex": 0,
+                                "label": "next",
+                                "pointerOffsets": [
+                                    "0"
+                                ],
+                                "structName": "Task",
+                                "typeIndex": 7,
+                                "unsigned": false
+                            },
+                            "length": 4,
+                            "offset": 4
+                        },
+                        {
+                            "entry": {
+                                "absoluteBranch": false,
+                                "address": "0",
+                                "baseIndex": 0,
+                                "label": "parent",
+                                "pointerOffsets": [
+                                    "0"
+                                ],
+                                "structName": "Task",
+                                "typeIndex": 7,
+                                "unsigned": false
+                            },
+                            "length": 4,
+                            "offset": 8
+                        },
+                        {
+                            "entry": {
+                                "absoluteBranch": false,
+                                "address": "0",
+                                "baseIndex": 0,
+                                "label": "child",
+                                "pointerOffsets": [
+                                    "0"
+                                ],
+                                "structName": "Task",
+                                "typeIndex": 7,
+                                "unsigned": false
+                            },
+                            "length": 4,
+                            "offset": 12
+                        },
+                        {
+                            "entry": {
+                                "absoluteBranch": false,
+                                "address": "0",
+                                "baseIndex": 0,
+                                "label": "update",
+                                "pointerOffsets": [
+                                    "0"
+                                ],
+                                "typeIndex": 2,
+                                "unsigned": false
+                            },
+                            "length": 4,
+                            "offset": 16
+                        },
+                        {
+                            "entry": {
+                                "absoluteBranch": false,
+                                "address": "0",
+                                "baseIndex": 0,
+                                "label": "display",
+                                "pointerOffsets": [
+                                    "0"
+                                ],
+                                "typeIndex": 2,
+                                "unsigned": false
+                            },
+                            "length": 4,
+                            "offset": 20
+                        },
+                        {
+                            "entry": {
+                                "absoluteBranch": false,
+                                "address": "0",
+                                "baseIndex": 0,
+                                "label": "delete",
+                                "pointerOffsets": [
+                                    "0"
+                                ],
+                                "typeIndex": 2,
+                                "unsigned": false
+                            },
+                            "length": 4,
+                            "offset": 24
+                        },
+                        {
+                            "entry": {
+                                "absoluteBranch": false,
+                                "address": "0",
+                                "baseIndex": 0,
+                                "label": "other display functions",
+                                "length": 20,
+                                "typeIndex": 6,
+                                "unsigned": false
+                            },
+                            "length": 20,
+                            "offset": 28
+                        },
+                        {
+                            "entry": {
+                                "absoluteBranch": false,
+                                "address": "0",
+                                "baseIndex": 0,
+                                "label": "Some pointer",
+                                "pointerOffsets": [
+                                    "0"
+                                ],
+                                "typeIndex": 2,
+                                "unsigned": false
+                            },
+                            "length": 4,
+                            "offset": 48
+                        },
+                        {
+                            "entry": {
+                                "absoluteBranch": false,
+                                "address": "0",
+                                "baseIndex": 0,
+                                "label": "actionwk",
+                                "pointerOffsets": [
+                                    "0"
+                                ],
+                                "structName": "actionwk",
+                                "typeIndex": 7,
+                                "unsigned": false
+                            },
+                            "length": 4,
+                            "offset": 52
+                        },
+                        {
+                            "entry": {
+                                "absoluteBranch": false,
+                                "address": "0",
+                                "baseIndex": 0,
+                                "label": "motionwk",
+                                "pointerOffsets": [
+                                    "0"
+                                ],
+                                "typeIndex": 2,
+                                "unsigned": false
+                            },
+                            "length": 4,
+                            "offset": 56
+                        },
+                        {
+                            "entry": {
+                                "absoluteBranch": false,
+                                "address": "0",
+                                "baseIndex": 0,
+                                "label": "forcewk",
+                                "pointerOffsets": [
+                                    "0"
+                                ],
+                                "typeIndex": 2,
+                                "unsigned": false
+                            },
+                            "length": 4,
+                            "offset": 60
+                        },
+                        {
+                            "entry": {
+                                "absoluteBranch": false,
+                                "address": "0",
+                                "baseIndex": 0,
+                                "label": "anywk",
+                                "pointerOffsets": [
+                                    "0"
+                                ],
+                                "typeIndex": 2,
+                                "unsigned": false
+                            },
+                            "length": 4,
+                            "offset": 64
+                        },
+                        {
+                            "entry": {
+                                "absoluteBranch": false,
+                                "address": "0",
+                                "baseIndex": 0,
+                                "label": "name",
+                                "length": 1,
+                                "pointerOffsets": [
+                                    "0"
+                                ],
+                                "typeIndex": 5,
+                                "unsigned": false
+                            },
+                            "length": 4,
+                            "offset": 68
+                        },
+                        {
+                            "entry": {
+                                "absoluteBranch": false,
+                                "address": "0",
+                                "baseIndex": 0,
+                                "label": "name again?",
+                                "length": 1,
+                                "pointerOffsets": [
+                                    "0"
+                                ],
+                                "typeIndex": 5,
+                                "unsigned": false
+                            },
+                            "length": 4,
+                            "offset": 72
+                        }
+                    ],
+                    "label": "task",
+                    "length": 80
+                },
+                "structName": "task"
+            },
+            {
+                "struct": {
+                    "fieldList": [
+                        {
+                            "entry": {
+                                "absoluteBranch": false,
+                                "address": "0",
+                                "baseIndex": 0,
+                                "label": "action",
+                                "typeIndex": 0,
+                                "unsigned": false
+                            },
+                            "length": 1,
+                            "offset": 0
+                        },
+                        {
+                            "entry": {
+                                "absoluteBranch": false,
+                                "address": "0",
+                                "baseIndex": 0,
+                                "label": "subaction",
+                                "typeIndex": 0,
+                                "unsigned": false
+                            },
+                            "length": 1,
+                            "offset": 1
+                        },
+                        {
+                            "entry": {
+                                "absoluteBranch": false,
+                                "address": "0",
+                                "baseIndex": 0,
+                                "label": "obj id?",
+                                "typeIndex": 0,
+                                "unsigned": false
+                            },
+                            "length": 1,
+                            "offset": 2
+                        },
+                        {
+                            "entry": {
+                                "absoluteBranch": false,
+                                "address": "0",
+                                "baseIndex": 0,
+                                "label": "action counter?",
+                                "typeIndex": 0,
+                                "unsigned": false
+                            },
+                            "length": 1,
+                            "offset": 3
+                        },
+                        {
+                            "entry": {
+                                "absoluteBranch": false,
+                                "address": "0",
+                                "baseIndex": 0,
+                                "label": "status bitfield",
+                                "typeIndex": 1,
+                                "unsigned": false
+                            },
+                            "length": 2,
+                            "offset": 4
+                        },
+                        {
+                            "entry": {
+                                "absoluteBranch": false,
+                                "address": "0",
+                                "baseIndex": 0,
+                                "label": "ushort timer",
+                                "typeIndex": 1,
+                                "unsigned": false
+                            },
+                            "length": 2,
+                            "offset": 6
+                        },
+                        {
+                            "entry": {
+                                "absoluteBranch": false,
+                                "address": "0",
+                                "baseIndex": 0,
+                                "label": "X Rot",
+                                "typeIndex": 2,
+                                "unsigned": false
+                            },
+                            "length": 4,
+                            "offset": 8
+                        },
+                        {
+                            "entry": {
+                                "absoluteBranch": false,
+                                "address": "0",
+                                "baseIndex": 0,
+                                "label": "Y Rot",
+                                "typeIndex": 2,
+                                "unsigned": false
+                            },
+                            "length": 4,
+                            "offset": 12
+                        },
+                        {
+                            "entry": {
+                                "absoluteBranch": false,
+                                "address": "0",
+                                "baseIndex": 0,
+                                "label": "Z Rot",
+                                "typeIndex": 2,
+                                "unsigned": false
+                            },
+                            "length": 4,
+                            "offset": 16
+                        },
+                        {
+                            "entry": {
+                                "absoluteBranch": false,
+                                "address": "0",
+                                "baseIndex": 0,
+                                "label": "X Pos",
+                                "typeIndex": 3,
+                                "unsigned": false
+                            },
+                            "length": 4,
+                            "offset": 20
+                        },
+                        {
+                            "entry": {
+                                "absoluteBranch": false,
+                                "address": "0",
+                                "baseIndex": 0,
+                                "label": "Y Pos",
+                                "typeIndex": 3,
+                                "unsigned": false
+                            },
+                            "length": 4,
+                            "offset": 24
+                        },
+                        {
+                            "entry": {
+                                "absoluteBranch": false,
+                                "address": "0",
+                                "baseIndex": 0,
+                                "label": "Z Pos",
+                                "typeIndex": 3,
+                                "unsigned": false
+                            },
+                            "length": 4,
+                            "offset": 28
+                        },
+                        {
+                            "entry": {
+                                "absoluteBranch": false,
+                                "address": "0",
+                                "baseIndex": 0,
+                                "label": "X Scale",
+                                "typeIndex": 3,
+                                "unsigned": false
+                            },
+                            "length": 4,
+                            "offset": 32
+                        },
+                        {
+                            "entry": {
+                                "absoluteBranch": false,
+                                "address": "0",
+                                "baseIndex": 0,
+                                "label": "Y Scale",
+                                "typeIndex": 3,
+                                "unsigned": false
+                            },
+                            "length": 4,
+                            "offset": 36
+                        },
+                        {
+                            "entry": {
+                                "absoluteBranch": false,
+                                "address": "0",
+                                "baseIndex": 0,
+                                "label": "Z Scale",
+                                "typeIndex": 3,
+                                "unsigned": false
+                            },
+                            "length": 4,
+                            "offset": 40
+                        },
+                        {
+                            "entry": {
+                                "absoluteBranch": false,
+                                "address": "0",
+                                "baseIndex": 0,
+                                "label": "Collision Data",
+                                "pointerOffsets": [
+                                    "0"
+                                ],
+                                "typeIndex": 2,
+                                "unsigned": false
+                            },
+                            "length": 4,
+                            "offset": 44
+                        }
+                    ],
+                    "label": "actionwk",
+                    "length": 48
+                },
+                "structName": "actionwk"
+            }
+        ]
+    },
+    "watchList": [
+        {
+            "expanded": true,
+            "groupEntries": [
+                {
+                    "groupEntries": [
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 1,
+                            "label": "CharacterRegion4",
+                            "typeIndex": 2,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7748",
+                            "baseIndex": 1,
+                            "label": "CharacterRegion3",
+                            "typeIndex": 2,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7768",
+                            "baseIndex": 1,
+                            "label": "CharacterRegion2",
+                            "typeIndex": 2,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7788",
+                            "baseIndex": 1,
+                            "label": "CharacterRegion1",
+                            "typeIndex": 2,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 1,
+                            "label": "Level geometry collision physics ptr",
+                            "pointerOffsets": [
+                                "90"
+                            ],
+                            "typeIndex": 2,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 1,
+                            "label": "Pointer to 15-element array, each elem is 0x20 in size",
+                            "pointerOffsets": [
+                                "B4"
+                            ],
+                            "typeIndex": 2,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 1,
+                            "label": "LoopHead",
+                            "pointerOffsets": [
+                                "B8"
+                            ],
+                            "typeIndex": 2,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801FB96C",
+                            "baseIndex": 1,
+                            "label": "PointerForSpindashCharge",
+                            "typeIndex": 2,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 1,
+                            "label": "AnimationMapPointer",
+                            "pointerOffsets": [
+                                "198"
+                            ],
+                            "typeIndex": 2,
+                            "unsigned": false
+                        }
+                    ],
+                    "groupName": "Pointers"
+                },
+                {
+                    "expanded": true,
+                    "groupEntries": [
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "StSpd",
+                            "pointerOffsets": [
+                                "44"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "FSpd",
+                            "pointerOffsets": [
+                                "64"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "VSpd",
+                            "pointerOffsets": [
+                                "68"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "SideSpd",
+                            "pointerOffsets": [
+                                "6C"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7748",
+                            "baseIndex": 0,
+                            "label": "XSpd",
+                            "pointerOffsets": [
+                                "0"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7748",
+                            "baseIndex": 0,
+                            "label": "YSpd",
+                            "pointerOffsets": [
+                                "4"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7748",
+                            "baseIndex": 0,
+                            "label": "ZSpd",
+                            "pointerOffsets": [
+                                "8"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        }
+                    ],
+                    "groupName": "Speed"
+                },
+                {
+                    "expanded": true,
+                    "groupEntries": [
+                        {
+                            "address": "801E7748",
+                            "baseIndex": 0,
+                            "label": "XExternalAccel",
+                            "pointerOffsets": [
+                                "C"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7748",
+                            "baseIndex": 0,
+                            "label": "YExternalAccel",
+                            "pointerOffsets": [
+                                "10"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7748",
+                            "baseIndex": 0,
+                            "label": "ZExternalAccel",
+                            "pointerOffsets": [
+                                "14"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "XExternalPush",
+                            "pointerOffsets": [
+                                "70"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "YExternalPush",
+                            "pointerOffsets": [
+                                "74"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "ZExternalPush",
+                            "pointerOffsets": [
+                                "78"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        }
+                    ],
+                    "groupName": "Extra Speed"
+                },
+                {
+                    "expanded": true,
+                    "groupEntries": [
+                        {
+                            "address": "801E7768",
+                            "baseIndex": 0,
+                            "label": "XPos",
+                            "pointerOffsets": [
+                                "14"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7768",
+                            "baseIndex": 0,
+                            "label": "YPos",
+                            "pointerOffsets": [
+                                "18"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7768",
+                            "baseIndex": 0,
+                            "label": "ZPos",
+                            "pointerOffsets": [
+                                "1C"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "80C5DAD4",
+                            "baseIndex": 0,
+                            "label": "Closest floor",
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "803ADB6C",
+                            "baseIndex": 0,
+                            "label": "No of polys being touched (Hard walls=1/Soft=2)",
+                            "typeIndex": 2,
+                            "unsigned": false
+                        }
+                    ],
+                    "groupName": "Position"
+                },
+                {
+                    "expanded": true,
+                    "groupEntries": [
+                        {
+                            "address": "801E7768",
+                            "baseIndex": 0,
+                            "label": "XRot",
+                            "pointerOffsets": [
+                                "A"
+                            ],
+                            "typeIndex": 1,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7768",
+                            "baseIndex": 0,
+                            "label": "YRot",
+                            "pointerOffsets": [
+                                "E"
+                            ],
+                            "typeIndex": 1,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7768",
+                            "baseIndex": 0,
+                            "label": "ZRot",
+                            "pointerOffsets": [
+                                "12"
+                            ],
+                            "typeIndex": 1,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7748",
+                            "baseIndex": 0,
+                            "label": "XTargetRot",
+                            "pointerOffsets": [
+                                "1A"
+                            ],
+                            "typeIndex": 1,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7748",
+                            "baseIndex": 0,
+                            "label": "YTargetRot",
+                            "pointerOffsets": [
+                                "1E"
+                            ],
+                            "typeIndex": 1,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7748",
+                            "baseIndex": 0,
+                            "label": "ZTargetRot",
+                            "pointerOffsets": [
+                                "22"
+                            ],
+                            "typeIndex": 1,
+                            "unsigned": false
+                        },
+                        {
+                            "groupEntries": [
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "XSurfaceTilt",
+                                    "pointerOffsets": [
+                                        "7C"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "YSurfaceTilt",
+                                    "pointerOffsets": [
+                                        "80"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "ZSurfaceTilt",
+                                    "pointerOffsets": [
+                                        "84"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "Player Normal X",
+                                    "pointerOffsets": [
+                                        "90",
+                                        "1C"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "Player Normal Y",
+                                    "pointerOffsets": [
+                                        "90",
+                                        "20"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "Player Normal Z",
+                                    "pointerOffsets": [
+                                        "90",
+                                        "24"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "Tri Relative Normal X",
+                                    "pointerOffsets": [
+                                        "90",
+                                        "48"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "Tri Relative Normal Y",
+                                    "pointerOffsets": [
+                                        "90",
+                                        "4C"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "Tri Relative Normal Z",
+                                    "pointerOffsets": [
+                                        "90",
+                                        "50"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "Mesh Collision Rot X",
+                                    "pointerOffsets": [
+                                        "90",
+                                        "34"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "Mesh Collision Rot Z",
+                                    "pointerOffsets": [
+                                        "90",
+                                        "38"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "Selected Tri",
+                                    "pointerOffsets": [
+                                        "90",
+                                        "2A"
+                                    ],
+                                    "typeIndex": 1,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "Num Polys Touching",
+                                    "pointerOffsets": [
+                                        "90",
+                                        "28"
+                                    ],
+                                    "typeIndex": 1,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "ExtraSurfaceTiltX",
+                                    "pointerOffsets": [
+                                        "30"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "ExtraSurfaceTiltY",
+                                    "pointerOffsets": [
+                                        "34"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "ExtraSurfaceTiltZ",
+                                    "pointerOffsets": [
+                                        "38"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E5624",
+                                    "baseIndex": 0,
+                                    "label": "GravityVector",
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                }
+                            ],
+                            "groupName": "Less Useful Stuff"
+                        }
+                    ],
+                    "groupName": "Rotation"
+                },
+                {
+                    "expanded": true,
+                    "groupEntries": [
+                        {
+                            "address": "801E7768",
+                            "baseIndex": 0,
+                            "label": "Hover",
+                            "pointerOffsets": [
+                                "132"
+                            ],
+                            "typeIndex": 1,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7768",
+                            "baseIndex": 0,
+                            "label": "Action",
+                            "pointerOffsets": [
+                                "0"
+                            ],
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "Spiral timer",
+                            "pointerOffsets": [
+                                "3A1"
+                            ],
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801FB96C",
+                            "baseIndex": 0,
+                            "label": "Spindash Charge",
+                            "pointerOffsets": [
+                                "61"
+                            ],
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801FB96C",
+                            "baseIndex": 0,
+                            "label": "Autoglide Charge",
+                            "pointerOffsets": [
+                                "9D"
+                            ],
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7768",
+                            "baseIndex": 0,
+                            "label": "FlashingTime",
+                            "pointerOffsets": [
+                                "6"
+                            ],
+                            "typeIndex": 1,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "AnimationTime",
+                            "pointerOffsets": [
+                                "184"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "CurrentAnimation",
+                            "pointerOffsets": [
+                                "176"
+                            ],
+                            "typeIndex": 1,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "AnimationState",
+                            "pointerOffsets": [
+                                "174"
+                            ],
+                            "typeIndex": 1,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "CanWallGrabFlag",
+                            "pointerOffsets": [
+                                "1A8"
+                            ],
+                            "typeIndex": 2,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "BActionWindow",
+                            "pointerOffsets": [
+                                "D"
+                            ],
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "PossibleActionInB",
+                            "pointerOffsets": [
+                                "4"
+                            ],
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "NumberOfItensInBAction",
+                            "pointerOffsets": [
+                                "C"
+                            ],
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "NextPunchAction",
+                            "pointerOffsets": [
+                                "35D"
+                            ],
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801CC19B",
+                            "baseIndex": 0,
+                            "label": "Action Window Timer",
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "SurfaceTilt",
+                            "pointerOffsets": [
+                                "34"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "groupEntries": [
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "LastBAction",
+                                    "pointerOffsets": [
+                                        "E"
+                                    ],
+                                    "typeIndex": 0,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "B action stuff 1",
+                                    "pointerOffsets": [
+                                        "5"
+                                    ],
+                                    "typeIndex": 0,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "B action stuff 2",
+                                    "pointerOffsets": [
+                                        "6"
+                                    ],
+                                    "typeIndex": 0,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "B action stuff 3",
+                                    "pointerOffsets": [
+                                        "7"
+                                    ],
+                                    "typeIndex": 0,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "B action stuff 4",
+                                    "pointerOffsets": [
+                                        "8"
+                                    ],
+                                    "typeIndex": 0,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "B action stuff 5",
+                                    "pointerOffsets": [
+                                        "9"
+                                    ],
+                                    "typeIndex": 0,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "B action stuff 6",
+                                    "pointerOffsets": [
+                                        "A"
+                                    ],
+                                    "typeIndex": 0,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "B action stuff 7",
+                                    "pointerOffsets": [
+                                        "B"
+                                    ],
+                                    "typeIndex": 0,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "UnderwaterTime",
+                                    "pointerOffsets": [
+                                        "16"
+                                    ],
+                                    "typeIndex": 1,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "IdleTime",
+                                    "pointerOffsets": [
+                                        "18"
+                                    ],
+                                    "typeIndex": 1,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "? (region4 + 0x1E)",
+                                    "pointerOffsets": [
+                                        "1E"
+                                    ],
+                                    "typeIndex": 1,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "An angle. Model root 3 rotation amount",
+                                    "pointerOffsets": [
+                                        "2E"
+                                    ],
+                                    "typeIndex": 1,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "X-component of SurfaceTilt",
+                                    "pointerOffsets": [
+                                        "30"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "Y-component of SurfaceTilt",
+                                    "pointerOffsets": [
+                                        "34"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "Z-component of SurfaceTilt",
+                                    "pointerOffsets": [
+                                        "38"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "ForwardAcceleration (?)",
+                                    "pointerOffsets": [
+                                        "3C"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "Allegedly braking efficiency",
+                                    "pointerOffsets": [
+                                        "40"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "groupEntries": [
+                                        {
+                                            "address": "801E7728",
+                                            "baseIndex": 0,
+                                            "label": "Motion ID",
+                                            "pointerOffsets": [
+                                                "198",
+                                                "0"
+                                            ],
+                                            "typeIndex": 1,
+                                            "unsigned": false
+                                        },
+                                        {
+                                            "address": "801E7728",
+                                            "baseIndex": 0,
+                                            "label": "Model ID",
+                                            "pointerOffsets": [
+                                                "198",
+                                                "2"
+                                            ],
+                                            "typeIndex": 1,
+                                            "unsigned": false
+                                        },
+                                        {
+                                            "address": "801E7728",
+                                            "baseIndex": 0,
+                                            "label": "MotionInterpAction",
+                                            "pointerOffsets": [
+                                                "198",
+                                                "4"
+                                            ],
+                                            "typeIndex": 1,
+                                            "unsigned": false
+                                        },
+                                        {
+                                            "address": "801E7728",
+                                            "baseIndex": 0,
+                                            "label": "Next Motion",
+                                            "pointerOffsets": [
+                                                "198",
+                                                "6"
+                                            ],
+                                            "typeIndex": 1,
+                                            "unsigned": false
+                                        },
+                                        {
+                                            "address": "801E7728",
+                                            "baseIndex": 0,
+                                            "label": "AnimationInc 1",
+                                            "pointerOffsets": [
+                                                "198",
+                                                "8"
+                                            ],
+                                            "typeIndex": 3,
+                                            "unsigned": false
+                                        },
+                                        {
+                                            "address": "801E7728",
+                                            "baseIndex": 0,
+                                            "label": "AnimationInc 2",
+                                            "pointerOffsets": [
+                                                "198",
+                                                "C"
+                                            ],
+                                            "typeIndex": 3,
+                                            "unsigned": false
+                                        }
+                                    ],
+                                    "groupName": "Animation Stuff"
+                                }
+                            ],
+                            "groupName": "Less Useful Stuff"
+                        }
+                    ],
+                    "groupName": "Physics Misc"
+                },
+                {
+                    "expanded": true,
+                    "groupEntries": [
+                        {
+                            "address": "801E7768",
+                            "baseIndex": 3,
+                            "label": "StatusBitfield",
+                            "pointerOffsets": [
+                                "4"
+                            ],
+                            "typeIndex": 1,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 3,
+                            "label": "StatusBitfield copy/backup",
+                            "pointerOffsets": [
+                                "1C"
+                            ],
+                            "typeIndex": 1,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 3,
+                            "label": "Current frame ground properties bitfield",
+                            "pointerOffsets": [
+                                "88"
+                            ],
+                            "typeIndex": 2,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 3,
+                            "label": "Previous frame ground properties bitfield",
+                            "pointerOffsets": [
+                                "8C"
+                            ],
+                            "typeIndex": 2,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 3,
+                            "label": "PowerupBitfield",
+                            "pointerOffsets": [
+                                "10"
+                            ],
+                            "typeIndex": 1,
+                            "unsigned": false
+                        },
+                        {
+                            "expanded": true,
+                            "groupEntries": [
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 3,
+                                    "label": "SS/Knuckles/Tails/Sonic(1/5/4/6)",
+                                    "pointerOffsets": [
+                                        "26"
+                                    ],
+                                    "typeIndex": 1,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 3,
+                                    "label": "NOP/Rouge/Eggman/Shadow(3/4/5/4)",
+                                    "pointerOffsets": [
+                                        "24"
+                                    ],
+                                    "typeIndex": 1,
+                                    "unsigned": false
+                                }
+                            ],
+                            "groupName": "UpgradesBitfield"
+                        }
+                    ],
+                    "groupName": "Bitfields"
+                },
+                {
+                    "expanded": true,
+                    "groupEntries": [
+                        {
+                            "address": "802BAB78",
+                            "baseIndex": 1,
+                            "label": "ABXYS",
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E53BA",
+                            "baseIndex": 0,
+                            "label": "Controller angle",
+                            "typeIndex": 1,
+                            "unsigned": true
+                        },
+                        {
+                            "address": "801E53BC",
+                            "baseIndex": 0,
+                            "label": "Controller magnitude",
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "groupEntries": [
+                                {
+                                    "groupEntries": [
+                                        {
+                                            "address": "801E7728",
+                                            "baseIndex": 1,
+                                            "label": "StandingOnObjPtr",
+                                            "pointerOffsets": [
+                                                "A0"
+                                            ],
+                                            "typeIndex": 2,
+                                            "unsigned": false
+                                        },
+                                        {
+                                            "address": "801E7728",
+                                            "baseIndex": 1,
+                                            "label": "StandingOnObjTaskwkPtr",
+                                            "pointerOffsets": [
+                                                "A0",
+                                                "34"
+                                            ],
+                                            "typeIndex": 2,
+                                            "unsigned": false
+                                        },
+                                        {
+                                            "address": "801E7728",
+                                            "baseIndex": 0,
+                                            "label": "StandingOnObjType",
+                                            "pointerOffsets": [
+                                                "A0",
+                                                "34",
+                                                "2"
+                                            ],
+                                            "typeIndex": 0,
+                                            "unsigned": false
+                                        },
+                                        {
+                                            "address": "801E7728",
+                                            "baseIndex": 1,
+                                            "label": "StandingOnObjForcePtr",
+                                            "pointerOffsets": [
+                                                "A0",
+                                                "3C"
+                                            ],
+                                            "typeIndex": 2,
+                                            "unsigned": false
+                                        },
+                                        {
+                                            "address": "801E7728",
+                                            "baseIndex": 0,
+                                            "label": "StandingOnObjForceX",
+                                            "pointerOffsets": [
+                                                "A0",
+                                                "3C",
+                                                "10"
+                                            ],
+                                            "typeIndex": 3,
+                                            "unsigned": false
+                                        },
+                                        {
+                                            "address": "801E7728",
+                                            "baseIndex": 0,
+                                            "label": "StandingOnObjForceY",
+                                            "pointerOffsets": [
+                                                "A0",
+                                                "3C",
+                                                "14"
+                                            ],
+                                            "typeIndex": 3,
+                                            "unsigned": false
+                                        },
+                                        {
+                                            "address": "801E7728",
+                                            "baseIndex": 0,
+                                            "label": "StandingOnObjForceZ",
+                                            "pointerOffsets": [
+                                                "A0",
+                                                "3C",
+                                                "18"
+                                            ],
+                                            "typeIndex": 3,
+                                            "unsigned": false
+                                        },
+                                        {
+                                            "address": "803AD9D4",
+                                            "baseIndex": 1,
+                                            "label": "Unknown Position Modifier Flag",
+                                            "pointerOffsets": [
+                                                "0"
+                                            ],
+                                            "typeIndex": 2,
+                                            "unsigned": false
+                                        }
+                                    ],
+                                    "groupName": "StandingOnData"
+                                },
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "PlayerNumber",
+                                    "pointerOffsets": [
+                                        "0"
+                                    ],
+                                    "typeIndex": 0,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "CharacterID1",
+                                    "pointerOffsets": [
+                                        "1"
+                                    ],
+                                    "typeIndex": 0,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7728",
+                                    "baseIndex": 0,
+                                    "label": "CharacterID2",
+                                    "pointerOffsets": [
+                                        "3"
+                                    ],
+                                    "typeIndex": 0,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7768",
+                                    "baseIndex": 0,
+                                    "label": "XScale",
+                                    "pointerOffsets": [
+                                        "20"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7768",
+                                    "baseIndex": 0,
+                                    "label": "YScale",
+                                    "pointerOffsets": [
+                                        "24"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7768",
+                                    "baseIndex": 0,
+                                    "label": "ZScale",
+                                    "pointerOffsets": [
+                                        "28"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                }
+                            ],
+                            "groupName": "Less Useful Stuff"
+                        }
+                    ],
+                    "groupName": "Misc"
+                },
+                {
+                    "expanded": true,
+                    "groupEntries": [
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "UpperBodyRotOffset",
+                            "pointerOffsets": [
+                                "42A"
+                            ],
+                            "typeIndex": 1,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801FB96C",
+                            "baseIndex": 0,
+                            "label": "Cannon shot cooldown",
+                            "pointerOffsets": [
+                                "58"
+                            ],
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801FB96C",
+                            "baseIndex": 0,
+                            "label": "Laser enabled",
+                            "pointerOffsets": [
+                                "54"
+                            ],
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801FB96C",
+                            "baseIndex": 0,
+                            "label": "Laser cooldown",
+                            "pointerOffsets": [
+                                "5C"
+                            ],
+                            "typeIndex": 1,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "80C5D708",
+                            "baseIndex": 0,
+                            "label": "Mech Health",
+                            "typeIndex": 3,
+                            "unsigned": true
+                        },
+                        {
+                            "address": "801FB96C",
+                            "baseIndex": 0,
+                            "label": "Lock-on cooldown",
+                            "pointerOffsets": [
+                                "5F"
+                            ],
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801FB96C",
+                            "baseIndex": 0,
+                            "label": "Lock-on disabled",
+                            "pointerOffsets": [
+                                "56"
+                            ],
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801FB96C",
+                            "baseIndex": 0,
+                            "label": "Has things locked on",
+                            "pointerOffsets": [
+                                "57"
+                            ],
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801FB96C",
+                            "baseIndex": 0,
+                            "label": "Number of total locks",
+                            "pointerOffsets": [
+                                "61"
+                            ],
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801FB96C",
+                            "baseIndex": 0,
+                            "label": "Number of ongoing missiles",
+                            "pointerOffsets": [
+                                "63"
+                            ],
+                            "typeIndex": 0,
+                            "unsigned": false
+                        }
+                    ],
+                    "groupName": "Mech Stuff"
+                },
+                {
+                    "groupEntries": [
+                        {
+                            "groupEntries": [
+                                {
+                                    "address": "81534AA8",
+                                    "baseIndex": 0,
+                                    "label": "BASE1",
+                                    "typeIndex": 2,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "8154A424",
+                                    "baseIndex": 0,
+                                    "label": "BASE2",
+                                    "typeIndex": 2,
+                                    "unsigned": false
+                                }
+                            ],
+                            "groupName": "Pointers"
+                        },
+                        {
+                            "groupEntries": [
+                                {
+                                    "address": "81534AA8",
+                                    "baseIndex": 0,
+                                    "label": "XPos",
+                                    "pointerOffsets": [
+                                        "34",
+                                        "14"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "81534AA8",
+                                    "baseIndex": 0,
+                                    "label": "YPos",
+                                    "pointerOffsets": [
+                                        "34",
+                                        "18"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "81534AA8",
+                                    "baseIndex": 0,
+                                    "label": "ZPos",
+                                    "pointerOffsets": [
+                                        "34",
+                                        "1C"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7768",
+                                    "baseIndex": 0,
+                                    "label": "Pos X",
+                                    "pointerOffsets": [
+                                        "14"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7768",
+                                    "baseIndex": 0,
+                                    "label": "Pos Y",
+                                    "pointerOffsets": [
+                                        "18"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E7768",
+                                    "baseIndex": 0,
+                                    "label": "Pos Z",
+                                    "pointerOffsets": [
+                                        "1C"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                }
+                            ],
+                            "groupName": "Position"
+                        },
+                        {
+                            "groupEntries": [
+                                {
+                                    "address": "81534AA8",
+                                    "baseIndex": 0,
+                                    "label": "FSpd (neg)",
+                                    "pointerOffsets": [
+                                        "38",
+                                        "90"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "81534AA8",
+                                    "baseIndex": 0,
+                                    "label": "VSpd",
+                                    "pointerOffsets": [
+                                        "38",
+                                        "8C"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "81534AA8",
+                                    "baseIndex": 0,
+                                    "label": "SideSpd",
+                                    "pointerOffsets": [
+                                        "38",
+                                        "88"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "81534AA8",
+                                    "baseIndex": 0,
+                                    "label": "XSpd",
+                                    "pointerOffsets": [
+                                        "38",
+                                        "7C"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "81534AA8",
+                                    "baseIndex": 0,
+                                    "label": "YSpd",
+                                    "pointerOffsets": [
+                                        "38",
+                                        "80"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "81534AA8",
+                                    "baseIndex": 0,
+                                    "label": "ZSpd",
+                                    "pointerOffsets": [
+                                        "38",
+                                        "84"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "81534AA8",
+                                    "baseIndex": 0,
+                                    "label": "Knockback Speed X",
+                                    "pointerOffsets": [
+                                        "38",
+                                        "98"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "81534AA8",
+                                    "baseIndex": 0,
+                                    "label": "Knockback Speed Y",
+                                    "pointerOffsets": [
+                                        "38",
+                                        "9C"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "81534AA8",
+                                    "baseIndex": 0,
+                                    "label": "Knockback Speed Z",
+                                    "pointerOffsets": [
+                                        "38",
+                                        "A0"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                }
+                            ],
+                            "groupName": "Speed"
+                        },
+                        {
+                            "groupEntries": [
+                                {
+                                    "address": "81534AA8",
+                                    "baseIndex": 1,
+                                    "label": "XRot",
+                                    "pointerOffsets": [
+                                        "34",
+                                        "8"
+                                    ],
+                                    "typeIndex": 2,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "81534AA8",
+                                    "baseIndex": 1,
+                                    "label": "YRot",
+                                    "pointerOffsets": [
+                                        "34",
+                                        "C"
+                                    ],
+                                    "typeIndex": 2,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "81534AA8",
+                                    "baseIndex": 1,
+                                    "label": "ZRot",
+                                    "pointerOffsets": [
+                                        "34",
+                                        "10"
+                                    ],
+                                    "typeIndex": 2,
+                                    "unsigned": false
+                                }
+                            ],
+                            "groupName": "Rotation"
+                        },
+                        {
+                            "groupEntries": [
+                                {
+                                    "address": "81534AA8",
+                                    "baseIndex": 0,
+                                    "label": "Action",
+                                    "pointerOffsets": [
+                                        "34",
+                                        "0"
+                                    ],
+                                    "typeIndex": 0,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "81534AA8",
+                                    "baseIndex": 0,
+                                    "label": "State",
+                                    "pointerOffsets": [
+                                        "38",
+                                        "30"
+                                    ],
+                                    "typeIndex": 2,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "81534AA8",
+                                    "baseIndex": 1,
+                                    "label": "Drift Rot",
+                                    "pointerOffsets": [
+                                        "38",
+                                        "68"
+                                    ],
+                                    "typeIndex": 2,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "81534AA8",
+                                    "baseIndex": 0,
+                                    "label": "Collision State",
+                                    "pointerOffsets": [
+                                        "38",
+                                        "74"
+                                    ],
+                                    "typeIndex": 2,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "81534AA8",
+                                    "baseIndex": 0,
+                                    "label": "Can-Drift Timer",
+                                    "pointerOffsets": [
+                                        "38",
+                                        "A4"
+                                    ],
+                                    "typeIndex": 2,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "81534AA8",
+                                    "baseIndex": 0,
+                                    "label": "Half-Drift Start Control?",
+                                    "pointerOffsets": [
+                                        "38",
+                                        "A8"
+                                    ],
+                                    "typeIndex": 2,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "81534AA8",
+                                    "baseIndex": 0,
+                                    "label": "Unknown Drift X",
+                                    "pointerOffsets": [
+                                        "38",
+                                        "AC"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "81534AA8",
+                                    "baseIndex": 0,
+                                    "label": "Unknown Drift Y",
+                                    "pointerOffsets": [
+                                        "38",
+                                        "B0"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "81534AA8",
+                                    "baseIndex": 0,
+                                    "label": "Unknown Drift Z",
+                                    "pointerOffsets": [
+                                        "38",
+                                        "B4"
+                                    ],
+                                    "typeIndex": 3,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "81534AA8",
+                                    "baseIndex": 0,
+                                    "label": "Checkpoint idx",
+                                    "pointerOffsets": [
+                                        "38",
+                                        "BC"
+                                    ],
+                                    "typeIndex": 2,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "81534AA8",
+                                    "baseIndex": 0,
+                                    "label": "Boost Points",
+                                    "pointerOffsets": [
+                                        "38",
+                                        "D8"
+                                    ],
+                                    "typeIndex": 2,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "81534AA8",
+                                    "baseIndex": 0,
+                                    "label": "Boost Timer",
+                                    "pointerOffsets": [
+                                        "38",
+                                        "DC"
+                                    ],
+                                    "typeIndex": 2,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "81534AA8",
+                                    "baseIndex": 0,
+                                    "label": "Falling Rot",
+                                    "pointerOffsets": [
+                                        "38",
+                                        "FC"
+                                    ],
+                                    "typeIndex": 2,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "81534AA8",
+                                    "baseIndex": 0,
+                                    "label": "Air Time",
+                                    "pointerOffsets": [
+                                        "38",
+                                        "28C"
+                                    ],
+                                    "typeIndex": 2,
+                                    "unsigned": false
+                                }
+                            ],
+                            "groupName": "Extra Data"
+                        }
+                    ],
+                    "groupName": "Kart"
+                },
+                {
+                    "groupEntries": [
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "HoverLimit",
+                            "pointerOffsets": [
+                                "C0"
+                            ],
+                            "typeIndex": 2,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "Positional adjustment when falling",
+                            "pointerOffsets": [
+                                "C4"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "X/Z SpeedCap",
+                            "pointerOffsets": [
+                                "C8"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "Y SpeedCap",
+                            "pointerOffsets": [
+                                "CC"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "BaseSpeed",
+                            "pointerOffsets": [
+                                "D0"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "Max push speed",
+                            "pointerOffsets": [
+                                "D4"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "InitialJumpSpeed",
+                            "pointerOffsets": [
+                                "D8"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "Threshold speed when in action 8 or 31",
+                            "pointerOffsets": [
+                                "DC"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "Slide speed threshold",
+                            "pointerOffsets": [
+                                "E0"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "RollingCancelSpeed (?)",
+                            "pointerOffsets": [
+                                "E4"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "RollingEndSpeed",
+                            "pointerOffsets": [
+                                "E8"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "Running1Speed",
+                            "pointerOffsets": [
+                                "EC"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "Allegedly crash speed threshold",
+                            "pointerOffsets": [
+                                "F0"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "Running2Speed",
+                            "pointerOffsets": [
+                                "F4"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "AirAccelerationWhileJumping",
+                            "pointerOffsets": [
+                                "F8"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "GroundAcceleration",
+                            "pointerOffsets": [
+                                "FC"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "AirAcceleration",
+                            "pointerOffsets": [
+                                "100"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "GroundDeceleration",
+                            "pointerOffsets": [
+                                "104"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "BreakSpeed",
+                            "pointerOffsets": [
+                                "108"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "AirBreakSpeed",
+                            "pointerOffsets": [
+                                "10C"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "AirDeceleration",
+                            "pointerOffsets": [
+                                "110"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "RollingDeceleration",
+                            "pointerOffsets": [
+                                "114"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "Air deceleration Y",
+                            "pointerOffsets": [
+                                "118"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "Air deceleration Z",
+                            "pointerOffsets": [
+                                "11C"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "Allegedly ground friction X",
+                            "pointerOffsets": [
+                                "120"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "Allegedly ground friction Z",
+                            "pointerOffsets": [
+                                "124"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "Allegedly another friction",
+                            "pointerOffsets": [
+                                "128"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "? (region4 + 0x12C)",
+                            "pointerOffsets": [
+                                "12C"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "Primary hitbox radius",
+                            "pointerOffsets": [
+                                "130"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "Character height",
+                            "pointerOffsets": [
+                                "134"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "Gravity",
+                            "pointerOffsets": [
+                                "138"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "CameraYOff (?)",
+                            "pointerOffsets": [
+                                "13C"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E7728",
+                            "baseIndex": 0,
+                            "label": "YOff (?)",
+                            "pointerOffsets": [
+                                "140"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        }
+                    ],
+                    "groupName": "Physics Constants"
+                }
+            ],
+            "groupName": "Player1"
+        },
+        {
+            "groupEntries": [
+                {
+                    "groupEntries": [
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 1,
+                            "label": "CharacterRegion4",
+                            "typeIndex": 2,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E774C",
+                            "baseIndex": 1,
+                            "label": "CharacterRegion3",
+                            "typeIndex": 2,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E776C",
+                            "baseIndex": 1,
+                            "label": "CharacterRegion2",
+                            "typeIndex": 2,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E778C",
+                            "baseIndex": 1,
+                            "label": "CharacterRegion1",
+                            "typeIndex": 2,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 1,
+                            "label": "? (region4 + 0x90)",
+                            "pointerOffsets": [
+                                "90"
+                            ],
+                            "typeIndex": 2,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 1,
+                            "label": "? (region4 + 0xB4)",
+                            "pointerOffsets": [
+                                "B4"
+                            ],
+                            "typeIndex": 2,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 1,
+                            "label": "LoopHead",
+                            "pointerOffsets": [
+                                "B8"
+                            ],
+                            "typeIndex": 2,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801FB98C",
+                            "baseIndex": 1,
+                            "label": "PointerForSpindashCharge",
+                            "typeIndex": 2,
+                            "unsigned": false
+                        }
+                    ],
+                    "groupName": "Pointers"
+                },
+                {
+                    "expanded": true,
+                    "groupEntries": [
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "StSpd",
+                            "pointerOffsets": [
+                                "44"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "FSpd",
+                            "pointerOffsets": [
+                                "64"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "VSpd",
+                            "pointerOffsets": [
+                                "68"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "SideSpd",
+                            "pointerOffsets": [
+                                "6C"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E774C",
+                            "baseIndex": 0,
+                            "label": "XSpd",
+                            "pointerOffsets": [
+                                "0"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E774C",
+                            "baseIndex": 0,
+                            "label": "YSpd",
+                            "pointerOffsets": [
+                                "4"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E774C",
+                            "baseIndex": 0,
+                            "label": "ZSpd",
+                            "pointerOffsets": [
+                                "8"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        }
+                    ],
+                    "groupName": "Speed"
+                },
+                {
+                    "groupEntries": [
+                        {
+                            "address": "801E774C",
+                            "baseIndex": 0,
+                            "label": "XExternalAccel",
+                            "pointerOffsets": [
+                                "C"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E774C",
+                            "baseIndex": 0,
+                            "label": "YExternalAccel",
+                            "pointerOffsets": [
+                                "10"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E774C",
+                            "baseIndex": 0,
+                            "label": "ZExternalAccel",
+                            "pointerOffsets": [
+                                "14"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "XExternalPush",
+                            "pointerOffsets": [
+                                "70"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "YExternalPush",
+                            "pointerOffsets": [
+                                "74"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "ZExternalPush",
+                            "pointerOffsets": [
+                                "78"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        }
+                    ],
+                    "groupName": "Extra Speed"
+                },
+                {
+                    "groupEntries": [
+                        {
+                            "address": "801E776C",
+                            "baseIndex": 0,
+                            "label": "XPos",
+                            "pointerOffsets": [
+                                "14"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E776C",
+                            "baseIndex": 0,
+                            "label": "YPos",
+                            "pointerOffsets": [
+                                "18"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E776C",
+                            "baseIndex": 0,
+                            "label": "ZPos",
+                            "pointerOffsets": [
+                                "1C"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        }
+                    ],
+                    "groupName": "Position"
+                },
+                {
+                    "expanded": true,
+                    "groupEntries": [
+                        {
+                            "address": "801E776C",
+                            "baseIndex": 0,
+                            "label": "XRot",
+                            "pointerOffsets": [
+                                "A"
+                            ],
+                            "typeIndex": 1,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E776C",
+                            "baseIndex": 0,
+                            "label": "YRot",
+                            "pointerOffsets": [
+                                "E"
+                            ],
+                            "typeIndex": 1,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E776C",
+                            "baseIndex": 0,
+                            "label": "ZRot",
+                            "pointerOffsets": [
+                                "12"
+                            ],
+                            "typeIndex": 1,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E774C",
+                            "baseIndex": 0,
+                            "label": "XFinalRot",
+                            "pointerOffsets": [
+                                "1A"
+                            ],
+                            "typeIndex": 1,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E774C",
+                            "baseIndex": 0,
+                            "label": "YFinalRot",
+                            "pointerOffsets": [
+                                "1E"
+                            ],
+                            "typeIndex": 1,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E774C",
+                            "baseIndex": 0,
+                            "label": "ZFinalRot",
+                            "pointerOffsets": [
+                                "22"
+                            ],
+                            "typeIndex": 1,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "XSurfaceTilt",
+                            "pointerOffsets": [
+                                "7C"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "YSurfaceTilt",
+                            "pointerOffsets": [
+                                "80"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "ZSurfaceTilt",
+                            "pointerOffsets": [
+                                "84"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "UpperBodyRotOffset",
+                            "pointerOffsets": [
+                                "42A"
+                            ],
+                            "typeIndex": 1,
+                            "unsigned": false
+                        }
+                    ],
+                    "groupName": "Rotation"
+                },
+                {
+                    "expanded": true,
+                    "groupEntries": [
+                        {
+                            "address": "801E776C",
+                            "baseIndex": 0,
+                            "label": "Hover",
+                            "pointerOffsets": [
+                                "132"
+                            ],
+                            "typeIndex": 1,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E776C",
+                            "baseIndex": 0,
+                            "label": "Action",
+                            "pointerOffsets": [
+                                "0"
+                            ],
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "Spiral timer",
+                            "pointerOffsets": [
+                                "3A1"
+                            ],
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801FB98C",
+                            "baseIndex": 0,
+                            "label": "Spindash Charge",
+                            "pointerOffsets": [
+                                "61"
+                            ],
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801FB98C",
+                            "baseIndex": 0,
+                            "label": "Autoglide Charge",
+                            "pointerOffsets": [
+                                "9D"
+                            ],
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E776C",
+                            "baseIndex": 0,
+                            "label": "FlashingTime",
+                            "pointerOffsets": [
+                                "6"
+                            ],
+                            "typeIndex": 1,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "AnimationTime",
+                            "pointerOffsets": [
+                                "184"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "CurrentAnimation",
+                            "pointerOffsets": [
+                                "176"
+                            ],
+                            "typeIndex": 1,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "PossibleActionInB",
+                            "pointerOffsets": [
+                                "4"
+                            ],
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "? (region4 + 0x5)",
+                            "pointerOffsets": [
+                                "5"
+                            ],
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "NumberOfItensInBAction",
+                            "pointerOffsets": [
+                                "C"
+                            ],
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "BActionWindow",
+                            "pointerOffsets": [
+                                "D"
+                            ],
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "LastBAction",
+                            "pointerOffsets": [
+                                "E"
+                            ],
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "UnderwaterTime",
+                            "pointerOffsets": [
+                                "16"
+                            ],
+                            "typeIndex": 1,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "IdleTime",
+                            "pointerOffsets": [
+                                "18"
+                            ],
+                            "typeIndex": 1,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "? (region4 + 0x2E)",
+                            "pointerOffsets": [
+                                "2E"
+                            ],
+                            "typeIndex": 1,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "RailDistance",
+                            "pointerOffsets": [
+                                "30"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "SurfaceTilt",
+                            "pointerOffsets": [
+                                "34"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "? (region4 + 0x38)",
+                            "pointerOffsets": [
+                                "38"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "ForwardAcceleration (?)",
+                            "pointerOffsets": [
+                                "3C"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "? (region4 + 0x40)",
+                            "pointerOffsets": [
+                                "40"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        }
+                    ],
+                    "groupName": "Physics Misc"
+                },
+                {
+                    "groupEntries": [
+                        {
+                            "address": "801E776C",
+                            "baseIndex": 3,
+                            "label": "StatusBitfield",
+                            "pointerOffsets": [
+                                "4"
+                            ],
+                            "typeIndex": 1,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 3,
+                            "label": "PowerupBitfield",
+                            "pointerOffsets": [
+                                "10"
+                            ],
+                            "typeIndex": 1,
+                            "unsigned": false
+                        },
+                        {
+                            "expanded": true,
+                            "groupEntries": [
+                                {
+                                    "address": "801E772C",
+                                    "baseIndex": 3,
+                                    "label": "Sonic/Tails/Knuckles/SS(6/4/5/1)",
+                                    "pointerOffsets": [
+                                        "26"
+                                    ],
+                                    "typeIndex": 1,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "801E772C",
+                                    "baseIndex": 3,
+                                    "label": "Shadow/Eggman/Rouge(4/5/4)",
+                                    "pointerOffsets": [
+                                        "24"
+                                    ],
+                                    "typeIndex": 1,
+                                    "unsigned": false
+                                }
+                            ],
+                            "groupName": "UpgradesBitfield (Order is right to left)"
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 3,
+                            "label": "? (region4 + 0x1C)",
+                            "pointerOffsets": [
+                                "1C"
+                            ],
+                            "typeIndex": 1,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 3,
+                            "label": "? (region4 + 0x88)",
+                            "pointerOffsets": [
+                                "88"
+                            ],
+                            "typeIndex": 2,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 3,
+                            "label": "? (region4 + 0x8C)",
+                            "pointerOffsets": [
+                                "8C"
+                            ],
+                            "typeIndex": 2,
+                            "unsigned": false
+                        }
+                    ],
+                    "groupName": "Bitfields"
+                },
+                {
+                    "expanded": true,
+                    "groupEntries": [
+                        {
+                            "address": "802BAB79",
+                            "baseIndex": 1,
+                            "label": "ABXYS",
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "PlayerNumber",
+                            "pointerOffsets": [
+                                "0"
+                            ],
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "CharacterID1",
+                            "pointerOffsets": [
+                                "1"
+                            ],
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "CharacterID2",
+                            "pointerOffsets": [
+                                "3"
+                            ],
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E776C",
+                            "baseIndex": 0,
+                            "label": "XScale",
+                            "pointerOffsets": [
+                                "20"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E776C",
+                            "baseIndex": 0,
+                            "label": "YScale",
+                            "pointerOffsets": [
+                                "24"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E776C",
+                            "baseIndex": 0,
+                            "label": "ZScale",
+                            "pointerOffsets": [
+                                "28"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        }
+                    ],
+                    "groupName": "Misc"
+                },
+                {
+                    "groupEntries": [
+                        {
+                            "address": "801FB98C",
+                            "baseIndex": 0,
+                            "label": "Cannon shot cooldown",
+                            "pointerOffsets": [
+                                "58"
+                            ],
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801FB98C",
+                            "baseIndex": 0,
+                            "label": "Laser enabled",
+                            "pointerOffsets": [
+                                "54"
+                            ],
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801FB98C",
+                            "baseIndex": 0,
+                            "label": "Laser cooldown",
+                            "pointerOffsets": [
+                                "5C"
+                            ],
+                            "typeIndex": 1,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801FB98C",
+                            "baseIndex": 0,
+                            "label": "Lock-on cooldown",
+                            "pointerOffsets": [
+                                "5F"
+                            ],
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801FB98C",
+                            "baseIndex": 0,
+                            "label": "Lock-on disabled",
+                            "pointerOffsets": [
+                                "56"
+                            ],
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801FB98C",
+                            "baseIndex": 0,
+                            "label": "Has things locked on",
+                            "pointerOffsets": [
+                                "57"
+                            ],
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801FB98C",
+                            "baseIndex": 0,
+                            "label": "Number of total locks",
+                            "pointerOffsets": [
+                                "61"
+                            ],
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801FB98C",
+                            "baseIndex": 0,
+                            "label": "Number of ongoing missiles",
+                            "pointerOffsets": [
+                                "63"
+                            ],
+                            "typeIndex": 0,
+                            "unsigned": false
+                        }
+                    ],
+                    "groupName": "Mech Stuff"
+                },
+                {
+                    "groupEntries": [
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "HoverLimit",
+                            "pointerOffsets": [
+                                "C0"
+                            ],
+                            "typeIndex": 2,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "? (region4 + 0xC4)",
+                            "pointerOffsets": [
+                                "C4"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "X/Z SpeedCap",
+                            "pointerOffsets": [
+                                "C8"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "Y SpeedCap",
+                            "pointerOffsets": [
+                                "CC"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "BaseSpeed",
+                            "pointerOffsets": [
+                                "D0"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "? (region4 + 0xD4)",
+                            "pointerOffsets": [
+                                "D4"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "InitialJumpSpeed",
+                            "pointerOffsets": [
+                                "D8"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "? (region4 + 0xDC)",
+                            "pointerOffsets": [
+                                "DC"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "? (region4 + 0xE0)",
+                            "pointerOffsets": [
+                                "E0"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "RollingCancelSpeed (?)",
+                            "pointerOffsets": [
+                                "E4"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "RollingEndSpeed",
+                            "pointerOffsets": [
+                                "E8"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "Running1Speed",
+                            "pointerOffsets": [
+                                "EC"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "? (region4 + 0xF0)",
+                            "pointerOffsets": [
+                                "F0"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "Keep Gravity",
+                            "pointerOffsets": [
+                                "F4"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "AirAccelerationWhileJumping",
+                            "pointerOffsets": [
+                                "F8"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "GroundAcceleration",
+                            "pointerOffsets": [
+                                "FC"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "AirAcceleration",
+                            "pointerOffsets": [
+                                "100"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "GroundDeceleration",
+                            "pointerOffsets": [
+                                "104"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "BreakSpeed",
+                            "pointerOffsets": [
+                                "108"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "AirBreakSpeed",
+                            "pointerOffsets": [
+                                "10C"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "AirDeceleration",
+                            "pointerOffsets": [
+                                "110"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "RollingDeceleration",
+                            "pointerOffsets": [
+                                "114"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "? (region4 + 0x118)",
+                            "pointerOffsets": [
+                                "118"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "? (region4 + 0x11C)",
+                            "pointerOffsets": [
+                                "11C"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "? (region4 + 0x120)",
+                            "pointerOffsets": [
+                                "120"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "? (region4 + 0x124)",
+                            "pointerOffsets": [
+                                "124"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "? (region4 + 0x128)",
+                            "pointerOffsets": [
+                                "128"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "? (region4 + 0x12C)",
+                            "pointerOffsets": [
+                                "12C"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "? (region4 + 0x130)",
+                            "pointerOffsets": [
+                                "130"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "CollisionSize (?)",
+                            "pointerOffsets": [
+                                "134"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "Gravity",
+                            "pointerOffsets": [
+                                "138"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "CameraYOff (?)",
+                            "pointerOffsets": [
+                                "13C"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "801E772C",
+                            "baseIndex": 0,
+                            "label": "YOff (?)",
+                            "pointerOffsets": [
+                                "140"
+                            ],
+                            "typeIndex": 3,
+                            "unsigned": false
+                        }
+                    ],
+                    "groupName": "Physics Constants"
+                }
+            ],
+            "groupName": "Player2"
+        },
+        {
+            "expanded": true,
+            "groupEntries": [
+                {
+                    "address": "801CC1D0",
+                    "baseIndex": 0,
+                    "label": "Rings",
+                    "typeIndex": 1,
+                    "unsigned": false
+                },
+                {
+                    "address": "801CC1CC",
+                    "baseIndex": 0,
+                    "label": "Lives",
+                    "typeIndex": 1,
+                    "unsigned": false
+                },
+                {
+                    "address": "801CC1F8",
+                    "baseIndex": 0,
+                    "label": "Score",
+                    "typeIndex": 2,
+                    "unsigned": false
+                },
+                {
+                    "address": "801CC204",
+                    "baseIndex": 0,
+                    "label": "Total Rings",
+                    "typeIndex": 2,
+                    "unsigned": false
+                },
+                {
+                    "address": "801CC1E0",
+                    "baseIndex": 0,
+                    "label": "Frame counter",
+                    "typeIndex": 2,
+                    "unsigned": false
+                },
+                {
+                    "address": "803AD6A0",
+                    "baseIndex": 1,
+                    "label": "RNG state",
+                    "typeIndex": 2,
+                    "unsigned": false
+                },
+                {
+                    "address": "803AD82B",
+                    "baseIndex": 0,
+                    "label": "Current char",
+                    "typeIndex": 0,
+                    "unsigned": true
+                },
+                {
+                    "address": "801CC1A6",
+                    "baseIndex": 0,
+                    "label": "Can control character",
+                    "typeIndex": 0,
+                    "unsigned": true
+                },
+                {
+                    "address": "801CC1A7",
+                    "baseIndex": 0,
+                    "label": "Can control P1",
+                    "typeIndex": 0,
+                    "unsigned": false
+                },
+                {
+                    "address": "801CC1A8",
+                    "baseIndex": 0,
+                    "label": "Can control P2",
+                    "typeIndex": 0,
+                    "unsigned": false
+                },
+                {
+                    "address": "803AD823",
+                    "baseIndex": 0,
+                    "label": "Previous stage",
+                    "typeIndex": 0,
+                    "unsigned": false
+                },
+                {
+                    "address": "803AD827",
+                    "baseIndex": 0,
+                    "label": "Next stage",
+                    "typeIndex": 0,
+                    "unsigned": false
+                },
+                {
+                    "address": "803AD821",
+                    "baseIndex": 0,
+                    "label": "Current stage",
+                    "typeIndex": 0,
+                    "unsigned": true
+                },
+                {
+                    "address": "801CC18B",
+                    "baseIndex": 0,
+                    "label": "Current Mission",
+                    "typeIndex": 0,
+                    "unsigned": true
+                },
+                {
+                    "address": "814BAB0D",
+                    "baseIndex": 0,
+                    "label": "Selected Mission on Menu",
+                    "typeIndex": 0,
+                    "unsigned": true
+                },
+                {
+                    "address": "801E50D2",
+                    "baseIndex": 0,
+                    "label": "ActiveStoryIndex",
+                    "typeIndex": 0,
+                    "unsigned": false
+                },
+                {
+                    "address": "801E50D4",
+                    "baseIndex": 0,
+                    "label": "ActiveStory",
+                    "typeIndex": 0,
+                    "unsigned": false
+                },
+                {
+                    "address": "801F234A",
+                    "baseIndex": 0,
+                    "label": "SavedStoryIndexHero",
+                    "typeIndex": 0,
+                    "unsigned": false
+                },
+                {
+                    "address": "801F234B",
+                    "baseIndex": 0,
+                    "label": "SavedStoryIndexDark",
+                    "typeIndex": 0,
+                    "unsigned": false
+                },
+                {
+                    "address": "801F234C",
+                    "baseIndex": 0,
+                    "label": "SavedStoryIndexLast",
+                    "typeIndex": 0,
+                    "unsigned": false
+                },
+                {
+                    "address": "801CC183",
+                    "baseIndex": 0,
+                    "label": "Timer minutes",
+                    "typeIndex": 0,
+                    "unsigned": false
+                },
+                {
+                    "address": "801CC184",
+                    "baseIndex": 0,
+                    "label": "Timer seconds",
+                    "typeIndex": 0,
+                    "unsigned": true
+                },
+                {
+                    "address": "801CC185",
+                    "baseIndex": 0,
+                    "label": "Timer frames",
+                    "typeIndex": 0,
+                    "unsigned": false
+                },
+                {
+                    "address": "801CC1AC",
+                    "baseIndex": 0,
+                    "label": "Has chao key",
+                    "typeIndex": 0,
+                    "unsigned": true
+                },
+                {
+                    "address": "801CC1BB",
+                    "baseIndex": 0,
+                    "label": "Alternate Costume P1",
+                    "typeIndex": 0,
+                    "unsigned": false
+                },
+                {
+                    "address": "801CC1BC",
+                    "baseIndex": 0,
+                    "label": "Alternate Costume P2",
+                    "typeIndex": 0,
+                    "unsigned": false
+                },
+                {
+                    "address": "801CC1BD",
+                    "baseIndex": 0,
+                    "label": "Alternate Character P1",
+                    "typeIndex": 0,
+                    "unsigned": false
+                },
+                {
+                    "address": "801CC1BE",
+                    "baseIndex": 0,
+                    "label": "Alternate Character P2",
+                    "typeIndex": 0,
+                    "unsigned": false
+                },
+                {
+                    "address": "801F5970",
+                    "baseIndex": 1,
+                    "label": "Start of SetFile",
+                    "pointerOffsets": [
+                        "0"
+                    ],
+                    "typeIndex": 2,
+                    "unsigned": false
+                },
+                {
+                    "address": "801F5970",
+                    "baseIndex": 1,
+                    "label": "Address of Start of SetFile",
+                    "typeIndex": 2,
+                    "unsigned": false
+                },
+                {
+                    "address": "803AD81B",
+                    "baseIndex": 0,
+                    "label": "Game State",
+                    "typeIndex": 0,
+                    "unsigned": true
+                },
+                {
+                    "address": "813B7D87",
+                    "baseIndex": 0,
+                    "label": "Time stop counter",
+                    "typeIndex": 0,
+                    "unsigned": true
+                },
+                {
+                    "address": "813B7D8B",
+                    "baseIndex": 0,
+                    "label": "Time stop counter",
+                    "typeIndex": 0,
+                    "unsigned": true
+                },
+                {
+                    "address": "801F234D",
+                    "baseIndex": 0,
+                    "label": "Emblem Count",
+                    "typeIndex": 0,
+                    "unsigned": true
+                },
+                {
+                    "address": "803AD86A",
+                    "baseIndex": 0,
+                    "label": "Soft Reset Timer",
+                    "typeIndex": 1,
+                    "unsigned": false
+                },
+                {
+                    "address": "803AD868",
+                    "baseIndex": 0,
+                    "label": "Do Soft Reset",
+                    "typeIndex": 0,
+                    "unsigned": false
+                },
+                {
+                    "address": "801CC186",
+                    "baseIndex": 0,
+                    "label": "Is 2p Mode",
+                    "typeIndex": 0,
+                    "unsigned": false
+                },
+                {
+                    "address": "801CC1E4",
+                    "baseIndex": 0,
+                    "label": "Level Frame Count",
+                    "typeIndex": 2,
+                    "unsigned": false
+                },
+                {
+                    "address": "801CC1AB",
+                    "baseIndex": 0,
+                    "label": "DontDoCCWarp",
+                    "typeIndex": 0,
+                    "unsigned": false
+                }
+            ],
+            "groupName": "Global"
+        },
+        {
+            "expanded": true,
+            "groupEntries": [
+                {
+                    "address": "801FF5B8",
+                    "baseIndex": 0,
+                    "label": "CameraX",
+                    "typeIndex": 3,
+                    "unsigned": false
+                },
+                {
+                    "address": "801FF5BC",
+                    "baseIndex": 0,
+                    "label": "CameraY",
+                    "typeIndex": 3,
+                    "unsigned": false
+                },
+                {
+                    "address": "801FF5C0",
+                    "baseIndex": 0,
+                    "label": "CameraZ",
+                    "typeIndex": 3,
+                    "unsigned": false
+                },
+                {
+                    "address": "801FF5C6",
+                    "baseIndex": 0,
+                    "label": "CameraXRot",
+                    "typeIndex": 1,
+                    "unsigned": true
+                },
+                {
+                    "address": "801FF5CA",
+                    "baseIndex": 0,
+                    "label": "CameraYRot",
+                    "typeIndex": 1,
+                    "unsigned": true
+                },
+                {
+                    "address": "801FF5CE",
+                    "baseIndex": 0,
+                    "label": "CameraZRot",
+                    "typeIndex": 1,
+                    "unsigned": true
+                }
+            ],
+            "groupName": "Camera"
+        },
+        {
+            "expanded": true,
+            "groupEntries": [
+                {
+                    "address": "80C5D5CC",
+                    "baseIndex": 1,
+                    "label": "Piece 1 ID",
+                    "typeIndex": 1,
+                    "unsigned": false
+                },
+                {
+                    "address": "80C5D5DC",
+                    "baseIndex": 1,
+                    "label": "Piece 2 ID",
+                    "typeIndex": 1,
+                    "unsigned": false
+                },
+                {
+                    "address": "80C5D5EC",
+                    "baseIndex": 1,
+                    "label": "Piece 3 ID",
+                    "typeIndex": 1,
+                    "unsigned": false
+                },
+                {
+                    "address": "80C5D5A5",
+                    "baseIndex": 0,
+                    "label": "Number of pieces to collect",
+                    "typeIndex": 0,
+                    "unsigned": true
+                },
+                {
+                    "groupEntries": [
+                        {
+                            "address": "81326248",
+                            "baseIndex": 0,
+                            "label": "WC Hint 1",
+                            "length": 80,
+                            "pointerOffsets": [
+                                "3"
+                            ],
+                            "typeIndex": 5,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "8132624C",
+                            "baseIndex": 0,
+                            "label": "WC Hint 2",
+                            "length": 80,
+                            "pointerOffsets": [
+                                "3"
+                            ],
+                            "typeIndex": 5,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "81326250",
+                            "baseIndex": 0,
+                            "label": "WC Hint 3",
+                            "length": 80,
+                            "pointerOffsets": [
+                                "3"
+                            ],
+                            "typeIndex": 5,
+                            "unsigned": false
+                        }
+                    ],
+                    "groupName": "Wild Canyon"
+                },
+                {
+                    "groupEntries": [
+                        {
+                            "address": "812DCEE8",
+                            "baseIndex": 0,
+                            "label": "PH Hint 1",
+                            "length": 80,
+                            "pointerOffsets": [
+                                "4"
+                            ],
+                            "typeIndex": 5,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "812DCEEC",
+                            "baseIndex": 0,
+                            "label": "PH Hint 2",
+                            "length": 80,
+                            "pointerOffsets": [
+                                "4"
+                            ],
+                            "typeIndex": 5,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "812DCEF0",
+                            "baseIndex": 0,
+                            "label": "PH Hint 3",
+                            "length": 80,
+                            "pointerOffsets": [
+                                "4"
+                            ],
+                            "typeIndex": 5,
+                            "unsigned": false
+                        }
+                    ],
+                    "groupName": "Pumpkin Hill"
+                },
+                {
+                    "groupEntries": [
+                        {
+                            "address": "812E09A8",
+                            "baseIndex": 0,
+                            "label": "AM Hint 1",
+                            "length": 80,
+                            "pointerOffsets": [
+                                "3"
+                            ],
+                            "typeIndex": 5,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "812E09AC",
+                            "baseIndex": 0,
+                            "label": "AM Hint 2",
+                            "length": 80,
+                            "pointerOffsets": [
+                                "3"
+                            ],
+                            "typeIndex": 5,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "812E09B0",
+                            "baseIndex": 0,
+                            "label": "AM Hint 3",
+                            "length": 80,
+                            "pointerOffsets": [
+                                "3"
+                            ],
+                            "typeIndex": 5,
+                            "unsigned": false
+                        }
+                    ],
+                    "groupName": "Aquatic Mine"
+                },
+                {
+                    "groupEntries": [
+                        {
+                            "address": "81376F08",
+                            "baseIndex": 0,
+                            "label": "DC Hint 1",
+                            "length": 80,
+                            "pointerOffsets": [
+                                "4"
+                            ],
+                            "typeIndex": 5,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "81376F0C",
+                            "baseIndex": 0,
+                            "label": "DC Hint 2",
+                            "length": 80,
+                            "pointerOffsets": [
+                                "4"
+                            ],
+                            "typeIndex": 5,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "81376F10",
+                            "baseIndex": 0,
+                            "label": "DC Hint 3",
+                            "length": 80,
+                            "pointerOffsets": [
+                                "4"
+                            ],
+                            "typeIndex": 5,
+                            "unsigned": false
+                        }
+                    ],
+                    "groupName": "Death Chamber"
+                },
+                {
+                    "groupEntries": [
+                        {
+                            "address": "812FEC68",
+                            "baseIndex": 0,
+                            "label": "MH Hint 1",
+                            "length": 80,
+                            "pointerOffsets": [
+                                "4"
+                            ],
+                            "typeIndex": 5,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "812FEC6C",
+                            "baseIndex": 0,
+                            "label": "MH Hint 2",
+                            "length": 80,
+                            "pointerOffsets": [
+                                "4"
+                            ],
+                            "typeIndex": 5,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "812FEC70",
+                            "baseIndex": 0,
+                            "label": "MH Hint 3",
+                            "length": 80,
+                            "pointerOffsets": [
+                                "4"
+                            ],
+                            "typeIndex": 5,
+                            "unsigned": false
+                        }
+                    ],
+                    "groupName": "Meteor Herd"
+                },
+                {
+                    "groupEntries": [
+                        {
+                            "address": "81373A88",
+                            "baseIndex": 0,
+                            "label": "DL Hint 1",
+                            "length": 80,
+                            "pointerOffsets": [
+                                "3"
+                            ],
+                            "typeIndex": 5,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "81373A8C",
+                            "baseIndex": 0,
+                            "label": "DL Hint 2",
+                            "length": 80,
+                            "pointerOffsets": [
+                                "3"
+                            ],
+                            "typeIndex": 5,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "81373A90",
+                            "baseIndex": 0,
+                            "label": "DL Hint 3",
+                            "length": 80,
+                            "pointerOffsets": [
+                                "3"
+                            ],
+                            "typeIndex": 5,
+                            "unsigned": false
+                        }
+                    ],
+                    "groupName": "Dry Lagoon"
+                },
+                {
+                    "groupEntries": [
+                        {
+                            "address": "8133A028",
+                            "baseIndex": 0,
+                            "label": "EQ Hint 1",
+                            "length": 80,
+                            "pointerOffsets": [
+                                "4"
+                            ],
+                            "typeIndex": 5,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "8133A02C",
+                            "baseIndex": 0,
+                            "label": "EQ Hint 2",
+                            "length": 80,
+                            "pointerOffsets": [
+                                "4"
+                            ],
+                            "typeIndex": 5,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "8133A030",
+                            "baseIndex": 0,
+                            "label": "EQ Hint 3",
+                            "length": 80,
+                            "pointerOffsets": [
+                                "4"
+                            ],
+                            "typeIndex": 5,
+                            "unsigned": false
+                        }
+                    ],
+                    "groupName": "Egg Quarters"
+                },
+                {
+                    "groupEntries": [
+                        {
+                            "address": "812EABE8",
+                            "baseIndex": 0,
+                            "label": "SH Hint 1",
+                            "length": 80,
+                            "pointerOffsets": [
+                                "3"
+                            ],
+                            "typeIndex": 5,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "812EABEC",
+                            "baseIndex": 0,
+                            "label": "SH Hint 2",
+                            "length": 80,
+                            "pointerOffsets": [
+                                "3"
+                            ],
+                            "typeIndex": 5,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "812EABF0",
+                            "baseIndex": 0,
+                            "label": "SH Hint 3",
+                            "length": 80,
+                            "pointerOffsets": [
+                                "3"
+                            ],
+                            "typeIndex": 5,
+                            "unsigned": false
+                        }
+                    ],
+                    "groupName": "Security Hall"
+                },
+                {
+                    "groupEntries": [
+                        {
+                            "address": "81306788",
+                            "baseIndex": 0,
+                            "label": "MS Hint 1",
+                            "length": 80,
+                            "pointerOffsets": [
+                                "4"
+                            ],
+                            "typeIndex": 5,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "8130678C",
+                            "baseIndex": 0,
+                            "label": "MS Hint 2",
+                            "length": 80,
+                            "pointerOffsets": [
+                                "4"
+                            ],
+                            "typeIndex": 5,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "81306790",
+                            "baseIndex": 0,
+                            "label": "MS Hint 3",
+                            "length": 80,
+                            "pointerOffsets": [
+                                "4"
+                            ],
+                            "typeIndex": 5,
+                            "unsigned": false
+                        }
+                    ],
+                    "groupName": "Mad Space"
+                },
+                {
+                    "address": "803ADA98",
+                    "baseIndex": 1,
+                    "label": "Piece IDs Table",
+                    "typeIndex": 2,
+                    "unsigned": false
+                },
+                {
+                    "address": "803ADA9C",
+                    "baseIndex": 1,
+                    "label": "Hints Table",
+                    "typeIndex": 2,
+                    "unsigned": false
+                }
+            ],
+            "groupName": "Hunting Stages Hints & Pieces"
+        },
+        {
+            "groupEntries": [
+                {
+                    "groupEntries": [
+                        {
+                            "address": "80D84494",
+                            "baseIndex": 0,
+                            "label": "Flying Dog XPos",
+                            "typeIndex": 3,
+                            "unsigned": true
+                        },
+                        {
+                            "address": "80D84498",
+                            "baseIndex": 0,
+                            "label": "Flying Dog YPos",
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "80D8449C",
+                            "baseIndex": 0,
+                            "label": "Flying Dog ZPos",
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "80D84540",
+                            "baseIndex": 0,
+                            "label": "Flying Dog XSpd",
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "80D84544",
+                            "baseIndex": 0,
+                            "label": "Flying Dog YSpd",
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "80D84548",
+                            "baseIndex": 0,
+                            "label": "Flying Dog ZSpd",
+                            "typeIndex": 3,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "80D8448A",
+                            "baseIndex": 0,
+                            "label": "Flying Dog XRot",
+                            "typeIndex": 1,
+                            "unsigned": true
+                        },
+                        {
+                            "address": "80D8448E",
+                            "baseIndex": 0,
+                            "label": "Flying Dog YRot",
+                            "typeIndex": 1,
+                            "unsigned": true
+                        },
+                        {
+                            "address": "80D84492",
+                            "baseIndex": 0,
+                            "label": "Flying Dog ZRot",
+                            "typeIndex": 1,
+                            "unsigned": true
+                        }
+                    ],
+                    "groupName": "Flying Dog"
+                },
+                {
+                    "address": "80D55134",
+                    "baseIndex": 0,
+                    "label": "Egg Golem HP",
+                    "typeIndex": 3,
+                    "unsigned": false
+                }
+            ],
+            "groupName": "Boss Stuff"
+        },
+        {
+            "groupEntries": [
+                {
+                    "address": "801E7728",
+                    "baseIndex": 1,
+                    "label": "LoopHead",
+                    "pointerOffsets": [
+                        "B8"
+                    ],
+                    "typeIndex": 2,
+                    "unsigned": false
+                },
+                {
+                    "address": "801E7728",
+                    "baseIndex": 0,
+                    "label": "RailDistance",
+                    "pointerOffsets": [
+                        "30"
+                    ],
+                    "typeIndex": 3,
+                    "unsigned": false
+                },
+                {
+                    "address": "801E7728",
+                    "baseIndex": 0,
+                    "label": "Count",
+                    "pointerOffsets": [
+                        "B8",
+                        "2"
+                    ],
+                    "typeIndex": 1,
+                    "unsigned": false
+                },
+                {
+                    "address": "801E7728",
+                    "baseIndex": 0,
+                    "label": "TotalDistance",
+                    "pointerOffsets": [
+                        "B8",
+                        "4"
+                    ],
+                    "typeIndex": 3,
+                    "unsigned": false
+                },
+                {
+                    "address": "801E7728",
+                    "baseIndex": 1,
+                    "label": "PointsPointer",
+                    "pointerOffsets": [
+                        "B8",
+                        "8"
+                    ],
+                    "typeIndex": 2,
+                    "unsigned": false
+                },
+                {
+                    "address": "801E7728",
+                    "baseIndex": 1,
+                    "label": "Point0_XRot",
+                    "pointerOffsets": [
+                        "B8",
+                        "8",
+                        "0"
+                    ],
+                    "typeIndex": 1,
+                    "unsigned": false
+                },
+                {
+                    "address": "801E7728",
+                    "baseIndex": 1,
+                    "label": "Point0_YRot",
+                    "pointerOffsets": [
+                        "B8",
+                        "8",
+                        "2"
+                    ],
+                    "typeIndex": 1,
+                    "unsigned": false
+                },
+                {
+                    "address": "801E7728",
+                    "baseIndex": 0,
+                    "label": "Point0_Distance",
+                    "pointerOffsets": [
+                        "B8",
+                        "8",
+                        "4"
+                    ],
+                    "typeIndex": 3,
+                    "unsigned": false
+                },
+                {
+                    "address": "801E7728",
+                    "baseIndex": 0,
+                    "label": "Point0_XPos",
+                    "pointerOffsets": [
+                        "B8",
+                        "8",
+                        "8"
+                    ],
+                    "typeIndex": 3,
+                    "unsigned": false
+                },
+                {
+                    "address": "801E7728",
+                    "baseIndex": 0,
+                    "label": "Point0_YPos",
+                    "pointerOffsets": [
+                        "B8",
+                        "8",
+                        "C"
+                    ],
+                    "typeIndex": 3,
+                    "unsigned": false
+                },
+                {
+                    "address": "801E7728",
+                    "baseIndex": 0,
+                    "label": "Point0_ZPos",
+                    "pointerOffsets": [
+                        "B8",
+                        "8",
+                        "10"
+                    ],
+                    "typeIndex": 3,
+                    "unsigned": false
+                },
+                {
+                    "address": "801E7728",
+                    "baseIndex": 1,
+                    "label": "Point1_XRot",
+                    "pointerOffsets": [
+                        "B8",
+                        "8",
+                        "14"
+                    ],
+                    "typeIndex": 1,
+                    "unsigned": false
+                }
+            ],
+            "groupName": "RailStructure"
+        },
+        {
+            "expanded": true,
+            "groupEntries": [
+                {
+                    "address": "8131080C",
+                    "baseIndex": 1,
+                    "label": "No label",
+                    "typeIndex": 2,
+                    "unsigned": true
+                },
+                {
+                    "address": "813109A4",
+                    "baseIndex": 1,
+                    "label": "No label",
+                    "typeIndex": 2,
+                    "unsigned": true
+                },
+                {
+                    "address": "801E5624",
+                    "baseIndex": 0,
+                    "label": "No label",
+                    "typeIndex": 3,
+                    "unsigned": false
+                },
+                {
+                    "address": "801E5628",
+                    "baseIndex": 0,
+                    "label": "No label",
+                    "typeIndex": 3,
+                    "unsigned": false
+                },
+                {
+                    "address": "801E562C",
+                    "baseIndex": 0,
+                    "label": "No label",
+                    "typeIndex": 3,
+                    "unsigned": false
+                },
+                {
+                    "address": "803AD7B0",
+                    "baseIndex": 0,
+                    "label": "GravityRelated",
+                    "typeIndex": 2,
+                    "unsigned": false
+                }
+            ],
+            "groupName": "Unknown"
+        }
+    ]
+}
