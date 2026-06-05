@@ -64,7 +64,7 @@ class TextComponent(game_overlay.GameOverlayComponent):
                 Path(os.environ["LOCALAPPDATA"]) / "Microsoft" / "Windows" / "Fonts"
             )
         elif platform.system() == "Linux":
-            pass  # TODO: add where fonts are usually installed in linux
+            font_dirs_to_try.append(Path(os.environ["HOME"]) / ".local" / "share" / "fonts")
 
         font_found = False
         for font_dir_to_try in font_dirs_to_try:
