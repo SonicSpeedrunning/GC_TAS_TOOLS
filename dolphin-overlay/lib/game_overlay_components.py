@@ -11,6 +11,8 @@ from PIL import Image, ImageDraw, ImageFont
 
 from . import constants, game_overlay, math_utils, types
 
+SUPERSAMPLE_RATIO = 4
+
 
 class TextComponent(game_overlay.GameOverlayComponent):
     def __init__(
@@ -445,6 +447,117 @@ class GravityTiltComponent(game_overlay.GameOverlayComponent):
             fill=self._line_color,
             width=self._line_width,
         )
+
+
+class GravityAngleAltitudeIndicator(game_overlay.GameOverlayComponent):
+    def __init__(
+        self,
+        x_rot: str,
+        y_rot: str,
+        z_rot: str,
+        center: tuple[int, int],
+        size: int,
+        perspective: str = 'y',
+        top_color: types.Color = (255, 0, 0),
+        bottom_color: types.Color = (0, 0, 255),
+    ) -> None:
+        super().__init__()
+        self._x_rot = x_rot
+        self._y_rot = y_rot
+        self._z_rot = z_rot
+        self._center = center
+        self._size = size
+        self._perspective = perspective
+        self._top_color = top_color
+        self._bottom_color = bottom_color
+
+    def pre_draw(self, image: Image.Image) -> None:
+        pass
+
+    def draw(self, image: Image.Image, game_data: dict) -> None:
+        sub_image = Image.new('RGBA', (self._size * SUPERSAMPLE_RATIO, self._size * SUPERSAMPLE_RATIO), (0, 0, 0, 0))
+        sub_draw = ImageDraw.Draw(sub_image)
+        x_rot = int(game_data.get(self._x_rot, 0))
+        y_rot = int(game_data.get(self._y_rot, 0))
+        z_rot = int(game_data.get(self._z_rot, 0))
+
+        # generate a rotation from the incoming bcd values
+        rot = math_utils.Rotation.from_bcd(x_rot, y_rot, z_rot)
+
+        # make a global down vector and rotate it by our rotation to get our local down
+        global_down = math_utils.Vector(0, -1, 0)
+        local_down = global_down.rotate(rot)
+
+        if self._perspective == 'y':
+            # isolate just the Y direction so we know how tilted the ball will be relative to our view
+            ball_tilt = -local_down.y
+
+            # get the rotation the ball will be relative to our view with X/Z
+            # (rotated by tau/4 because 0 is at 3 o'clock)
+            ball_rot = math.atan2(local_down.x, local_down.z) + math.tau / 4
+        elif self._perspective == 'x':
+            # isolate just the X direction so we know how tilted the ball will be relative to our view
+            ball_tilt = -local_down.x
+
+            # get the rotation the ball will be relative to our view with Y/Z
+            # (rotated by tau/4 because 0 is at 3 o'clock)
+            ball_rot = math.atan2(local_down.y, local_down.z) + math.tau / 4
+        elif self._perspective == 'relative':
+            # find the X/Z direction the character is facing, and rotate the local_down
+            # so that it's relative to the character facing forwards
+            global_forwards = math_utils.Vector(1, 0, 0)
+            local_forwards = global_forwards.rotate(rot)
+            # (rotated by tau/4 because 0 is at 3 o'clock)
+            forwards_rot = math.atan2(local_forwards.x, local_forwards.z) - math.tau / 4
+            adjustment_rot = math_utils.Rotation(0, forwards_rot, 0)
+            local_down = local_down.rotate(adjustment_rot)
+
+            # isolate just the X direction so we know how tilted the ball will be relative to our view
+            ball_tilt = -local_down.x
+
+            # get the rotation the ball will be relative to our view with Y/Z
+            # (rotated by tau/4 because 0 is at 3 o'clock)
+            ball_rot = math.atan2(local_down.y, local_down.z) + math.tau / 4
+
+        # draw a half-and-half circle to start with
+        # south side is blue
+        sub_draw.chord(
+            (0, 0, self._size * SUPERSAMPLE_RATIO, self._size * SUPERSAMPLE_RATIO),
+            0,
+            180,
+            fill=self._bottom_color
+        )
+        # north side is red
+        sub_draw.chord(
+            (0, 0, self._size * SUPERSAMPLE_RATIO, self._size * SUPERSAMPLE_RATIO),
+            180,
+            0,
+            fill=self._top_color
+        )
+
+        # choose the color for the ellipse to give the impression of a tilted ball
+        if ball_tilt > 0:
+            # ball is tilting towards us, use north-pole as the near-pole
+            near_color = self._top_color
+        else:
+            # ball is tilting away us, use south-pole as the near-pole
+            near_color = self._bottom_color
+
+        # the X (ball_tilt) corresponds to the minor radius of the ellipse
+        sub_draw.ellipse(
+            (
+                0,
+                (self._size / 2) * (1 - abs(ball_tilt)) * SUPERSAMPLE_RATIO,
+                self._size * SUPERSAMPLE_RATIO,
+                (self._size / 2) * (1 + abs(ball_tilt)) * SUPERSAMPLE_RATIO,
+            ),
+            fill=near_color,
+        )
+
+        # rotate the sub_image by the ball rotation (ball_rot)
+        rot_image = sub_image.rotate(ball_rot * 360 / math.tau)
+        rot_image = rot_image.resize((self._size, self._size))
+        image.paste(rot_image, (self._center[0] - self._size // 2, self._center[1] - self._size // 2), mask=rot_image)
 
 
 # TODO: continue design of speed dial (2 versions)
