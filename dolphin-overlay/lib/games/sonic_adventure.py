@@ -23,6 +23,7 @@ OVERLAY = game_overlay.GameOverlay(
         outline_color=WHITE,
         positive_color=RED,
         negative_color=BLUE,
+        supersample_ratio=4,
     ),
     components=[
         game_overlay_components.StaticImageComponent(

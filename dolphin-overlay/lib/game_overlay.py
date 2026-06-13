@@ -37,13 +37,19 @@ class GameOverlayDefaults:
     outline_color: types.Color
     positive_color: types.Color
     negative_color: types.Color
+    supersample_ratio: int
 
 
 class GameOverlayComponent(Protocol):
+    position: types.Vec2
+    anchor: types.Vec2
+    size: types.Vec2
+    supersample_ratio: int
+
     def apply_defaults(self, defaults: GameOverlayDefaults) -> None:
         pass
 
-    def pre_draw(self, image: Image.Image) -> None:
+    def update(self, game_data: dict) -> None:
         pass
 
     def draw(self, image: Image.Image, game_data: dict) -> None:
@@ -64,13 +70,22 @@ class GameOverlay:
         for component in self._components:
             component.apply_defaults(defaults)
 
-    def _pre_draw(self, overlay_img: Image.Image):
+    def _update(self, game_data: dict):
         for component in self._components:
-            component.pre_draw(overlay_img)
+            component.update(game_data)
 
     def _draw(self, overlay_img: Image.Image, game_data: dict):
         for component in self._components:
-            component.draw(overlay_img, game_data)
+            if component.supersample_ratio == 1:
+                component_img = Image.new("RGBA", component.size, color=(0,0,0,0))
+                component.draw(component_img, game_data)
+                overlay_img.paste(component_img, (component.position[0] - component.anchor[0], component.position[1] - component.anchor[1]), mask=component_img)
+            else:
+                component_resolution = (component.size[0] * component.supersample_ratio, component.size[1] * component.supersample_ratio)
+                component_img = Image.new("RGBA", component_resolution, color=(0,0,0,0))
+                component.draw(component_img, game_data)
+                component_img = component_img.resize(component.size)
+                overlay_img.paste(component_img, (component.position[0] - component.anchor[0], component.position[1] - component.anchor[1]), mask=component_img)
 
     def _draw_composite_image(
         self, game_feed_img: Image.Image, overlay_img: Image.Image
@@ -102,12 +117,14 @@ class GameOverlay:
                 break
         if game_feed_frame is None:
             raise ValueError(f"Frame {frame_number} does not exist in video")
-        game_feed_img = game_feed_frame.to_image()
-        overlay_img = Image.new("RGBA", self._resolution, color=(0, 0, 0, 0))
-        self._pre_draw(overlay_img)
         assert game_feed_frame.pts is not None
+        game_feed_img = game_feed_frame.to_image()
+
+        overlay_img = Image.new("RGBA", self._resolution, color=(0, 0, 0, 0))
         overlay_frame = max(0, game_feed_frame.pts - 1)
+        self._update(game_overlay_data.data[overlay_frame])
         self._draw(overlay_img, game_overlay_data.data[overlay_frame])
+
         return self._draw_composite_image(game_feed_img, overlay_img)
 
     def encode_all_frames(
@@ -123,22 +140,32 @@ class GameOverlay:
         )
         output_stream.width = self._resolution[0]
         output_stream.height = self._resolution[1]
+
+        total_frames = game_feed_video.streams.video[0].frames
+
         base_img = Image.new("RGBA", self._resolution, color=(0, 0, 0, 0))
-        self._pre_draw(base_img)
-        for game_feed_frame in game_feed_video.decode(video=0):
+        for frame_num, game_feed_frame in enumerate(game_feed_video.decode(video=0)):
+            print(f'Generating frame {frame_num}/{total_frames}')
+
             overlay_img = base_img.copy()
+
             assert game_feed_frame.pts is not None
             overlay_frame = max(0, game_feed_frame.pts - 1)
+
             # TODO: the overlay_frame as is might not work for multiple files; rework
             # this
+            self._update(game_overlay_data.data[overlay_frame])
             self._draw(overlay_img, game_overlay_data.data[overlay_frame])
+
             composite_img = self._draw_composite_image(
                 game_feed_frame.to_image(), overlay_img
             )
+
             output_frame: av.VideoFrame = av.VideoFrame.from_image(composite_img)
             output_frame.pts = game_feed_frame.pts
             output_packet = output_stream.encode(output_frame)
             output_video.mux(output_packet)
+
         output_packet = output_stream.encode(None)
         output_video.mux(output_packet)
         output_video.close()

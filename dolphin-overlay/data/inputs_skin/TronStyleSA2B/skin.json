@@ -15,7 +15,7 @@
         "Main": {"file": "Stick.png", "pos": [74, 91], "size": [10,10], "range": 50, "line_width": 2, "line_color": [255, 255, 255]}
     },
     "shoulders": {
-        "L": {"color": [255, 255, 255], "pos": [20, 11], "size": [119,10], "direction": "right" },
-        "R": {"color": [255, 255, 255], "pos": [231, 11], "size": [119,10], "direction": "left" }
+        "L": {"color": [255, 255, 255], "pos": [20, 11], "size": [119,11], "direction": "right" },
+        "R": {"color": [255, 255, 255], "pos": [231, 11], "size": [119,11], "direction": "left" }
     }
 }
