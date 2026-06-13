@@ -145,7 +145,7 @@ class GameOverlay:
 
         base_img = Image.new("RGBA", self._resolution, color=(0, 0, 0, 0))
         for frame_num, game_feed_frame in enumerate(game_feed_video.decode(video=0)):
-            print(f'Generating frame {frame_num}/{total_frames}')
+            print(f'Generating frame {frame_num + 1}/{total_frames}')
 
             overlay_img = base_img.copy()
 
