@@ -1181,11 +1181,9 @@ class LayoutSelector(game_overlay.GameOverlayComponent):
         position: types.Vec2,
         size: types.Vec2,
         layouts: dict[str, list[game_overlay.GameOverlayComponent]],
+        selector: Callable[[dict], str | None],
         default: list[game_overlay.GameOverlayComponent] = [],
-        watch_var: str = "",
-        selector: Callable[[dict], str | None] | None = None,
     ) -> None:
-        self._watch_var = watch_var
         self._layouts = layouts
         self._default = default
         self._selector = selector
@@ -1196,10 +1194,7 @@ class LayoutSelector(game_overlay.GameOverlayComponent):
         self.supersample_ratio = 1
 
     def _select(self, game_data: dict) -> str | None:
-        if self._selector is None:
-            return game_data[self._watch_var]
-        else:
-            return self._selector(game_data)
+        return self._selector(game_data)
 
     def apply_defaults(self, defaults: game_overlay.GameOverlayDefaults) -> None:
         for component in self._default:
