@@ -47,7 +47,9 @@ class TextComponent(game_overlay.GameOverlayComponent):
         font_size = self._font_size_override or defaults.font_size
         self._font_color = self._font_color_override or defaults.font_color
         self._font_stroke_width = (
-            self._font_stroke_width_override or defaults.font_stroke_width
+            self._font_stroke_width_override
+            if self._font_stroke_width_override is not None
+            else defaults.font_stroke_width
         )
         self._font_stroke_fill = (
             self._font_stroke_fill_override or defaults.font_stroke_fill
@@ -209,7 +211,11 @@ class Plane2DBackgroundComponent(game_overlay.GameOverlayComponent):
         self._background_color = (
             self._background_color_override or defaults.component_background_color
         )
-        self._outline_width = self._outline_width_override or defaults.outline_width
+        self._outline_width = (
+            self._outline_width_override
+            if self._outline_width_override is not None
+            else defaults.outline_width
+        )
         self._outline_color = self._outline_color_override or defaults.outline_color
         self.supersample_ratio = (
             self._supersample_ratio_override or defaults.supersample_ratio
@@ -282,7 +288,11 @@ class CircularPlotBackgroundComponent(game_overlay.GameOverlayComponent):
         self._background_color = (
             self._background_color_override or defaults.component_background_color
         )
-        self._outline_width = self._outline_width_override or defaults.outline_width
+        self._outline_width = (
+            self._outline_width_override
+            if self._outline_width_override is not None
+            else defaults.outline_width
+        )
         self._outline_color = self._outline_color_override or defaults.outline_color
         self.supersample_ratio = (
             self._supersample_ratio_override or defaults.supersample_ratio
@@ -681,7 +691,11 @@ class SpeedDialComponent(game_overlay.GameOverlayComponent):
             self._background_color_override or defaults.component_background_color
         )
         self._fill_color = self._fill_color_override or defaults.positive_color
-        self._outline_width = self._outline_width_override or defaults.outline_width
+        self._outline_width = (
+            self._outline_width_override
+            if self._outline_width_override is not None
+            else defaults.outline_width
+        )
         self._outline_color = self._outline_color_override or defaults.outline_color
         self.supersample_ratio = (
             self._supersample_ratio_override or defaults.supersample_ratio
@@ -767,7 +781,11 @@ class SpeedDialComponentV2(game_overlay.GameOverlayComponent):
         )
         self._positive_color = self._positive_color_override or defaults.positive_color
         self._negative_color = self._negative_color_override or defaults.negative_color
-        self._outline_width = self._outline_width_override or defaults.outline_width
+        self._outline_width = (
+            self._outline_width_override
+            if self._outline_width_override is not None
+            else defaults.outline_width
+        )
         self._outline_color = self._outline_color_override or defaults.outline_color
         self.supersample_ratio = (
             self._supersample_ratio_override or defaults.supersample_ratio
