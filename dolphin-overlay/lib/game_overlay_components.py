@@ -5,7 +5,7 @@ import math
 import os
 from pathlib import Path
 import platform
-from typing import Literal
+from typing import Callable, Literal
 
 from PIL import Image, ImageDraw, ImageText, ImageFont
 
@@ -15,9 +15,7 @@ from . import constants, game_overlay, math_utils, types
 class TextComponent(game_overlay.GameOverlayComponent):
     def __init__(
         self,
-        text_template: str,
-        variables: list[str],
-        variable_types: list[type],
+        text_fn: Callable[[dict], str],
         position: types.Vec2,
         align: Literal["left", "middle", "right"] = "left",
         monospace: bool = False,
@@ -29,9 +27,7 @@ class TextComponent(game_overlay.GameOverlayComponent):
         font_monospace_gap_override: int | None = None,
     ) -> None:
         super().__init__()
-        self._text_template = text_template
-        self._variables = variables
-        self._variable_types = variable_types
+        self._text_fn = text_fn
         self._align = align
         self._monospace = monospace
         self._font_name_override = font_name_override
@@ -79,11 +75,7 @@ class TextComponent(game_overlay.GameOverlayComponent):
             raise ValueError("Font not found:", font_name)
 
     def update(self, game_data: dict) -> None:
-        variable_values = [
-            var_type(game_data.get(var_name))
-            for var_name, var_type in zip(self._variables, self._variable_types)
-        ]
-        self._text = self._text_template.format(*variable_values)
+        self._text = self._text_fn(game_data)
 
         self._imgtext = ImageText.Text(self._text, self._font, mode='RGBA')
         self._imgtext.stroke(self._font_stroke_width, self._font_stroke_fill)

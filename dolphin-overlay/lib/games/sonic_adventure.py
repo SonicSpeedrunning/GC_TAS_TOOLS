@@ -68,36 +68,28 @@ OVERLAY = game_overlay.GameOverlay(
             selector=character_select,
         ),
         game_overlay_components.TextComponent(
-            text_template="Time (LRT):",
-            variables=[],
-            variable_types=[],
+            text_fn=lambda _: "Time (LRT):",
             position=(30, 50),
         ),
         game_overlay_components.TextComponent(
-            text_template="{:02d}:{:02d}:{:02d}",
-            variables=["StageMinutes", "StageSeconds", "StageCentiseconds"],
-            variable_types=[int, int, int],
+            text_fn=lambda game_data: (
+                f"{int(game_data.get('StageMinutes', '0')):02d}:{int(game_data.get('StageSeconds', '0')):02d}:{int(game_data.get('StageCentiseconds', '0')):02d}"
+            ),
             position=(200, 50),
             monospace=True,
         ),
         # Speed section
         game_overlay_components.TextComponent(
-            text_template="Speed",
-            variables=[],
-            variable_types=[],
+            text_fn=lambda _: "Speed",
             position=(30, 150),
         ),
         game_overlay_components.TextComponent(
-            text_template="Relative",
-            variables=[],
-            variable_types=[],
+            text_fn=lambda _: "Relative",
             position=(150, 200),
             align="middle",
         ),
         game_overlay_components.TextComponent(
-            text_template="F:",
-            variables=[],
-            variable_types=[],
+            text_fn=lambda _: "F: ",
             position=(30, 260),
         ),
         game_overlay_components.SpeedDialComponent(
@@ -113,9 +105,7 @@ OVERLAY = game_overlay.GameOverlay(
         #     size=(180, 30),
         # ),
         game_overlay_components.TextComponent(
-            text_template="V:",
-            variables=[],
-            variable_types=[],
+            text_fn=lambda _: "V: ",
             position=(30, 300),
         ),
         game_overlay_components.SpeedDialComponent(
@@ -131,9 +121,7 @@ OVERLAY = game_overlay.GameOverlay(
         #     size=(180, 30),
         # ),
         game_overlay_components.TextComponent(
-            text_template="S:",
-            variables=[],
-            variable_types=[],
+            text_fn=lambda _: "S: ",
             position=(30, 340),
         ),
         game_overlay_components.SpeedDialComponent(
@@ -149,9 +137,7 @@ OVERLAY = game_overlay.GameOverlay(
         #     size=(180, 30),
         # ),
         game_overlay_components.TextComponent(
-            text_template="Global",
-            variables=[],
-            variable_types=[],
+            text_fn=lambda _: "Global",
             position=(350, 200),
             align="middle",
         ),
@@ -165,69 +151,49 @@ OVERLAY = game_overlay.GameOverlay(
         ),
         # Position section
         game_overlay_components.TextComponent(
-            text_template="Position",
-            variables=[],
-            variable_types=[],
+            text_fn=lambda _: "Position",
             position=(30, 400),
         ),
         game_overlay_components.TextComponent(
-            text_template="X:",
-            variables=[],
-            variable_types=[],
+            text_fn=lambda _: "X:",
             position=(30, 460),
         ),
         game_overlay_components.TextComponent(
-            text_template="Y:",
-            variables=[],
-            variable_types=[],
+            text_fn=lambda _: "Y:",
             position=(30, 500),
         ),
         game_overlay_components.TextComponent(
-            text_template="Z:",
-            variables=[],
-            variable_types=[],
+            text_fn=lambda _: "Z:",
             position=(30, 540),
         ),
         game_overlay_components.TextComponent(
-            text_template="{:11.4f}",
-            variables=["XPos"],
-            variable_types=[float],
+            text_fn=lambda game_data: f"{float(game_data.get('XPos', 0.0)):11.4f}",
             position=(60, 460),
             monospace=True,
         ),
         game_overlay_components.TextComponent(
-            text_template="{:11.4f}",
-            variables=["YPos"],
-            variable_types=[float],
+            text_fn=lambda game_data: f"{float(game_data.get('YPos', 0.0)):11.4f}",
             position=(60, 500),
             monospace=True,
         ),
         game_overlay_components.TextComponent(
-            text_template="{:11.4f}",
-            variables=["ZPos"],
-            variable_types=[float],
+            text_fn=lambda game_data: f"{float(game_data.get('ZPos', 0.0)):11.4f}",
             position=(60, 540),
             monospace=True,
         ),
         # Rotation section
         game_overlay_components.TextComponent(
-            text_template="Rotation",
-            variables=[],
-            variable_types=[],
+            text_fn=lambda _: "Rotation",
             position=(30, 600),
         ),
         game_overlay_components.TextComponent(
-            text_template="Gravity Vector",
-            variables=[],
-            variable_types=[],
+            text_fn=lambda _: "Gravity Vector",
             position=(150, 650),
             align="middle",
         ),
         # TODO: Gravity direction
         game_overlay_components.TextComponent(
-            text_template="Gravity Tilt",
-            variables=[],
-            variable_types=[],
+            text_fn=lambda _: "Gravity Tilt",
             position=(350, 650),
             align="middle",
         ),
@@ -241,9 +207,7 @@ OVERLAY = game_overlay.GameOverlay(
             method="vector",
         ),
         game_overlay_components.TextComponent(
-            text_template="Facing",
-            variables=[],
-            variable_types=[],
+            text_fn=lambda _: "Facing",
             position=(150, 820),
             align="middle",
         ),
