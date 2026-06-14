@@ -62,7 +62,9 @@ class TextComponent(game_overlay.GameOverlayComponent):
                 Path(os.environ["LOCALAPPDATA"]) / "Microsoft" / "Windows" / "Fonts"
             )
         elif platform.system() == "Linux":
-            font_dirs_to_try.append(Path(os.environ["HOME"]) / ".local" / "share" / "fonts")
+            font_dirs_to_try.append(
+                Path(os.environ["HOME"]) / ".local" / "share" / "fonts"
+            )
 
         font_found = False
         for font_dir_to_try in font_dirs_to_try:
@@ -77,36 +79,45 @@ class TextComponent(game_overlay.GameOverlayComponent):
     def update(self, game_data: dict) -> None:
         self._text = self._text_fn(game_data)
 
-        self._imgtext = ImageText.Text(self._text, self._font, mode='RGBA')
+        self._imgtext = ImageText.Text(self._text, self._font, mode="RGBA")
         self._imgtext.stroke(self._font_stroke_width, self._font_stroke_fill)
 
         if self._monospace:
             # use the bbox of the non-monospace text to get Y information
-            bbox = self._imgtext.get_bbox(anchor='mm')
+            bbox = self._imgtext.get_bbox(anchor="mm")
 
-            self.size = (len(self._text) * self._font_monospace_gap, bbox[3] - bbox[1])
+            self.size = (
+                len(self._text) * self._font_monospace_gap,
+                round(bbox[3] - bbox[1]),
+            )
 
-            if self._align == 'left':
-                self.anchor = (0, -bbox[1])
-            elif self._align == 'middle':
-                self.anchor = (len(self._text) * self._font_monospace_gap // 2, -bbox[1])
-            elif self._align == 'right':
-                self.anchor = (len(self._text) * self._font_monospace_gap, -bbox[1])
+            if self._align == "left":
+                self.anchor = (0, round(-bbox[1]))
+            elif self._align == "middle":
+                self.anchor = (
+                    len(self._text) * self._font_monospace_gap // 2,
+                    round(-bbox[1]),
+                )
+            elif self._align == "right":
+                self.anchor = (
+                    len(self._text) * self._font_monospace_gap,
+                    round(-bbox[1]),
+                )
             else:
                 raise ValueError("Unkown align:", self._align)
         else:
-            if self._align == 'left':
-                self._align_anchor = 'lm'
-            elif self._align == 'middle':
-                self._align_anchor = 'mm'
-            elif self._align == 'right':
-                self._align_anchor = 'rm'
+            if self._align == "left":
+                self._align_anchor = "lm"
+            elif self._align == "middle":
+                self._align_anchor = "mm"
+            elif self._align == "right":
+                self._align_anchor = "rm"
             else:
                 raise ValueError("Unkown align:", self._align)
 
             bbox = self._imgtext.get_bbox(anchor=self._align_anchor)
-            self.anchor = (-bbox[0], -bbox[1])
-            self.size = (bbox[2] - bbox[0], bbox[3] - bbox[1])
+            self.anchor = (round(-bbox[0]), round(-bbox[1]))
+            self.size = (round(bbox[2] - bbox[0]), round(bbox[3] - bbox[1]))
 
     def draw(self, image: Image.Image, game_data: dict) -> None:
         draw = ImageDraw.Draw(image)
@@ -114,16 +125,24 @@ class TextComponent(game_overlay.GameOverlayComponent):
         if self._monospace:
             for i, ch in enumerate(self._text):
                 draw.text(
-                    xy = (i * self._font_monospace_gap + self._font_monospace_gap // 2, self.anchor[1]),
-                    text = ch,
-                    font = self._font,
-                    fill = self._font_color,
-                    anchor = 'mm',
-                    stroke_width = self._font_stroke_width,
-                    stroke_fill = self._font_stroke_fill,
+                    xy=(
+                        i * self._font_monospace_gap + self._font_monospace_gap // 2,
+                        self.anchor[1],
+                    ),
+                    text=ch,
+                    font=self._font,
+                    fill=self._font_color,
+                    anchor="mm",
+                    stroke_width=self._font_stroke_width,
+                    stroke_fill=self._font_stroke_fill,
                 )
         else:
-            draw.text(self.anchor, self._imgtext, fill=self._font_color, anchor=self._align_anchor)
+            draw.text(
+                self.anchor,
+                self._imgtext,
+                fill=self._font_color,
+                anchor=self._align_anchor,
+            )
 
 
 class StaticImageComponent(game_overlay.GameOverlayComponent):
@@ -171,7 +190,7 @@ class Plane2DBackgroundComponent(game_overlay.GameOverlayComponent):
         background_color_override: types.Color | None = None,
         outline_width_override: int | None = None,
         outline_color_override: types.Color | None = None,
-        supersample_ratio: int | None = None,
+        supersample_ratio_override: int | None = None,
     ) -> None:
         super().__init__()
         self._center = center
@@ -180,11 +199,11 @@ class Plane2DBackgroundComponent(game_overlay.GameOverlayComponent):
         self._background_color_override = background_color_override
         self._outline_width_override = outline_width_override
         self._outline_color_override = outline_color_override
+        self._supersample_ratio_override = supersample_ratio_override
 
         self.position = center
-        self.anchor = (size, size) 
+        self.anchor = (size, size)
         self.size = (size * 2, size * 2)
-        self.supersample_ratio = supersample_ratio
 
     def apply_defaults(self, defaults: game_overlay.GameOverlayDefaults) -> None:
         self._background_color = (
@@ -192,7 +211,9 @@ class Plane2DBackgroundComponent(game_overlay.GameOverlayComponent):
         )
         self._outline_width = self._outline_width_override or defaults.outline_width
         self._outline_color = self._outline_color_override or defaults.outline_color
-        self.supersample_ratio = self.supersample_ratio or defaults.supersample_ratio
+        self.supersample_ratio = (
+            self._supersample_ratio_override or defaults.supersample_ratio
+        )
 
     def update(self, game_data: dict) -> None:
         pass
@@ -242,7 +263,7 @@ class CircularPlotBackgroundComponent(game_overlay.GameOverlayComponent):
         background_color_override: types.Color | None = None,
         outline_width_override: int | None = None,
         outline_color_override: types.Color | None = None,
-        supersample_ratio: int | None = None,
+        supersample_ratio_override: int | None = None,
     ) -> None:
         super().__init__()
         self._center = center
@@ -251,11 +272,11 @@ class CircularPlotBackgroundComponent(game_overlay.GameOverlayComponent):
         self._background_color_override = background_color_override
         self._outline_width_override = outline_width_override
         self._outline_color_override = outline_color_override
+        self._supersample_ratio_override = supersample_ratio_override
 
         self.position = center
-        self.anchor = (radius, radius) 
+        self.anchor = (radius, radius)
         self.size = (radius * 2, radius * 2)
-        self.supersample_ratio = supersample_ratio
 
     def apply_defaults(self, defaults: game_overlay.GameOverlayDefaults) -> None:
         self._background_color = (
@@ -263,7 +284,9 @@ class CircularPlotBackgroundComponent(game_overlay.GameOverlayComponent):
         )
         self._outline_width = self._outline_width_override or defaults.outline_width
         self._outline_color = self._outline_color_override or defaults.outline_color
-        self.supersample_ratio = self.supersample_ratio or defaults.supersample_ratio
+        self.supersample_ratio = (
+            self._supersample_ratio_override or defaults.supersample_ratio
+        )
 
     def update(self, game_data: dict) -> None:
         pass
@@ -282,7 +305,10 @@ class CircularPlotBackgroundComponent(game_overlay.GameOverlayComponent):
             width=self._outline_width * self.supersample_ratio,
         )
         draw.circle(
-            xy=(self._radius * self.supersample_ratio, self._radius * self.supersample_ratio),
+            xy=(
+                self._radius * self.supersample_ratio,
+                self._radius * self.supersample_ratio,
+            ),
             radius=self._radius * self.supersample_ratio,
             outline=self._outline_color,
             width=self._outline_width * self.supersample_ratio,
@@ -324,7 +350,7 @@ class Speed2DPlaneComponent(game_overlay.GameOverlayComponent):
         line_color_override: types.Color | None = None,
         outline_width_override: int | None = None,
         outline_color_override: types.Color | None = None,
-        supersample_ratio: int | None = None,
+        supersample_ratio_override: int | None = None,
     ) -> None:
         self._background = Plane2DBackgroundComponent(
             center=center,
@@ -333,7 +359,7 @@ class Speed2DPlaneComponent(game_overlay.GameOverlayComponent):
             background_color_override=background_color_override,
             outline_width_override=outline_width_override,
             outline_color_override=outline_color_override,
-            supersample_ratio=supersample_ratio,
+            supersample_ratio_override=supersample_ratio_override,
         )
         self._x_variable = x_variable
         self._y_variable = y_variable
@@ -342,18 +368,19 @@ class Speed2DPlaneComponent(game_overlay.GameOverlayComponent):
         self._max_value = max_value
         self._line_width_override = line_width_override
         self._line_color_override = line_color_override
+        self._supersample_ratio_override = supersample_ratio_override
 
         self.position = center
-        self.anchor = (size, size) 
+        self.anchor = (size, size)
         self.size = (size * 2, size * 2)
-        self.supersample_ratio = supersample_ratio
 
     def apply_defaults(self, defaults: game_overlay.GameOverlayDefaults) -> None:
         self._background.apply_defaults(defaults)
         self._line_width = self._line_width_override or defaults.main_line_width
         self._line_color = self._line_color_override or defaults.main_line_color
-        self.supersample_ratio = self.supersample_ratio or defaults.supersample_ratio
-        self._background.supersample_ratio = self.supersample_ratio
+        self.supersample_ratio = (
+            self._supersample_ratio_override or defaults.supersample_ratio
+        )
 
     def update(self, game_data: dict) -> None:
         pass
@@ -368,8 +395,10 @@ class Speed2DPlaneComponent(game_overlay.GameOverlayComponent):
             (
                 self._size * self.supersample_ratio,
                 self._size * self.supersample_ratio,
-                (self._size + int((x_var_value / self._max_value) * self._size)) * self.supersample_ratio,
-                (self._size + int((y_var_value / self._max_value) * self._size)) * self.supersample_ratio,
+                (self._size + int((x_var_value / self._max_value) * self._size))
+                * self.supersample_ratio,
+                (self._size + int((y_var_value / self._max_value) * self._size))
+                * self.supersample_ratio,
             ),
             fill=self._line_color,
             width=self._line_width * self.supersample_ratio,
@@ -391,7 +420,7 @@ class GravityTiltComponent(game_overlay.GameOverlayComponent):
         line_color_override: types.Color | None = None,
         outline_width_override: int | None = None,
         outline_color_override: types.Color | None = None,
-        supersample_ratio: int | None = None,
+        supersample_ratio_override: int | None = None,
     ) -> None:
         super().__init__()
         self._background = CircularPlotBackgroundComponent(
@@ -401,6 +430,7 @@ class GravityTiltComponent(game_overlay.GameOverlayComponent):
             background_color_override=background_color_override,
             outline_width_override=outline_width_override,
             outline_color_override=outline_color_override,
+            supersample_ratio_override=supersample_ratio_override,
         )
         self._x_rot_var = x_rot_var
         self._y_rot_var = y_rot_var
@@ -410,18 +440,19 @@ class GravityTiltComponent(game_overlay.GameOverlayComponent):
         self._method = method
         self._line_width_override = line_width_override
         self._line_color_override = line_color_override
+        self._supersample_ratio_override = supersample_ratio_override
 
         self.position = center
-        self.anchor = (size, size) 
+        self.anchor = (size, size)
         self.size = (size * 2, size * 2)
-        self.supersample_ratio = supersample_ratio
 
     def apply_defaults(self, defaults: game_overlay.GameOverlayDefaults) -> None:
         self._background.apply_defaults(defaults)
         self._line_width = self._line_width_override or defaults.main_line_width
         self._line_color = self._line_color_override or defaults.main_line_color
-        self.supersample_ratio = self.supersample_ratio or defaults.supersample_ratio
-        self._background.supersample_ratio = self.supersample_ratio
+        self.supersample_ratio = (
+            self._supersample_ratio_override or defaults.supersample_ratio
+        )
 
     def update(self, game_data: dict) -> None:
         pass
@@ -487,10 +518,10 @@ class GravityAngleAltitudeIndicator(game_overlay.GameOverlayComponent):
         z_rot: str,
         center: types.Vec2,
         size: int,
-        perspective: str = 'y',
+        perspective: str = "y",
         top_color: types.Color | None = None,
         bottom_color: types.Color | None = None,
-        supersample_ratio: int | None = None,
+        supersample_ratio_override: int | None = None,
     ) -> None:
         super().__init__()
         self._x_rot = x_rot
@@ -501,16 +532,18 @@ class GravityAngleAltitudeIndicator(game_overlay.GameOverlayComponent):
         self._perspective = perspective
         self._top_color = top_color
         self._bottom_color = bottom_color
+        self._supersample_ratio_override = supersample_ratio_override
 
         self.position = center
-        self.anchor = (size // 2, size // 2) 
+        self.anchor = (size // 2, size // 2)
         self.size = (size, size)
-        self.supersample_ratio = supersample_ratio
 
     def apply_defaults(self, defaults: game_overlay.GameOverlayDefaults) -> None:
         self._top_color = self._top_color or defaults.positive_color
         self._bottom_color = self._bottom_color or defaults.negative_color
-        self.supersample_ratio = self.supersample_ratio or defaults.supersample_ratio
+        self.supersample_ratio = (
+            self._supersample_ratio_override or defaults.supersample_ratio
+        )
 
     def update(self, game_data: dict) -> None:
         pass
@@ -528,21 +561,21 @@ class GravityAngleAltitudeIndicator(game_overlay.GameOverlayComponent):
         global_down = math_utils.Vector(0, -1, 0)
         local_down = global_down.rotate(rot)
 
-        if self._perspective == 'y':
+        if self._perspective == "y":
             # isolate just the Y direction so we know how tilted the ball will be relative to our view
             ball_tilt = -local_down.y
 
             # get the rotation the ball will be relative to our view with X/Z
             # (rotated by tau/4 because 0 is at 3 o'clock)
             ball_rot = math.atan2(local_down.x, local_down.z) + math.tau / 4
-        elif self._perspective == 'x':
+        elif self._perspective == "x":
             # isolate just the X direction so we know how tilted the ball will be relative to our view
             ball_tilt = -local_down.x
 
             # get the rotation the ball will be relative to our view with Y/Z
             # (rotated by tau/4 because 0 is at 3 o'clock)
             ball_rot = math.atan2(local_down.y, local_down.z) + math.tau / 4
-        elif self._perspective == 'relative':
+        elif self._perspective == "relative":
             # find the X/Z direction the character is facing, and rotate the local_down
             # so that it's relative to the character facing forwards
             global_forwards = math_utils.Vector(1, 0, 0)
@@ -558,21 +591,33 @@ class GravityAngleAltitudeIndicator(game_overlay.GameOverlayComponent):
             # get the rotation the ball will be relative to our view with Y/Z
             # (rotated by tau/4 because 0 is at 3 o'clock)
             ball_rot = math.atan2(local_down.y, local_down.z) + math.tau / 4
+        else:
+            raise ValueError(f"Unknown perspective {self._perspective}")
 
         # draw a half-and-half circle to start with
         # south side is blue
         draw.chord(
-            (0, 0, self._size * self.supersample_ratio, self._size * self.supersample_ratio),
+            (
+                0,
+                0,
+                self._size * self.supersample_ratio,
+                self._size * self.supersample_ratio,
+            ),
             0,
             180,
-            fill=self._bottom_color
+            fill=self._bottom_color,
         )
         # north side is red
         draw.chord(
-            (0, 0, self._size * self.supersample_ratio, self._size * self.supersample_ratio),
+            (
+                0,
+                0,
+                self._size * self.supersample_ratio,
+                self._size * self.supersample_ratio,
+            ),
             180,
             0,
-            fill=self._top_color
+            fill=self._top_color,
         )
 
         # choose the color for the ellipse to give the impression of a tilted ball
@@ -614,7 +659,7 @@ class SpeedDialComponent(game_overlay.GameOverlayComponent):
         fill_color_override: types.Color | None = None,
         outline_width_override: int | None = None,
         outline_color_override: types.Color | None = None,
-        supersample_ratio: int | None = None,
+        supersample_ratio_override: int | None = None,
     ) -> None:
         super().__init__()
         self._variable = variable
@@ -625,11 +670,11 @@ class SpeedDialComponent(game_overlay.GameOverlayComponent):
         self._fill_color_override = fill_color_override
         self._outline_width_override = outline_width_override
         self._outline_color_override = outline_color_override
+        self._supersample_ratio_override = supersample_ratio_override
 
         self.position = center
-        self.anchor = (size[0] // 2, size[1] // 2) 
+        self.anchor = (size[0] // 2, size[1] // 2)
         self.size = (size[0], size[1])
-        self.supersample_ratio = supersample_ratio
 
     def apply_defaults(self, defaults: game_overlay.GameOverlayDefaults) -> None:
         self._background_color = (
@@ -638,7 +683,9 @@ class SpeedDialComponent(game_overlay.GameOverlayComponent):
         self._fill_color = self._fill_color_override or defaults.positive_color
         self._outline_width = self._outline_width_override or defaults.outline_width
         self._outline_color = self._outline_color_override or defaults.outline_color
-        self.supersample_ratio = self.supersample_ratio or defaults.supersample_ratio
+        self.supersample_ratio = (
+            self._supersample_ratio_override or defaults.supersample_ratio
+        )
 
     def update(self, game_data: dict) -> None:
         pass
@@ -696,7 +743,7 @@ class SpeedDialComponentV2(game_overlay.GameOverlayComponent):
         negative_color_override: types.Color | None = None,
         outline_width_override: int | None = None,
         outline_color_override: types.Color | None = None,
-        supersample_ratio: int | None = None,
+        supersample_ratio_override: int | None = None,
     ) -> None:
         super().__init__()
         self._variable = variable
@@ -708,11 +755,11 @@ class SpeedDialComponentV2(game_overlay.GameOverlayComponent):
         self._negative_color_override = negative_color_override
         self._outline_width_override = outline_width_override
         self._outline_color_override = outline_color_override
+        self._supersample_ratio_override = supersample_ratio_override
 
         self.position = center
-        self.anchor = (size[0] // 2, size[1] // 2) 
+        self.anchor = (size[0] // 2, size[1] // 2)
         self.size = (size[0], size[1])
-        self.supersample_ratio = supersample_ratio
 
     def apply_defaults(self, defaults: game_overlay.GameOverlayDefaults) -> None:
         self._background_color = (
@@ -722,7 +769,9 @@ class SpeedDialComponentV2(game_overlay.GameOverlayComponent):
         self._negative_color = self._negative_color_override or defaults.negative_color
         self._outline_width = self._outline_width_override or defaults.outline_width
         self._outline_color = self._outline_color_override or defaults.outline_color
-        self.supersample_ratio = self.supersample_ratio or defaults.supersample_ratio
+        self.supersample_ratio = (
+            self._supersample_ratio_override or defaults.supersample_ratio
+        )
 
     def update(self, game_data: dict) -> None:
         pass
@@ -748,7 +797,12 @@ class SpeedDialComponentV2(game_overlay.GameOverlayComponent):
                 xy=(
                     self._outline_width * self.supersample_ratio,
                     self._outline_width * self.supersample_ratio,
-                    (self._outline_width + (var_value / self._max_value) * (self._size[0] - self._outline_width * 2)) * self.supersample_ratio,
+                    (
+                        self._outline_width
+                        + (var_value / self._max_value)
+                        * (self._size[0] - self._outline_width * 2)
+                    )
+                    * self.supersample_ratio,
                     (self._size[1] - self._outline_width) * self.supersample_ratio,
                 ),
                 fill=self._positive_color,
@@ -756,7 +810,12 @@ class SpeedDialComponentV2(game_overlay.GameOverlayComponent):
         else:
             draw.rectangle(
                 xy=(
-                    (self._outline_width + (1.0 + (var_value / self._max_value)) * (self._size[0] - self._outline_width * 2)) * self.supersample_ratio,
+                    (
+                        self._outline_width
+                        + (1.0 + (var_value / self._max_value))
+                        * (self._size[0] - self._outline_width * 2)
+                    )
+                    * self.supersample_ratio,
                     self._outline_width * self.supersample_ratio,
                     (self._size[0] - self._outline_width) * self.supersample_ratio,
                     (self._size[1] - self._outline_width) * self.supersample_ratio,
@@ -777,7 +836,7 @@ class AngleDirectionComponent(game_overlay.GameOverlayComponent):
         line_color_override: types.Color | None = None,
         outline_width_override: int | None = None,
         outline_color_override: types.Color | None = None,
-        supersample_ratio: int | None = None,
+        supersample_ratio_override: int | None = None,
     ) -> None:
         super().__init__()
         self._background = CircularPlotBackgroundComponent(
@@ -787,24 +846,26 @@ class AngleDirectionComponent(game_overlay.GameOverlayComponent):
             background_color_override=background_color_override,
             outline_width_override=outline_width_override,
             outline_color_override=outline_color_override,
+            supersample_ratio_override=supersample_ratio_override,
         )
         self._variable = variable
         self._center = center
         self._size = size
         self._line_width_override = line_width_override
         self._line_color_override = line_color_override
+        self._supersample_ratio_override = supersample_ratio_override
 
         self.position = center
-        self.anchor = (size, size) 
+        self.anchor = (size, size)
         self.size = (size * 2, size * 2)
-        self.supersample_ratio = supersample_ratio
 
     def apply_defaults(self, defaults: game_overlay.GameOverlayDefaults) -> None:
         self._background.apply_defaults(defaults)
         self._line_width = self._line_width_override or defaults.main_line_width
         self._line_color = self._line_color_override or defaults.main_line_color
-        self.supersample_ratio = self.supersample_ratio or defaults.supersample_ratio
-        self._background.supersample_ratio = self.supersample_ratio
+        self.supersample_ratio = (
+            self._supersample_ratio_override or defaults.supersample_ratio
+        )
 
     def update(self, game_data: dict) -> None:
         pass
@@ -866,15 +927,15 @@ class InputViewerComponent(game_overlay.GameOverlayComponent):
         self,
         center: types.Vec2,
         input_skin_name: str,
-        supersample_ratio: int | None = None
+        supersample_ratio_override: int | None = None,
     ) -> None:
         self._center = center
         self._input_skin = self.load_input_skin(input_skin_name)
+        self._supersample_ratio_override = supersample_ratio_override
 
         self.position = center
         self.anchor = (self._input_skin.width // 2, self._input_skin.height // 2)
         self.size = (self._input_skin.width, self._input_skin.height)
-        self.supersample_ratio = supersample_ratio
 
     @classmethod
     def load_input_skin(cls, input_skin_name: str) -> InputSkin:
@@ -956,7 +1017,9 @@ class InputViewerComponent(game_overlay.GameOverlayComponent):
         }
 
     def apply_defaults(self, defaults: game_overlay.GameOverlayDefaults) -> None:
-        self.supersample_ratio = self.supersample_ratio or defaults.supersample_ratio
+        self.supersample_ratio = (
+            self._supersample_ratio_override or defaults.supersample_ratio
+        )
 
         for bname, button in self._input_skin.buttons.items():
             button.image = button.image.resize(
@@ -964,7 +1027,7 @@ class InputViewerComponent(game_overlay.GameOverlayComponent):
                     button.image.width * self.supersample_ratio,
                     button.image.height * self.supersample_ratio,
                 ),
-                Image.NEAREST,
+                Image.Resampling.NEAREST,
             )
 
         for analog in self._input_skin.analog_markers.values():
@@ -973,7 +1036,7 @@ class InputViewerComponent(game_overlay.GameOverlayComponent):
                     analog.image.width * self.supersample_ratio,
                     analog.image.height * self.supersample_ratio,
                 ),
-                Image.NEAREST,
+                Image.Resampling.NEAREST,
             )
 
         self._input_skin.background = self._input_skin.background.resize(
@@ -981,7 +1044,7 @@ class InputViewerComponent(game_overlay.GameOverlayComponent):
                 self._input_skin.background.width * self.supersample_ratio,
                 self._input_skin.background.height * self.supersample_ratio,
             ),
-            Image.NEAREST,
+            Image.Resampling.NEAREST,
         )
 
     def update(self, game_data: dict) -> None:
@@ -1030,11 +1093,11 @@ class InputViewerComponent(game_overlay.GameOverlayComponent):
                         + analog_marker.image.width // 2,
                         analog_marker.pos[1] * self.supersample_ratio
                         + analog_marker.image.height // 2,
-                        (analog_marker.pos[0]
-                        + int(x_offset * analog_marker.range)) * self.supersample_ratio
+                        (analog_marker.pos[0] + int(x_offset * analog_marker.range))
+                        * self.supersample_ratio
                         + analog_marker.image.width // 2,
-                        (analog_marker.pos[1]
-                        - int(y_offset * analog_marker.range)) * self.supersample_ratio
+                        (analog_marker.pos[1] - int(y_offset * analog_marker.range))
+                        * self.supersample_ratio
                         + analog_marker.image.height // 2,
                     ),
                     fill=analog_marker.line_color,
@@ -1043,10 +1106,10 @@ class InputViewerComponent(game_overlay.GameOverlayComponent):
             image.paste(
                 im=analog_marker.image,
                 box=(
-                    (analog_marker.pos[0]
-                    + int(x_offset * analog_marker.range)) * self.supersample_ratio,
-                    (analog_marker.pos[1]
-                    - int(y_offset * analog_marker.range)) * self.supersample_ratio,
+                    (analog_marker.pos[0] + int(x_offset * analog_marker.range))
+                    * self.supersample_ratio,
+                    (analog_marker.pos[1] - int(y_offset * analog_marker.range))
+                    * self.supersample_ratio,
                 ),
                 mask=analog_marker.image,
             )
@@ -1064,20 +1127,29 @@ class InputViewerComponent(game_overlay.GameOverlayComponent):
                         xy=(
                             shoulder.pos[0] * self.supersample_ratio,
                             shoulder.pos[1] * self.supersample_ratio,
-                            (shoulder.pos[0]
-                            + int(shoulder.size[0] * shoulder_value / 255)) * self.supersample_ratio,
-                            (shoulder.pos[1] + shoulder.size[1]) * self.supersample_ratio,
+                            (
+                                shoulder.pos[0]
+                                + int(shoulder.size[0] * shoulder_value / 255)
+                            )
+                            * self.supersample_ratio,
+                            (shoulder.pos[1] + shoulder.size[1])
+                            * self.supersample_ratio,
                         ),
                         fill=shoulder.color,
                     )
                 case "left":
                     image_draw.rectangle(
                         xy=(
-                            (shoulder.pos[0]
-                            + int((1 - shoulder_value / 255) * shoulder.size[0])) * self.supersample_ratio,
+                            (
+                                shoulder.pos[0]
+                                + int((1 - shoulder_value / 255) * shoulder.size[0])
+                            )
+                            * self.supersample_ratio,
                             shoulder.pos[1] * self.supersample_ratio,
-                            (shoulder.pos[0] + shoulder.size[0]) * self.supersample_ratio,
-                            (shoulder.pos[1] + shoulder.size[1]) * self.supersample_ratio,
+                            (shoulder.pos[0] + shoulder.size[0])
+                            * self.supersample_ratio,
+                            (shoulder.pos[1] + shoulder.size[1])
+                            * self.supersample_ratio,
                         ),
                         fill=shoulder.color,
                     )
@@ -1093,7 +1165,7 @@ class LayoutSelector(game_overlay.GameOverlayComponent):
         layouts: dict[str, list[game_overlay.GameOverlayComponent]],
         default: list[game_overlay.GameOverlayComponent] = [],
         watch_var: str = "",
-        selector: Callable[[dict], str] | None = None,
+        selector: Callable[[dict], str | None] | None = None,
     ) -> None:
         self._watch_var = watch_var
         self._layouts = layouts
@@ -1105,8 +1177,8 @@ class LayoutSelector(game_overlay.GameOverlayComponent):
         self.size = size
         self.supersample_ratio = 1
 
-    def _select(self, game_data: dict) -> str:
-        if self._selector == None:
+    def _select(self, game_data: dict) -> str | None:
+        if self._selector is None:
             return game_data[self._watch_var]
         else:
             return self._selector(game_data)
@@ -1119,20 +1191,45 @@ class LayoutSelector(game_overlay.GameOverlayComponent):
                 component.apply_defaults(defaults)
 
     def update(self, game_data: dict) -> None:
-        current_layout = self._layouts.get(self._select(game_data), self._default)
+        if (select_result := self._select(game_data)) is not None:
+            current_layout = self._layouts[select_result]
+        else:
+            current_layout = self._default
         for component in current_layout:
             component.update(game_data)
 
     def draw(self, image: Image.Image, game_data: dict) -> None:
-        current_layout = self._layouts.get(self._select(game_data), self._default)
+        if (select_result := self._select(game_data)) is not None:
+            current_layout = self._layouts[select_result]
+        else:
+            current_layout = self._default
         for component in current_layout:
             if component.supersample_ratio == 1:
-                component_img = Image.new("RGBA", component.size, color=(0,0,0,0))
+                component_img = Image.new("RGBA", component.size, color=(0, 0, 0, 0))
                 component.draw(component_img, game_data)
-                image.paste(component_img, (component.position[0] - component.anchor[0], component.position[1] - component.anchor[1]), mask=component_img)
+                image.paste(
+                    component_img,
+                    (
+                        component.position[0] - component.anchor[0],
+                        component.position[1] - component.anchor[1],
+                    ),
+                    mask=component_img,
+                )
             else:
-                component_resolution = (component.size[0] * component.supersample_ratio, component.size[1] * component.supersample_ratio)
-                component_img = Image.new("RGBA", component_resolution, color=(0,0,0,0))
+                component_resolution = (
+                    component.size[0] * component.supersample_ratio,
+                    component.size[1] * component.supersample_ratio,
+                )
+                component_img = Image.new(
+                    "RGBA", component_resolution, color=(0, 0, 0, 0)
+                )
                 component.draw(component_img, game_data)
                 component_img = component_img.resize(component.size)
-                image.paste(component_img, (component.position[0] - component.anchor[0], component.position[1] - component.anchor[1]), mask=component_img)
+                image.paste(
+                    component_img,
+                    (
+                        component.position[0] - component.anchor[0],
+                        component.position[1] - component.anchor[1],
+                    ),
+                    mask=component_img,
+                )

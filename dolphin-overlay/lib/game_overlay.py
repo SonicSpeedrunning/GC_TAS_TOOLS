@@ -77,15 +77,34 @@ class GameOverlay:
     def _draw(self, overlay_img: Image.Image, game_data: dict):
         for component in self._components:
             if component.supersample_ratio == 1:
-                component_img = Image.new("RGBA", component.size, color=(0,0,0,0))
+                component_img = Image.new("RGBA", component.size, color=(0, 0, 0, 0))
                 component.draw(component_img, game_data)
-                overlay_img.paste(component_img, (component.position[0] - component.anchor[0], component.position[1] - component.anchor[1]), mask=component_img)
+                overlay_img.paste(
+                    component_img,
+                    (
+                        component.position[0] - component.anchor[0],
+                        component.position[1] - component.anchor[1],
+                    ),
+                    mask=component_img,
+                )
             else:
-                component_resolution = (component.size[0] * component.supersample_ratio, component.size[1] * component.supersample_ratio)
-                component_img = Image.new("RGBA", component_resolution, color=(0,0,0,0))
+                component_resolution = (
+                    component.size[0] * component.supersample_ratio,
+                    component.size[1] * component.supersample_ratio,
+                )
+                component_img = Image.new(
+                    "RGBA", component_resolution, color=(0, 0, 0, 0)
+                )
                 component.draw(component_img, game_data)
                 component_img = component_img.resize(component.size)
-                overlay_img.paste(component_img, (component.position[0] - component.anchor[0], component.position[1] - component.anchor[1]), mask=component_img)
+                overlay_img.paste(
+                    component_img,
+                    (
+                        component.position[0] - component.anchor[0],
+                        component.position[1] - component.anchor[1],
+                    ),
+                    mask=component_img,
+                )
 
     def _draw_composite_image(
         self, game_feed_img: Image.Image, overlay_img: Image.Image
@@ -145,7 +164,7 @@ class GameOverlay:
 
         base_img = Image.new("RGBA", self._resolution, color=(0, 0, 0, 0))
         for frame_num, game_feed_frame in enumerate(game_feed_video.decode(video=0)):
-            print(f'Generating frame {frame_num + 1}/{total_frames}')
+            print(f"Generating frame {frame_num + 1}/{total_frames}")
 
             overlay_img = base_img.copy()
 

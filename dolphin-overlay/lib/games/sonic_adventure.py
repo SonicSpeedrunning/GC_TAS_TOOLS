@@ -8,7 +8,8 @@ TRANSPARENT = (0, 0, 0, 0)
 
 PLOT_SIZE = 50
 
-def character_select(game_data: dict) -> str:
+
+def character_select(game_data: dict) -> str | None:
     game_state = int(game_data["GameState"])
     character = int(game_data["CurrentCharacter"])
 
@@ -20,6 +21,7 @@ def character_select(game_data: dict) -> str:
         elif character == 5:
             return "rouge"
     return None
+
 
 OVERLAY = game_overlay.GameOverlay(
     defaults=game_overlay.GameOverlayDefaults(
