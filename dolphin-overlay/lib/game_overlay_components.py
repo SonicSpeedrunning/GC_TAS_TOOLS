@@ -1091,3 +1091,56 @@ class InputViewerComponent(game_overlay.GameOverlayComponent):
                     )
                 case _:
                     pass
+
+
+class LayoutSelector(game_overlay.GameOverlayComponent):
+    def __init__(
+        self,
+        position: types.Vec2,
+        size: types.Vec2,
+        layouts: dict[str, list[game_overlay.GameOverlayComponent]],
+        default: list[game_overlay.GameOverlayComponent] = [],
+        watch_var: str = "",
+        selector: Callable[[dict], str] | None = None,
+    ) -> None:
+        self._watch_var = watch_var
+        self._layouts = layouts
+        self._default = default
+        self._selector = selector
+
+        self.position = position
+        self.anchor = (0, 0)
+        self.size = size
+        self.supersample_ratio = 1
+
+    def _select(self, game_data: dict) -> str:
+        if self._selector == None:
+            return game_data[self._watch_var]
+        else:
+            return self._selector(game_data)
+
+    def apply_defaults(self, defaults: game_overlay.GameOverlayDefaults) -> None:
+        for component in self._default:
+            component.apply_defaults(defaults)
+        for layout in self._layouts.values():
+            for component in layout:
+                component.apply_defaults(defaults)
+
+    def update(self, game_data: dict) -> None:
+        current_layout = self._layouts.get(self._select(game_data), self._default)
+        for component in current_layout:
+            component.update(game_data)
+
+    def draw(self, image: Image.Image, game_data: dict) -> None:
+        current_layout = self._layouts.get(self._select(game_data), self._default)
+        for component in current_layout:
+            if component.supersample_ratio == 1:
+                component_img = Image.new("RGBA", component.size, color=(0,0,0,0))
+                component.draw(component_img, game_data)
+                image.paste(component_img, (component.position[0] - component.anchor[0], component.position[1] - component.anchor[1]), mask=component_img)
+            else:
+                component_resolution = (component.size[0] * component.supersample_ratio, component.size[1] * component.supersample_ratio)
+                component_img = Image.new("RGBA", component_resolution, color=(0,0,0,0))
+                component.draw(component_img, game_data)
+                component_img = component_img.resize(component.size)
+                image.paste(component_img, (component.position[0] - component.anchor[0], component.position[1] - component.anchor[1]), mask=component_img)

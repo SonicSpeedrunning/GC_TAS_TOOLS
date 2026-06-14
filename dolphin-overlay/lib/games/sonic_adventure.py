@@ -8,6 +8,19 @@ TRANSPARENT = (0, 0, 0, 0)
 
 PLOT_SIZE = 50
 
+def character_select(game_data: dict) -> str:
+    game_state = int(game_data["GameState"])
+    character = int(game_data["CurrentCharacter"])
+
+    if game_state == 7 or game_state == 16:
+        if character == 7:
+            return "eggman"
+        elif character == 1:
+            return "shadow"
+        elif character == 5:
+            return "rouge"
+    return None
+
 OVERLAY = game_overlay.GameOverlay(
     defaults=game_overlay.GameOverlayDefaults(
         component_background_color=BLACK,
@@ -26,10 +39,33 @@ OVERLAY = game_overlay.GameOverlay(
         supersample_ratio=4,
     ),
     components=[
-        game_overlay_components.StaticImageComponent(
-            image_filename="shadow.png",
+        game_overlay_components.LayoutSelector(
             position=(0, 0),
             size=(480, 1080),
+            layouts={
+                "eggman": [
+                    game_overlay_components.StaticImageComponent(
+                        image_filename="eggman.png",
+                        position=(0, 0),
+                        size=(480, 1080),
+                    ),
+                ],
+                "shadow": [
+                    game_overlay_components.StaticImageComponent(
+                        image_filename="shadow.png",
+                        position=(0, 0),
+                        size=(480, 1080),
+                    ),
+                ],
+                "rouge": [
+                    game_overlay_components.StaticImageComponent(
+                        image_filename="rouge.png",
+                        position=(0, 0),
+                        size=(480, 1080),
+                    ),
+                ],
+            },
+            selector=character_select,
         ),
         game_overlay_components.TextComponent(
             text_template="Time (LRT):",
