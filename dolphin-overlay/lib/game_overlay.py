@@ -5,6 +5,7 @@ from typing import Protocol, Self
 
 from PIL import Image
 import av
+from tqdm import tqdm
 
 from . import types
 
@@ -163,27 +164,29 @@ class GameOverlay:
         total_frames = game_feed_video.streams.video[0].frames
 
         base_img = Image.new("RGBA", self._resolution, color=(0, 0, 0, 0))
-        for frame_num, game_feed_frame in enumerate(game_feed_video.decode(video=0)):
-            print(f"Generating frame {frame_num + 1}/{total_frames}")
+        with tqdm(total=total_frames, desc="Generating frames") as pbar:
+            for frame_num, game_feed_frame in enumerate(
+                game_feed_video.decode(video=0)
+            ):
+                overlay_img = base_img.copy()
 
-            overlay_img = base_img.copy()
+                assert game_feed_frame.pts is not None
+                overlay_frame = max(0, game_feed_frame.pts - 1)
 
-            assert game_feed_frame.pts is not None
-            overlay_frame = max(0, game_feed_frame.pts - 1)
+                # TODO: the overlay_frame as is might not work for multiple files; rework
+                # this
+                self._update(game_overlay_data.data[overlay_frame])
+                self._draw(overlay_img, game_overlay_data.data[overlay_frame])
 
-            # TODO: the overlay_frame as is might not work for multiple files; rework
-            # this
-            self._update(game_overlay_data.data[overlay_frame])
-            self._draw(overlay_img, game_overlay_data.data[overlay_frame])
+                composite_img = self._draw_composite_image(
+                    game_feed_frame.to_image(), overlay_img
+                )
 
-            composite_img = self._draw_composite_image(
-                game_feed_frame.to_image(), overlay_img
-            )
-
-            output_frame: av.VideoFrame = av.VideoFrame.from_image(composite_img)
-            output_frame.pts = game_feed_frame.pts
-            output_packet = output_stream.encode(output_frame)
-            output_video.mux(output_packet)
+                output_frame: av.VideoFrame = av.VideoFrame.from_image(composite_img)
+                output_frame.pts = game_feed_frame.pts
+                output_packet = output_stream.encode(output_frame)
+                output_video.mux(output_packet)
+                pbar.update(1)
 
         output_packet = output_stream.encode(None)
         output_video.mux(output_packet)
