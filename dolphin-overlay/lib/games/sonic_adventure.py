@@ -8,6 +8,14 @@ TRANSPARENT = (0, 0, 0, 0)
 
 PLOT_SIZE = 50
 
+SMALL_NUMBERS_CONFIG = {
+    "monospace": False,
+    "font_name_override": "ArialBI.ttf",
+    "font_size_override": 14,
+    "font_color_override": WHITE,
+    "font_stroke_width_override": 0,
+}
+
 
 def character_select(game_data: dict) -> str | None:
     game_state = int(game_data["GameState"])
@@ -83,45 +91,57 @@ OVERLAY = game_overlay.GameOverlay(
         # Speed section
         game_overlay_components.TextComponent(
             text_fn=lambda _: "Speed",
-            position=(30, 150),
+            position=(30, 110),
         ),
         game_overlay_components.TextComponent(
             text_fn=lambda _: "Relative",
-            position=(150, 200),
+            position=(150, 160),
             align="middle",
         ),
         game_overlay_components.TextComponent(
             text_fn=lambda _: "F: ",
-            position=(30, 260),
+            position=(30, 220),
         ),
         game_overlay_components.SpeedDialComponent(
             variable="FSpd",
             max_value=16.0,
-            center=(160, 260),
+            center=(160, 220),
             size=(180, 30),
         ),
         # game_overlay_components.SpeedDialComponentV2(
         #     variable="FSpd",
         #     max_value=16.0,
-        #     center=(160, 260),
+        #     center=(160, 220),
         #     size=(180, 30),
         # ),
         game_overlay_components.TextComponent(
+            text_fn=lambda game_data: f"{float(game_data.get('FSpd', 0.0)):8.4f}",
+            position=(160, 245),
+            align="middle",
+            **SMALL_NUMBERS_CONFIG,
+        ),
+        game_overlay_components.TextComponent(
             text_fn=lambda _: "V: ",
-            position=(30, 300),
+            position=(30, 280),
         ),
         game_overlay_components.SpeedDialComponent(
             variable="VSpd",
             max_value=16.0,
-            center=(160, 300),
+            center=(160, 280),
             size=(180, 30),
         ),
         # game_overlay_components.SpeedDialComponentV2(
         #     variable="VSpd",
         #     max_value=16.0,
-        #     center=(160, 300),
+        #     center=(160, 280),
         #     size=(180, 30),
         # ),
+        game_overlay_components.TextComponent(
+            text_fn=lambda game_data: f"{float(game_data.get('VSpd', 0.0)):8.4f}",
+            position=(160, 305),
+            align="middle",
+            **SMALL_NUMBERS_CONFIG,
+        ),
         game_overlay_components.TextComponent(
             text_fn=lambda _: "S: ",
             position=(30, 340),
@@ -139,16 +159,22 @@ OVERLAY = game_overlay.GameOverlay(
         #     size=(180, 30),
         # ),
         game_overlay_components.TextComponent(
+            text_fn=lambda game_data: f"{float(game_data.get('SdSpd', 0.0)):8.4f}",
+            position=(160, 365),
+            align="middle",
+            **SMALL_NUMBERS_CONFIG,
+        ),
+        game_overlay_components.TextComponent(
             text_fn=lambda _: "Global",
-            position=(350, 200),
+            position=(350, 160),
             align="middle",
         ),
         game_overlay_components.Speed2DPlaneComponent(
             x_variable="XSpd",
             y_variable="ZSpd",
             max_value=16.0,
-            center=(350, 300),
-            size=PLOT_SIZE,
+            center=(350, 280),
+            size=60,
             draw_axes=True,
         ),
         # Position section
