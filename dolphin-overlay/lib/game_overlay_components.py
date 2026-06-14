@@ -165,19 +165,17 @@ class StaticImageComponent(game_overlay.GameOverlayComponent):
         self.supersample_ratio = 1
 
     def apply_defaults(self, defaults: game_overlay.GameOverlayDefaults) -> None:
-        pass
+        if self._image.size != self.size:
+            self._image = self._image.resize(self.size)
 
     def update(self, game_data: dict) -> None:
         pass
 
     def draw(self, image: Image.Image, game_data: dict) -> None:
-        resized_image = self._image
-        if self._image.size != self.size:
-            resized_image = self._image.resize(self.size)
         image.paste(
-            im=resized_image,
+            im=self._image,
             box=(0, 0),
-            mask=resized_image,
+            mask=self._image,
         )
 
 
