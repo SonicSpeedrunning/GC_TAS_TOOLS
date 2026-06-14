@@ -663,6 +663,7 @@ class SpeedDialComponent(game_overlay.GameOverlayComponent):
         max_value: float,
         center: types.Vec2,
         size: types.Vec2,
+        orientation: Literal["horizontal", "vertical"] = "horizontal",
         background_color_override: types.Color | None = None,
         fill_color_override: types.Color | None = None,
         outline_width_override: int | None = None,
@@ -674,6 +675,7 @@ class SpeedDialComponent(game_overlay.GameOverlayComponent):
         self._max_value = max_value
         self._center = center
         self._size = size
+        self._orientation = orientation
         self._background_color_override = background_color_override
         self._fill_color_override = fill_color_override
         self._outline_width_override = outline_width_override
@@ -716,31 +718,61 @@ class SpeedDialComponent(game_overlay.GameOverlayComponent):
             width=self._outline_width * self.supersample_ratio,
             outline=self._outline_color,
         )
-        draw.line(
-            xy=(
-                self._size[0] // 2 * self.supersample_ratio,
-                0,
-                self._size[0] // 2 * self.supersample_ratio,
-                self._size[1] * self.supersample_ratio,
-            ),
-            fill=self._outline_color,
-            width=self._outline_width * self.supersample_ratio,
-        )
+        if self._orientation == "horizontal":
+            draw.line(
+                xy=(
+                    self._size[0] // 2 * self.supersample_ratio,
+                    0,
+                    self._size[0] // 2 * self.supersample_ratio,
+                    self._size[1] * self.supersample_ratio,
+                ),
+                fill=self._outline_color,
+                width=self._outline_width * self.supersample_ratio,
+            )
+        elif self._orientation == "vertical":
+            draw.line(
+                xy=(
+                    0,
+                    self._size[1] // 2 * self.supersample_ratio,
+                    self._size[0] * self.supersample_ratio,
+                    self._size[1] // 2 * self.supersample_ratio,
+                ),
+                fill=self._outline_color,
+                width=self._outline_width * self.supersample_ratio,
+            )
+        else:
+            raise ValueError(f"Unknown orientation {self._orientation}")
 
         normalized = float(game_data.get(self._variable, 0)) / self._max_value
-        left = min(normalized, 0.0)
-        right = max(normalized, 0.0)
         max_width = self._size[0] // 2 - self._outline_width
 
-        draw.rectangle(
-            xy=(
-                ((self._size[0] // 2) + left * max_width) * self.supersample_ratio,
-                self._outline_width * self.supersample_ratio,
-                ((self._size[0] // 2) + right * max_width) * self.supersample_ratio,
-                (self._size[1] - self._outline_width) * self.supersample_ratio,
-            ),
-            fill=self._fill_color,
-        )
+        if self._orientation == "horizontal":
+            left = min(normalized, 0.0)
+            right = max(normalized, 0.0)
+            draw.rectangle(
+                xy=(
+                    ((self._size[0] // 2) + left * max_width) * self.supersample_ratio,
+                    self._outline_width * self.supersample_ratio,
+                    ((self._size[0] // 2) + right * max_width) * self.supersample_ratio,
+                    (self._size[1] - self._outline_width) * self.supersample_ratio,
+                ),
+                fill=self._fill_color,
+            )
+        elif self._orientation == "vertical":
+            bottom = min(normalized, 0.0)
+            top = max(normalized, 0.0)
+            draw.rectangle(
+                xy=(
+                    self._outline_width * self.supersample_ratio,
+                    ((self._size[1] // 2) - top * max_width) * self.supersample_ratio,
+                    (self._size[0] - self._outline_width) * self.supersample_ratio,
+                    ((self._size[1] // 2) - bottom * max_width)
+                    * self.supersample_ratio,
+                ),
+                fill=self._fill_color,
+            )
+        else:
+            raise ValueError(f"Unknown orientation {self._orientation}")
 
 
 class SpeedDialComponentV2(game_overlay.GameOverlayComponent):
@@ -750,6 +782,7 @@ class SpeedDialComponentV2(game_overlay.GameOverlayComponent):
         max_value: float,
         center: types.Vec2,
         size: types.Vec2,
+        orientation: Literal["horizontal", "vertical"] = "horizontal",
         background_color_override: types.Color | None = None,
         positive_color_override: types.Color | None = None,
         negative_color_override: types.Color | None = None,
@@ -762,6 +795,7 @@ class SpeedDialComponentV2(game_overlay.GameOverlayComponent):
         self._max_value = max_value
         self._center = center
         self._size = size
+        self._orientation = orientation
         self._background_color_override = background_color_override
         self._positive_color_override = positive_color_override
         self._negative_color_override = negative_color_override
@@ -808,36 +842,70 @@ class SpeedDialComponentV2(game_overlay.GameOverlayComponent):
         )
 
         var_value = float(game_data.get(self._variable, 0))
-        if var_value >= 0:
-            draw.rectangle(
-                xy=(
-                    self._outline_width * self.supersample_ratio,
-                    self._outline_width * self.supersample_ratio,
-                    (
-                        self._outline_width
-                        + (var_value / self._max_value)
-                        * (self._size[0] - self._outline_width * 2)
-                    )
-                    * self.supersample_ratio,
-                    (self._size[1] - self._outline_width) * self.supersample_ratio,
-                ),
-                fill=self._positive_color,
-            )
+        if self._orientation == "horizontal":
+            if var_value >= 0:
+                draw.rectangle(
+                    xy=(
+                        self._outline_width * self.supersample_ratio,
+                        self._outline_width * self.supersample_ratio,
+                        (
+                            self._outline_width
+                            + (var_value / self._max_value)
+                            * (self._size[0] - self._outline_width * 2)
+                        )
+                        * self.supersample_ratio,
+                        (self._size[1] - self._outline_width) * self.supersample_ratio,
+                    ),
+                    fill=self._positive_color,
+                )
+            else:
+                draw.rectangle(
+                    xy=(
+                        (
+                            self._outline_width
+                            + (1.0 + (var_value / self._max_value))
+                            * (self._size[0] - self._outline_width * 2)
+                        )
+                        * self.supersample_ratio,
+                        self._outline_width * self.supersample_ratio,
+                        (self._size[0] - self._outline_width) * self.supersample_ratio,
+                        (self._size[1] - self._outline_width) * self.supersample_ratio,
+                    ),
+                    fill=self._negative_color,
+                )
+        elif self._orientation == "vertical":
+            if var_value >= 0:
+                draw.rectangle(
+                    xy=(
+                        self._outline_width * self.supersample_ratio,
+                        (
+                            self._outline_width
+                            + (1.0 - var_value / self._max_value)
+                            * (self._size[1] - self._outline_width * 2)
+                        )
+                        * self.supersample_ratio,
+                        (self._size[0] - self._outline_width) * self.supersample_ratio,
+                        (self._size[1] - self._outline_width) * self.supersample_ratio,
+                    ),
+                    fill=self._positive_color,
+                )
+            else:
+                draw.rectangle(
+                    xy=(
+                        self._outline_width * self.supersample_ratio,
+                        self._outline_width * self.supersample_ratio,
+                        (self._size[0] - self._outline_width) * self.supersample_ratio,
+                        (
+                            self._outline_width
+                            - (var_value / self._max_value)
+                            * (self._size[1] - self._outline_width * 2)
+                        )
+                        * self.supersample_ratio,
+                    ),
+                    fill=self._negative_color,
+                )
         else:
-            draw.rectangle(
-                xy=(
-                    (
-                        self._outline_width
-                        + (1.0 + (var_value / self._max_value))
-                        * (self._size[0] - self._outline_width * 2)
-                    )
-                    * self.supersample_ratio,
-                    self._outline_width * self.supersample_ratio,
-                    (self._size[0] - self._outline_width) * self.supersample_ratio,
-                    (self._size[1] - self._outline_width) * self.supersample_ratio,
-                ),
-                fill=self._negative_color,
-            )
+            raise ValueError(f"Unknown orientation {self._orientation}")
 
 
 class AngleDirectionComponent(game_overlay.GameOverlayComponent):

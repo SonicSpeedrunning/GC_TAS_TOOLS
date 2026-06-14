@@ -177,6 +177,25 @@ OVERLAY = game_overlay.GameOverlay(
             size=60,
             draw_axes=True,
         ),
+        game_overlay_components.TextComponent(
+            text_fn=lambda _: "Y",
+            position=(450, 160),
+            align="middle",
+        ),
+        game_overlay_components.SpeedDialComponent(
+            variable="YSpd",
+            max_value=16.0,
+            center=(450, 280),
+            size=(30, 120),
+            orientation="vertical",
+        ),
+        # game_overlay_components.SpeedDialComponentV2(
+        #     variable="YSpd",
+        #     max_value=16.0,
+        #     center=(450, 280),
+        #     size=(30, 120),
+        #     orientation="vertical",
+        # ),
         # Position section
         game_overlay_components.TextComponent(
             text_fn=lambda _: "Position",
