@@ -102,18 +102,12 @@ OVERLAY = game_overlay.GameOverlay(
             text_fn=lambda _: "F: ",
             position=(30, 220),
         ),
-        game_overlay_components.SpeedDialComponent(
+        game_overlay_components.SpeedDialComponentV2(
             variable="FSpd",
             max_value=16.0,
             center=(160, 220),
             size=(180, 30),
         ),
-        # game_overlay_components.SpeedDialComponentV2(
-        #     variable="FSpd",
-        #     max_value=16.0,
-        #     center=(160, 220),
-        #     size=(180, 30),
-        # ),
         game_overlay_components.TextComponent(
             text_fn=lambda game_data: f"{float(game_data.get('FSpd', 0.0)):8.4f}",
             position=(160, 245),
@@ -124,18 +118,12 @@ OVERLAY = game_overlay.GameOverlay(
             text_fn=lambda _: "V: ",
             position=(30, 280),
         ),
-        game_overlay_components.SpeedDialComponent(
+        game_overlay_components.SpeedDialComponentV2(
             variable="VSpd",
             max_value=16.0,
             center=(160, 280),
             size=(180, 30),
         ),
-        # game_overlay_components.SpeedDialComponentV2(
-        #     variable="VSpd",
-        #     max_value=16.0,
-        #     center=(160, 280),
-        #     size=(180, 30),
-        # ),
         game_overlay_components.TextComponent(
             text_fn=lambda game_data: f"{float(game_data.get('VSpd', 0.0)):8.4f}",
             position=(160, 305),
@@ -146,18 +134,12 @@ OVERLAY = game_overlay.GameOverlay(
             text_fn=lambda _: "S: ",
             position=(30, 340),
         ),
-        game_overlay_components.SpeedDialComponent(
+        game_overlay_components.SpeedDialComponentV2(
             variable="SdSpd",
             max_value=16.0,
             center=(160, 340),
             size=(180, 30),
         ),
-        # game_overlay_components.SpeedDialComponentV2(
-        #     variable="SdSpd",
-        #     max_value=16.0,
-        #     center=(160, 340),
-        #     size=(180, 30),
-        # ),
         game_overlay_components.TextComponent(
             text_fn=lambda game_data: f"{float(game_data.get('SdSpd', 0.0)):8.4f}",
             position=(160, 365),
@@ -182,20 +164,13 @@ OVERLAY = game_overlay.GameOverlay(
             position=(450, 160),
             align="middle",
         ),
-        game_overlay_components.SpeedDialComponent(
+        game_overlay_components.SpeedDialComponentV2(
             variable="YSpd",
             max_value=16.0,
             center=(450, 280),
             size=(30, 120),
             orientation="vertical",
         ),
-        # game_overlay_components.SpeedDialComponentV2(
-        #     variable="YSpd",
-        #     max_value=16.0,
-        #     center=(450, 280),
-        #     size=(30, 120),
-        #     orientation="vertical",
-        # ),
         # Position section
         game_overlay_components.TextComponent(
             text_fn=lambda _: "Position",
