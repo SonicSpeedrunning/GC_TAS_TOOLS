@@ -244,6 +244,6 @@ OVERLAY = game_overlay.GameOverlay(
             input_skin_name="TronStyleSA2B",
         ),
     ],
-    resolution=(1960, 1080),
+    resolution=(1920, 1080),
     game_feed_box=(480, 0, 1920, 1080),
 )
