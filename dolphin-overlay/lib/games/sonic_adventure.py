@@ -10,7 +10,7 @@ PLOT_SIZE = 50
 
 SMALL_NUMBERS_CONFIG = {
     "monospace": False,
-    "font_name_override": "ArialBI.ttf",
+    "font_name_override": ["ArialBI.ttf", "Arimo-BoldItalic.ttf"],
     "font_size_override": 14,
     "font_color_override": WHITE,
     "font_stroke_width_override": 0,

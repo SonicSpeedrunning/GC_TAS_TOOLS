@@ -19,7 +19,7 @@ class TextComponent(game_overlay.GameOverlayComponent):
         position: types.Vec2,
         align: Literal["left", "middle", "right"] = "left",
         monospace: bool = False,
-        font_name_override: str | None = None,
+        font_name_override: str | list[str] | None = None,
         font_size_override: int | None = None,
         font_color_override: types.Color | None = None,
         font_stroke_width_override: int | None = None,
@@ -43,7 +43,9 @@ class TextComponent(game_overlay.GameOverlayComponent):
         self.supersample_ratio = 1
 
     def apply_defaults(self, defaults: game_overlay.GameOverlayDefaults) -> None:
-        font_name = self._font_name_override or defaults.font_name
+        font_names = self._font_name_override or defaults.font_name
+        if isinstance(font_names, str):
+            font_names = [font_names]
         font_size = self._font_size_override or defaults.font_size
         self._font_color = self._font_color_override or defaults.font_color
         self._font_stroke_width = (
@@ -69,14 +71,17 @@ class TextComponent(game_overlay.GameOverlayComponent):
             )
 
         font_found = False
-        for font_dir_to_try in font_dirs_to_try:
-            font_file = font_dir_to_try / font_name
-            if font_file.exists():
-                font_found = True
-                self._font = ImageFont.truetype(font_file, font_size)
+        for font_name in font_names:
+            for font_dir_to_try in font_dirs_to_try:
+                font_file = font_dir_to_try / font_name
+                if font_file.exists():
+                    font_found = True
+                    self._font = ImageFont.truetype(font_file, font_size)
+                    break
+            if font_found:
                 break
         if not font_found:
-            raise ValueError("Font not found:", font_name)
+            raise ValueError("Font not found:", font_names)
 
     def update(self, game_data: dict) -> None:
         self._text = self._text_fn(game_data)
