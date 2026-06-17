@@ -156,10 +156,13 @@ class GameOverlay:
         game_feed_video = av.open(game_feed_video_filepath, "r")
         output_video = av.open(video_output_path, "w")
         output_stream = output_video.add_stream(
-            "h264", game_feed_video.streams.video[0].base_rate
+            "libx264",
+            game_feed_video.streams.video[0].base_rate,
+            {"crf": "23"},
         )
         output_stream.width = self._resolution[0]
         output_stream.height = self._resolution[1]
+        output_stream.pix_fmt = "yuv444p"
 
         total_frames = game_feed_video.streams.video[0].frames
 
