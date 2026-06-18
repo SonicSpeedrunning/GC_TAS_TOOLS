@@ -158,7 +158,7 @@ class GameOverlay:
         output_stream = output_video.add_stream(
             "libx264",
             game_feed_video.streams.video[0].base_rate,
-            {"crf": "23"},
+            {"crf": "0"},
         )
         output_stream.width = self._resolution[0]
         output_stream.height = self._resolution[1]
