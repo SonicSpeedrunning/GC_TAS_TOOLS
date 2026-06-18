@@ -1,21 +1,21 @@
 {
-    "width": 382,
-    "height": 160,
-    "background_file": "Background.png",
+    "width": 360,
+    "height": 155,
+    "background_file": "Background_new_resized.png",
     "buttons": {
-        "A": {"file": "A.png", "pos": [264, 85], "size": [54,54] },
-        "B": {"file": "B.png", "pos": [214, 116], "size": [33,33] },
-        "X": {"file": "X.png", "pos": [336, 77], "size": [32,58] },
-        "Y": {"file": "Y.png", "pos": [249, 42], "size": [62,31] },
-        "Start": {"file": "Start.png", "pos": [170, 89], "size": [20,20] },
-        "L": {"file": "R.png", "pos": [19, 10], "size": [120,14] },
-        "R": {"file": "R.png", "pos": [230, 10], "size": [120,14] }
+        "A": {"file": "A.png", "pos": [250, 82], "size": [54,54] },
+        "B": {"file": "B.png", "pos": [200, 113], "size": [33,33] },
+        "X": {"file": "X.png", "pos": [322, 74], "size": [32,58] },
+        "Y": {"file": "Y.png", "pos": [235, 39], "size": [62,31] },
+        "Start": {"file": "Start.png", "pos": [156, 86], "size": [20,20] },
+        "L": {"file": "R.png", "pos": [5, 7], "size": [120,14] },
+        "R": {"file": "R.png", "pos": [216, 7], "size": [120,14] }
     },
     "analog_markers": {
-        "Main": {"file": "Stick.png", "pos": [74, 91], "size": [10,10], "range": 50, "line_width": 2, "line_color": [255, 255, 255]}
+        "Main": {"file": "Stick.png", "pos": [57, 84], "size": [20,20], "range": 50, "line_width": 2, "line_color": [255, 255, 255]}
     },
     "shoulders": {
-        "L": {"color": [255, 255, 255], "pos": [20, 11], "size": [119,11], "direction": "right" },
-        "R": {"color": [255, 255, 255], "pos": [231, 11], "size": [119,11], "direction": "left" }
+        "L": {"color": [255, 255, 255], "pos": [8, 8], "size": [116,11], "direction": "right" },
+        "R": {"color": [255, 255, 255], "pos": [219, 8], "size": [116,11], "direction": "left" }
     }
 }
