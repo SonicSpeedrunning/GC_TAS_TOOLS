@@ -1,7 +1,7 @@
 {
     "width": 360,
     "height": 155,
-    "background_file": "Background_new_resized.png",
+    "background_file": "Background.png",
     "buttons": {
         "A": {"file": "A.png", "pos": [250, 82], "size": [54,54] },
         "B": {"file": "B.png", "pos": [200, 113], "size": [33,33] },
