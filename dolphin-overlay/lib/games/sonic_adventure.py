@@ -38,6 +38,8 @@ def _rng_call(rng_state: int) -> int:
 
 
 def _count_rng_calls(initial_rng_state: int, ending_rng_state: int):
+    if initial_rng_state == ending_rng_state:
+        return 0
     rng_state = initial_rng_state
     max_calls = 10000
     for i in range(max_calls):
@@ -83,7 +85,7 @@ def augment_game_data(game_data: game_overlay.GameOverlayData):
                 item["LRTFrame"] = prev_item["LRTFrame"] + 1
             else:
                 item["LRTFrame"] = prev_item["LRTFrame"]
-            item["LRTMin"], item["LRTSec"], item["LRTCent"] = _frames_to_timer(
+            item["LRTMin"], item["LRTSec"], item["LRTCenti"] = _frames_to_timer(
                 item["LRTFrame"]
             )
             item["RNGDeltaCalls"] = _count_rng_calls(
@@ -165,7 +167,7 @@ OVERLAY = game_overlay.GameOverlay(
         ),
         game_overlay_components.SpeedDialComponentV2(
             variable="FSpd",
-            max_value=20.0,
+            max_value=24.0,
             center=(160, 220),
             size=(180, 30),
         ),
@@ -181,7 +183,7 @@ OVERLAY = game_overlay.GameOverlay(
         ),
         game_overlay_components.SpeedDialComponentV2(
             variable="VSpd",
-            max_value=20.0,
+            max_value=24.0,
             center=(160, 280),
             size=(180, 30),
         ),
@@ -197,7 +199,7 @@ OVERLAY = game_overlay.GameOverlay(
         ),
         game_overlay_components.SpeedDialComponentV2(
             variable="SdSpd",
-            max_value=20.0,
+            max_value=24.0,
             center=(160, 340),
             size=(180, 30),
         ),
