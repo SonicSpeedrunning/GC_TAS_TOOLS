@@ -1,3 +1,5 @@
+import math
+
 from .. import game_overlay, game_overlay_components
 
 WHITE = (255, 255, 255, 255)
@@ -21,7 +23,7 @@ def character_select(game_data: dict) -> str | None:
     game_state = int(game_data["GameState"])
     character = int(game_data["CurrentCharacter"])
 
-    if game_state == 7 or game_state == 16:
+    if game_state in [7, 9, 16, 17]:
         if character == 7:
             return "eggman"
         elif character == 1:
@@ -29,6 +31,65 @@ def character_select(game_data: dict) -> str | None:
         elif character == 5:
             return "rouge"
     return None
+
+
+def _rng_call(rng_state: int) -> int:
+    return (rng_state * 0x41C64E6D + 0x3039) % 0x100000000
+
+
+def _count_rng_calls(initial_rng_state: int, ending_rng_state: int):
+    rng_state = initial_rng_state
+    max_calls = 10000
+    for i in range(max_calls):
+        rng_state = _rng_call(rng_state)
+        if rng_state == ending_rng_state:
+            return i
+    return max_calls
+
+
+def _level_timer_in_frames(item: dict) -> int:
+    return (
+        int(item["StageCentiseconds"])
+        + 60 * int(item["StageSeconds"])
+        + 3600 * int(item["StageMinutes"])
+    )
+
+
+def _frames_to_timer(frames_count: int) -> tuple[int, int, int]:
+    return (
+        frames_count // 3600,
+        (frames_count % 3600) // 60,
+        math.ceil((frames_count % 60) * 100 / 60),
+    )
+
+
+def augment_game_data(game_data: game_overlay.GameOverlayData):
+    for i in range(len(game_data.data)):
+        item = game_data.data[i]
+        if i == 0:
+            item["LRTFrame"] = 0
+            item["LRTMin"] = 0
+            item["LRTSec"] = 0
+            item["LRTCenti"] = 0
+            item["RNGDeltaCalls"] = 0
+            item["RNGCalls"] = 0
+        else:
+            prev_item = game_data.data[i - 1]
+            level_timer = _level_timer_in_frames(item)
+            prev_level_timer = _level_timer_in_frames(prev_item)
+            if item["GameState"] == "17" or (
+                item["GameState"] == "16" and level_timer > prev_level_timer
+            ):
+                item["LRTFrame"] = prev_item["LRTFrame"] + 1
+            else:
+                item["LRTFrame"] = prev_item["LRTFrame"]
+            item["LRTMin"], item["LRTSec"], item["LRTCent"] = _frames_to_timer(
+                item["LRTFrame"]
+            )
+            item["RNGDeltaCalls"] = _count_rng_calls(
+                int(prev_item["RNGState"]), int(item["RNGState"])
+            )
+            item["RNGCalls"] = item["RNGDeltaCalls"] + prev_item["RNGCalls"]
 
 
 OVERLAY = game_overlay.GameOverlay(
@@ -83,7 +144,7 @@ OVERLAY = game_overlay.GameOverlay(
         ),
         game_overlay_components.TextComponent(
             text_fn=lambda game_data: (
-                f"{int(game_data.get('StageMinutes', '0')):02d}:{int(game_data.get('StageSeconds', '0')):02d}:{int(game_data.get('StageCentiseconds', '0')):02d}"
+                f"{int(game_data.get('LRTMin', '0')):02d}:{int(game_data.get('LRTSec', '0')):02d}:{int(game_data.get('LRTCenti', '0')):02d}"
             ),
             position=(200, 50),
             monospace=True,
@@ -104,7 +165,7 @@ OVERLAY = game_overlay.GameOverlay(
         ),
         game_overlay_components.SpeedDialComponentV2(
             variable="FSpd",
-            max_value=16.0,
+            max_value=20.0,
             center=(160, 220),
             size=(180, 30),
         ),
@@ -120,7 +181,7 @@ OVERLAY = game_overlay.GameOverlay(
         ),
         game_overlay_components.SpeedDialComponentV2(
             variable="VSpd",
-            max_value=16.0,
+            max_value=20.0,
             center=(160, 280),
             size=(180, 30),
         ),
@@ -136,7 +197,7 @@ OVERLAY = game_overlay.GameOverlay(
         ),
         game_overlay_components.SpeedDialComponentV2(
             variable="SdSpd",
-            max_value=16.0,
+            max_value=20.0,
             center=(160, 340),
             size=(180, 30),
         ),
@@ -179,29 +240,38 @@ OVERLAY = game_overlay.GameOverlay(
         game_overlay_components.TextComponent(
             text_fn=lambda _: "X:",
             position=(30, 460),
+            font_size_override=24,
         ),
         game_overlay_components.TextComponent(
             text_fn=lambda _: "Y:",
             position=(30, 500),
+            font_size_override=24,
         ),
         game_overlay_components.TextComponent(
             text_fn=lambda _: "Z:",
             position=(30, 540),
+            font_size_override=24,
         ),
         game_overlay_components.TextComponent(
             text_fn=lambda game_data: f"{float(game_data.get('XPos', 0.0)):11.4f}",
             position=(60, 460),
             monospace=True,
+            font_size_override=24,
+            font_monospace_gap_override=16,
         ),
         game_overlay_components.TextComponent(
             text_fn=lambda game_data: f"{float(game_data.get('YPos', 0.0)):11.4f}",
             position=(60, 500),
             monospace=True,
+            font_size_override=24,
+            font_monospace_gap_override=16,
         ),
         game_overlay_components.TextComponent(
             text_fn=lambda game_data: f"{float(game_data.get('ZPos', 0.0)):11.4f}",
             position=(60, 540),
             monospace=True,
+            font_size_override=24,
+            font_monospace_gap_override=16,
         ),
         # Rotation section
         game_overlay_components.TextComponent(
@@ -230,14 +300,36 @@ OVERLAY = game_overlay.GameOverlay(
         ),
         game_overlay_components.TextComponent(
             text_fn=lambda _: "Facing",
-            position=(150, 820),
+            position=(350, 420),
             align="middle",
         ),
         game_overlay_components.AngleDirectionComponent(
             variable="YRot",
-            center=(150, 900),
+            center=(350, 500),
             size=PLOT_SIZE,
             draw_axes=False,
+        ),
+        game_overlay_components.TextComponent(
+            text_fn=lambda game_data: f"Action: {game_data['Action']}",
+            position=(150, 850),
+            font_size_override=20,
+        ),
+        game_overlay_components.TextComponent(
+            text_fn=lambda game_data: f"Hover: {game_data['Hover']}",
+            position=(150, 880),
+            font_size_override=20,
+        ),
+        game_overlay_components.TextComponent(
+            text_fn=lambda game_data: f"Total RNG Calls: {game_data['RNGCalls']}",
+            position=(150, 910),
+            font_size_override=20,
+        ),
+        game_overlay_components.TextComponent(
+            text_fn=lambda game_data: (
+                f"RNG Calls per Frame: {game_data['RNGDeltaCalls']}"
+            ),
+            position=(150, 940),
+            font_size_override=20,
         ),
         game_overlay_components.InputViewerComponent(
             center=(1200, 880),

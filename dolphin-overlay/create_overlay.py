@@ -22,7 +22,8 @@ def create_overlay(filename: str):
     if not overlay_data_filepath.exists():
         raise ValueError(f"Overlay data {filename}.csv not found")
     overlay_data = game_overlay.GameOverlayData.load_from_csv(overlay_data_filepath)
-    overlay_output_filepath = constants.OUTPUT_PATH / f"{filename}_overlay.mp4"
+    sonic_adventure.augment_game_data(overlay_data)
+    overlay_output_filepath = constants.OUTPUT_PATH / f"{filename}_overlay.avi"
     print(f"Rendering overlay to {overlay_output_filepath}...")
     OVERLAY.encode_all_frames(overlay_output_filepath, overlay_data, framedump_filepath)
     print("Done!")
