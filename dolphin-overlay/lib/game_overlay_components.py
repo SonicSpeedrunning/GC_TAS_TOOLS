@@ -1317,3 +1317,120 @@ class LayoutSelector(game_overlay.GameOverlayComponent):
                     ),
                     mask=component_img,
                 )
+
+
+class BlinkenlightComponent(game_overlay.GameOverlayComponent):
+    def __init__(
+        self,
+        variable: str,
+        center: types.Vec2,
+        size: int,
+        background_color_override: types.Color | None = None,
+        outline_width_override: int | None = None,
+        outline_color_override: types.Color | None = None,
+        bit_color_override: list[types.Color | None] = None,
+        bit_inactive_color_override: types.Color | None = None,
+        supersample_ratio_override: int | None = None,
+    ) -> None:
+        self._variable = variable
+        self._center = center
+        self._size = size
+        self._background_color_override = background_color_override
+        self._outline_width_override = outline_width_override
+        self._outline_color_override = outline_color_override
+        self._bit_color_override = bit_color_override
+        self._bit_inactive_color_override = bit_inactive_color_override
+        self._supersample_ratio_override = supersample_ratio_override
+
+        self.position = center
+        self.anchor = (size // 2, size // 2)
+        self.size = (size, size)
+
+    def apply_defaults(self, defaults: game_overlay.GameOverlayDefaults) -> None:
+        self._background_color = (
+            self._background_color_override or defaults.component_background_color
+        )
+        self._outline_width = (
+            self._outline_width_override
+            if self._outline_width_override is not None
+            else defaults.outline_width
+        )
+        self._outline_color = self._outline_color_override or defaults.outline_color
+
+        self._bit_color = self._bit_color_override or [defaults.positive_color] * 16
+        if len(self._bit_color) < 16:
+            self._bit_color.extend(defaults.positive_color * (16 - len(self._bit_color)))
+        self._bit_color = self._bit_color[:16]
+        self._bit_color = [x or defaults.positive_color for x in self._bit_color]
+
+        self._bit_inactive_color = self._bit_inactive_color_override or defaults.negative_color
+
+        self.supersample_ratio = (
+            self._supersample_ratio_override or defaults.supersample_ratio
+        )
+
+    def update(self, game_data: dict) -> None:
+        pass
+
+    def draw(self, image: Image.Image, game_data: dict) -> None:
+        draw = ImageDraw.Draw(image)
+
+        # draw box outline
+        draw.rectangle(
+            xy=(
+                0,
+                0,
+                self._size * self.supersample_ratio,
+                self._size * self.supersample_ratio,
+            ),
+            fill=self._background_color,
+            width=self._outline_width * self.supersample_ratio,
+            outline=self._outline_color,
+        )
+
+        # since the outline takes up some space, use this
+        # effective size and offset to make things even.
+        e_size = self._size - self._outline_width
+        offset = self._outline_width / 2
+
+        # draw grid
+        for i in range(3):
+            draw.line(
+                xy=(
+                    (e_size * (1 + i) / 4 + offset) * self.supersample_ratio,
+                    offset * self.supersample_ratio,
+                    (e_size * (1 + i) / 4 + offset) * self.supersample_ratio,
+                    (e_size + offset) * self.supersample_ratio,
+                ),
+                fill=self._outline_color,
+                width=self._outline_width * self.supersample_ratio,
+            )
+            draw.line(
+                xy=(
+                    offset * self.supersample_ratio,
+                    (e_size * (1 + i) / 4 + offset) * self.supersample_ratio,
+                    (e_size + offset) * self.supersample_ratio,
+                    (e_size * (1 + i) / 4 + offset) * self.supersample_ratio,
+                ),
+                fill=self._outline_color,
+                width=self._outline_width * self.supersample_ratio,
+            )
+
+        # draw blinkenlights
+        bitfield = int(game_data[self._variable])
+        for y in range(4):
+            for x in range(4):
+                bit_idx = (15 - (y * 4 + x))
+                bit = (bitfield >> bit_idx) & 0x01
+                if bit:
+                    blinkenlight_color = self._bit_color[bit_idx]
+                else:
+                    blinkenlight_color = self._bit_inactive_color
+                draw.circle(
+                    xy=(
+                        (e_size * (2 * x + 1) / 8 + offset) * self.supersample_ratio,
+                        (e_size * (2 * y + 1) / 8 + offset) * self.supersample_ratio,
+                    ),
+                    radius=e_size / 12 * self.supersample_ratio,
+                    fill=blinkenlight_color
+                )

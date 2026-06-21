@@ -337,6 +337,18 @@ OVERLAY = game_overlay.GameOverlay(
             center=(1200, 880),
             input_skin_name="TronStyleSA2B",
         ),
+        game_overlay_components.BlinkenlightComponent(
+            variable="StatusBitfield",
+            center=(350, 1010),
+            size=PLOT_SIZE * 2,
+            bit_color_override=[
+                (0,250,0), None, None, None,
+                None, None, None, None,
+                None, None, (240, 160, 0), None,
+                None, None, None, None,
+            ],
+            bit_inactive_color_override=(20,20,20),
+        ),
     ],
     resolution=(1920, 1080),
     game_feed_box=(480, 0, 1920, 1080),
