@@ -410,7 +410,7 @@ class Speed2DPlaneComponent(game_overlay.GameOverlayComponent):
                 self._size * self.supersample_ratio,
                 (self._size + int((x_var_value / self._max_value) * self._size))
                 * self.supersample_ratio,
-                (self._size + int((y_var_value / self._max_value) * self._size))
+                (self._size - int((y_var_value / self._max_value) * self._size))
                 * self.supersample_ratio,
             ),
             fill=self._line_color,

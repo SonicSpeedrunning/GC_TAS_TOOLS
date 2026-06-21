@@ -215,8 +215,8 @@ OVERLAY = game_overlay.GameOverlay(
             align="middle",
         ),
         game_overlay_components.Speed2DPlaneComponent(
-            x_variable="XSpd",
-            y_variable="ZSpd",
+            x_variable="ZSpd",
+            y_variable="XSpd",
             max_value=16.0,
             center=(350, 280),
             size=60,
