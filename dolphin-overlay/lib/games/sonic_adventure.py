@@ -227,7 +227,7 @@ OVERLAY = game_overlay.GameOverlay(
             position=(450, 160),
             align="middle",
         ),
-        game_overlay_components.SpeedDialComponentV2(
+        game_overlay_components.SpeedDialComponent(
             variable="YSpd",
             max_value=16.0,
             center=(450, 280),

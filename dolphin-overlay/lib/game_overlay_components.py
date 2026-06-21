@@ -832,9 +832,9 @@ class SpeedDialComponent(game_overlay.GameOverlayComponent):
             raise ValueError(f"Unknown orientation {self._orientation}")
 
         normalized = float(game_data.get(self._variable, 0)) / self._max_value
-        max_width = self._size[0] // 2 - self._outline_width
 
         if self._orientation == "horizontal":
+            max_width = self._size[0] // 2 - self._outline_width
             left = min(normalized, 0.0)
             right = max(normalized, 0.0)
             draw.rectangle(
@@ -847,6 +847,7 @@ class SpeedDialComponent(game_overlay.GameOverlayComponent):
                 fill=self._fill_color,
             )
         elif self._orientation == "vertical":
+            max_width = self._size[1] // 2 - self._outline_width
             bottom = min(normalized, 0.0)
             top = max(normalized, 0.0)
             draw.rectangle(
