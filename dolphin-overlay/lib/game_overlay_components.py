@@ -606,6 +606,111 @@ class GravityTiltComponent(game_overlay.GameOverlayComponent):
         )
 
 
+class GravityTiltGaugeComponent(game_overlay.GameOverlayComponent):
+    def __init__(
+        self,
+        x_rot_var: str,
+        y_rot_var: str,
+        z_rot_var: str,
+        center: types.Vec2,
+        size: int,
+        background_color_override: types.Color | None = None,
+        line_color_override: types.Color | None = None,
+        outline_width_override: int | None = None,
+        outline_color_override: types.Color | None = None,
+        supersample_ratio_override: int | None = None,
+    ) -> None:
+        super().__init__()
+        self._x_rot_var = x_rot_var
+        self._y_rot_var = y_rot_var
+        self._z_rot_var = z_rot_var
+        self._center = center
+        self._size = size
+        self._line_color_override = line_color_override
+        self._background_color_override = background_color_override
+        self._outline_width_override = outline_width_override
+        self._outline_color_override = outline_color_override
+        self._supersample_ratio_override = supersample_ratio_override
+
+        self.position = center
+        self.anchor = (size, size)
+        self.size = (size * 2, size * 2)
+
+    def apply_defaults(self, defaults: game_overlay.GameOverlayDefaults) -> None:
+        self._line_color = self._line_color_override or defaults.main_line_color
+
+        self._background_color = self._background_color_override or defaults.component_background_color
+        self._outline_width = (
+            self._outline_width_override
+            if self._outline_width_override is not None
+            else defaults.outline_width
+        )
+        self._outline_color = self._outline_color_override or defaults.outline_color
+
+        self.supersample_ratio = (
+            self._supersample_ratio_override or defaults.supersample_ratio
+        )
+
+    def update(self, game_data: dict) -> None:
+        pass
+
+    def draw(self, image: Image.Image, game_data: dict) -> None:
+        draw = ImageDraw.Draw(image)
+        x_var_value = int(game_data.get(self._x_rot_var, 0))
+        y_var_value = int(game_data.get(self._y_rot_var, 0))
+        z_var_value = int(game_data.get(self._z_rot_var, 0))
+
+        # generate a rotation from the incoming bcd values
+        rot = math_utils.Rotation.from_bcd(x_var_value, y_var_value, z_var_value)
+
+        # make a global down vector and rotate it by our rotation to get our local down
+        global_down = math_utils.Vector(0, -1, 0)
+        local_down = global_down.rotate(rot)
+
+        # find the angle of the tilt using local_down.y
+        tilt_angle = math.asin(local_down.y) * 360 / math.tau
+
+        # draw background
+        draw.pieslice(
+            xy=(
+                0,
+                0,
+                2 * self._size * self.supersample_ratio,
+                2 * self._size * self.supersample_ratio,
+            ),
+            start=-90,
+            end=90,
+            fill=self._background_color
+        )
+
+        # draw gague value
+        draw.pieslice(
+            xy=(
+                self._outline_width * self.supersample_ratio,
+                self._outline_width * self.supersample_ratio,
+                (self._size * 2 - self._outline_width) * self.supersample_ratio,
+                (self._size * 2 - self._outline_width) * self.supersample_ratio,
+            ),
+            start=-tilt_angle,
+            end=90,
+            fill=self._line_color,
+        )
+
+        # draw outline
+        draw.pieslice(
+            xy=(
+                0,
+                0,
+                2 * self._size * self.supersample_ratio,
+                2 * self._size * self.supersample_ratio,
+            ),
+            start=-90,
+            end=90,
+            outline=self._outline_color,
+            width=self._outline_width * self.supersample_ratio,
+        )
+
+
 class GravityAngleAltitudeIndicator(game_overlay.GameOverlayComponent):
     def __init__(
         self,

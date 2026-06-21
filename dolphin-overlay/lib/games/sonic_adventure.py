@@ -298,14 +298,12 @@ OVERLAY = game_overlay.GameOverlay(
             position=(350, 650),
             align="middle",
         ),
-        game_overlay_components.GravityTiltComponent(
+        game_overlay_components.GravityTiltGaugeComponent(
             x_rot_var="XRot",
             y_rot_var="YRot",
             z_rot_var="ZRot",
             center=(350, 730),
             size=PLOT_SIZE,
-            draw_axes=False,
-            method="vector",
         ),
         game_overlay_components.TextComponent(
             text_fn=lambda _: "Facing",
