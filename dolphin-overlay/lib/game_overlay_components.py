@@ -418,6 +418,89 @@ class Speed2DPlaneComponent(game_overlay.GameOverlayComponent):
         )
 
 
+class GravityAngleComponent(game_overlay.GameOverlayComponent):
+    def __init__(
+        self,
+        x_rot_var: str,
+        y_rot_var: str,
+        z_rot_var: str,
+        center: types.Vec2,
+        size: int,
+        draw_axes: bool,
+        background_color_override: types.Color | None = None,
+        line_width_override: int | None = None,
+        line_color_override: types.Color | None = None,
+        outline_width_override: int | None = None,
+        outline_color_override: types.Color | None = None,
+        supersample_ratio_override: int | None = None,
+    ) -> None:
+        super().__init__()
+        self._background = CircularPlotBackgroundComponent(
+            center=center,
+            radius=size,
+            draw_axes=draw_axes,
+            background_color_override=background_color_override,
+            outline_width_override=outline_width_override,
+            outline_color_override=outline_color_override,
+            supersample_ratio_override=supersample_ratio_override,
+        )
+        self._x_rot_var = x_rot_var
+        self._y_rot_var = y_rot_var
+        self._z_rot_var = z_rot_var
+        self._center = center
+        self._size = size
+        self._line_width_override = line_width_override
+        self._line_color_override = line_color_override
+        self._supersample_ratio_override = supersample_ratio_override
+
+        self.position = center
+        self.anchor = (size, size)
+        self.size = (size * 2, size * 2)
+
+    def apply_defaults(self, defaults: game_overlay.GameOverlayDefaults) -> None:
+        self._background.apply_defaults(defaults)
+        self._line_width = self._line_width_override or defaults.main_line_width
+        self._line_color = self._line_color_override or defaults.main_line_color
+        self.supersample_ratio = (
+            self._supersample_ratio_override or defaults.supersample_ratio
+        )
+
+    def update(self, game_data: dict) -> None:
+        pass
+
+    def draw(self, image: Image.Image, game_data: dict) -> None:
+        self._background.draw(image, game_data)
+
+        draw = ImageDraw.Draw(image)
+        x_var_value = int(game_data.get(self._x_rot_var, 0))
+        y_var_value = int(game_data.get(self._y_rot_var, 0))
+        z_var_value = int(game_data.get(self._z_rot_var, 0))
+
+        # generate a rotation from the incoming bcd values
+        rot = math_utils.Rotation.from_bcd(x_var_value, y_var_value, z_var_value)
+
+        # make a global down vector and rotate it by our rotation to get our local down
+        global_down = math_utils.Vector(0, -1, 0)
+        local_down = global_down.rotate(rot)
+
+        gravity_angle_length = math.sqrt(local_down.x**2 + local_down.z**2)
+        if gravity_angle_length > 0:
+            gravity_angle = (
+                local_down.x / gravity_angle_length,
+                local_down.z / gravity_angle_length,
+            )
+            draw.line(
+                (
+                    self._size * self.supersample_ratio,
+                    self._size * self.supersample_ratio,
+                    self._size * (1 + gravity_angle[1]) * self.supersample_ratio,
+                    self._size * (1 - gravity_angle[0]) * self.supersample_ratio,
+                ),
+                fill=self._line_color,
+                width=self._line_width * self.supersample_ratio,
+            )
+
+
 class GravityTiltComponent(game_overlay.GameOverlayComponent):
     def __init__(
         self,

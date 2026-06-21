@@ -281,11 +281,18 @@ OVERLAY = game_overlay.GameOverlay(
             position=(30, 600),
         ),
         game_overlay_components.TextComponent(
-            text_fn=lambda _: "Gravity Vector",
+            text_fn=lambda _: "Gravity Angle",
             position=(150, 650),
             align="middle",
         ),
-        # TODO: Gravity direction
+        game_overlay_components.GravityAngleComponent(
+            x_rot_var="XRot",
+            y_rot_var="YRot",
+            z_rot_var="ZRot",
+            center=(150, 730),
+            size=PLOT_SIZE,
+            draw_axes=False,
+        ),
         game_overlay_components.TextComponent(
             text_fn=lambda _: "Gravity Tilt",
             position=(350, 650),
