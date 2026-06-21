@@ -12,6 +12,27 @@ from PIL import Image, ImageDraw, ImageText, ImageFont
 from . import constants, game_overlay, math_utils, types
 
 
+def _load_font(font_name: str | list[str], font_size: int) -> ImageFont.FreeTypeFont:
+    font_names = font_name
+    if isinstance(font_names, str):
+        font_names = [font_names]
+    font_dirs_to_try = [constants.PROJECT_ROOT / "data" / "fonts"]
+    if platform.system() == "Windows":
+        font_dirs_to_try.append(Path(os.environ["WINDIR"]) / "Fonts")
+        font_dirs_to_try.append(
+            Path(os.environ["LOCALAPPDATA"]) / "Microsoft" / "Windows" / "Fonts"
+        )
+    elif platform.system() == "Linux":
+        font_dirs_to_try.append(Path(os.environ["HOME"]) / ".local" / "share" / "fonts")
+
+    for font_name in font_names:
+        for font_dir_to_try in font_dirs_to_try:
+            font_file = font_dir_to_try / font_name
+            if font_file.exists():
+                return ImageFont.truetype(font_file, font_size)
+    raise ValueError("Font not found:", font_names)
+
+
 class TextComponent(game_overlay.GameOverlayComponent):
     def __init__(
         self,
@@ -43,9 +64,7 @@ class TextComponent(game_overlay.GameOverlayComponent):
         self.supersample_ratio = 1
 
     def apply_defaults(self, defaults: game_overlay.GameOverlayDefaults) -> None:
-        font_names = self._font_name_override or defaults.font_name
-        if isinstance(font_names, str):
-            font_names = [font_names]
+        font_name = self._font_name_override or defaults.font_name
         font_size = self._font_size_override or defaults.font_size
         self._font_color = self._font_color_override or defaults.font_color
         self._font_stroke_width = (
@@ -59,29 +78,7 @@ class TextComponent(game_overlay.GameOverlayComponent):
         self._font_monospace_gap = (
             self._font_monospace_gap_override or defaults.font_monospace_gap
         )
-        font_dirs_to_try = [constants.PROJECT_ROOT / "data" / "fonts"]
-        if platform.system() == "Windows":
-            font_dirs_to_try.append(Path(os.environ["WINDIR"]) / "Fonts")
-            font_dirs_to_try.append(
-                Path(os.environ["LOCALAPPDATA"]) / "Microsoft" / "Windows" / "Fonts"
-            )
-        elif platform.system() == "Linux":
-            font_dirs_to_try.append(
-                Path(os.environ["HOME"]) / ".local" / "share" / "fonts"
-            )
-
-        font_found = False
-        for font_name in font_names:
-            for font_dir_to_try in font_dirs_to_try:
-                font_file = font_dir_to_try / font_name
-                if font_file.exists():
-                    font_found = True
-                    self._font = ImageFont.truetype(font_file, font_size)
-                    break
-            if font_found:
-                break
-        if not font_found:
-            raise ValueError("Font not found:", font_names)
+        self._font = _load_font(font_name, font_size)
 
     def update(self, game_data: dict) -> None:
         self._text = self._text_fn(game_data)
@@ -185,8 +182,12 @@ class StaticImageComponent(game_overlay.GameOverlayComponent):
 
 
 class Plane2DBackgroundComponent(game_overlay.GameOverlayComponent):
-    # TODO: also draw grid
     # TODO: support some sort of log scale
+    positive_x_label_position = (0.75, -0.1)
+    positive_y_label_position = (-0.2, -0.85)
+    negative_x_label_position = (-0.82, 0.12)
+    negative_y_label_position = (0.15, 0.85)
+
     def __init__(
         self,
         center: types.Vec2,
@@ -195,6 +196,13 @@ class Plane2DBackgroundComponent(game_overlay.GameOverlayComponent):
         background_color_override: types.Color | None = None,
         outline_width_override: int | None = None,
         outline_color_override: types.Color | None = None,
+        positive_x_label: str | None = None,
+        positive_y_label: str | None = None,
+        negative_x_label: str | None = None,
+        negative_y_label: str | None = None,
+        axis_label_font_name_override: str | list[str] | None = None,
+        axis_label_font_size_override: int | None = None,
+        axis_label_font_color_override: types.Color | None = None,
         supersample_ratio_override: int | None = None,
     ) -> None:
         super().__init__()
@@ -205,6 +213,13 @@ class Plane2DBackgroundComponent(game_overlay.GameOverlayComponent):
         self._outline_width_override = outline_width_override
         self._outline_color_override = outline_color_override
         self._supersample_ratio_override = supersample_ratio_override
+        self._positive_x_label = positive_x_label
+        self._positive_y_label = positive_y_label
+        self._negative_x_label = negative_x_label
+        self._negative_y_label = negative_y_label
+        self._axis_label_font_name_override = axis_label_font_name_override
+        self._axis_label_font_size_override = axis_label_font_size_override
+        self._axis_label_font_color_override = axis_label_font_color_override
 
         self.position = center
         self.anchor = (size, size)
@@ -220,9 +235,19 @@ class Plane2DBackgroundComponent(game_overlay.GameOverlayComponent):
             else defaults.outline_width
         )
         self._outline_color = self._outline_color_override or defaults.outline_color
+        self._axis_label_font_color = (
+            self._axis_label_font_color_override or defaults.axis_label_font_color
+        )
         self.supersample_ratio = (
             self._supersample_ratio_override or defaults.supersample_ratio
         )
+        axis_label_font_name = (
+            self._axis_label_font_name_override or defaults.axis_label_font_name
+        )
+        axis_label_font_size = (
+            self._axis_label_font_size_override or defaults.axis_label_font_size
+        ) * self.supersample_ratio
+        self._axis_label_font = _load_font(axis_label_font_name, axis_label_font_size)
 
     def update(self, game_data: dict) -> None:
         pass
@@ -261,6 +286,26 @@ class Plane2DBackgroundComponent(game_overlay.GameOverlayComponent):
                 fill=self._outline_color,
                 width=self._outline_width * self.supersample_ratio,
             )
+        axis_labels = [
+            (self._positive_x_label, self.positive_x_label_position),
+            (self._positive_y_label, self.positive_y_label_position),
+            (self._negative_x_label, self.negative_x_label_position),
+            (self._negative_y_label, self.negative_y_label_position),
+        ]
+        for label_text, label_position in axis_labels:
+            if label_text is not None:
+                text_position = (
+                    (self._size + label_position[0] * self._size)
+                    * self.supersample_ratio,
+                    (self._size + label_position[1] * self._size)
+                    * self.supersample_ratio,
+                )
+                draw.text(
+                    xy=text_position,
+                    text=label_text,
+                    font=self._axis_label_font,
+                    anchor="mm",
+                )
 
 
 class CircularPlotBackgroundComponent(game_overlay.GameOverlayComponent):
@@ -363,6 +408,13 @@ class Speed2DPlaneComponent(game_overlay.GameOverlayComponent):
         line_color_override: types.Color | None = None,
         outline_width_override: int | None = None,
         outline_color_override: types.Color | None = None,
+        positive_x_label: str | None = None,
+        positive_y_label: str | None = None,
+        negative_x_label: str | None = None,
+        negative_y_label: str | None = None,
+        axis_label_font_name_override: str | list[str] | None = None,
+        axis_label_font_size_override: int | None = None,
+        axis_label_font_color_override: types.Color | None = None,
         supersample_ratio_override: int | None = None,
     ) -> None:
         self._background = Plane2DBackgroundComponent(
@@ -372,6 +424,13 @@ class Speed2DPlaneComponent(game_overlay.GameOverlayComponent):
             background_color_override=background_color_override,
             outline_width_override=outline_width_override,
             outline_color_override=outline_color_override,
+            positive_x_label=positive_x_label,
+            positive_y_label=positive_y_label,
+            negative_x_label=negative_x_label,
+            negative_y_label=negative_y_label,
+            axis_label_font_name_override=axis_label_font_name_override,
+            axis_label_font_size_override=axis_label_font_size_override,
+            axis_label_font_color_override=axis_label_font_color_override,
             supersample_ratio_override=supersample_ratio_override,
         )
         self._x_variable = x_variable

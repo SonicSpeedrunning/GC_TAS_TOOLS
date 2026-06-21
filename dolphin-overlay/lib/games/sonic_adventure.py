@@ -109,6 +109,9 @@ OVERLAY = game_overlay.GameOverlay(
         outline_color=WHITE,
         positive_color=RED,
         negative_color=BLUE,
+        axis_label_font_name=["ArialBI.ttf", "Arimo-BoldItalic.ttf"],
+        axis_label_font_color=WHITE,
+        axis_label_font_size=10,
         supersample_ratio=4,
     ),
     components=[
@@ -220,6 +223,10 @@ OVERLAY = game_overlay.GameOverlay(
             max_value=16.0,
             center=(350, 280),
             size=60,
+            positive_x_label="+16",
+            positive_y_label="+16",
+            negative_x_label="-Z",
+            negative_y_label="-X",
             draw_axes=True,
         ),
         game_overlay_components.TextComponent(

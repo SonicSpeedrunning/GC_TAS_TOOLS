@@ -38,6 +38,9 @@ class GameOverlayDefaults:
     outline_color: types.Color
     positive_color: types.Color
     negative_color: types.Color
+    axis_label_font_name: str | list[str]
+    axis_label_font_size: int
+    axis_label_font_color: types.Color
     supersample_ratio: int
 
 
