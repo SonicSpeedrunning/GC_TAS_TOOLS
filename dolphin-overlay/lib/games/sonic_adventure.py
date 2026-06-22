@@ -19,6 +19,16 @@ SMALL_NUMBERS_CONFIG = {
 }
 
 
+SMALL_NUMBERS_MONO_CONFIG = {
+    "monospace": True,
+    "font_monospace_gap_override": 8,
+    "font_name_override": ["ArialBI.ttf", "Arimo-BoldItalic.ttf"],
+    "font_size_override": 14,
+    "font_color_override": WHITE,
+    "font_stroke_width_override": 0,
+}
+
+
 def _character_select(game_data: dict) -> str | None:
     game_state = int(game_data["GameState"])
     character = int(game_data["CurrentCharacter"])
@@ -74,6 +84,13 @@ def _frames_to_timer(frames_count: int) -> tuple[int, int, int]:
     )
 
 
+def _kart_drift_angle_to_bam(angle: int) -> int:
+    angle %= 0x10000
+    if angle > 0x7fff:
+        angle -= 0x10000
+    return angle
+
+
 def augment_game_data(game_data: game_overlay.GameOverlayData):
     for i in range(len(game_data.data)):
         item = game_data.data[i]
@@ -101,6 +118,10 @@ def augment_game_data(game_data: game_overlay.GameOverlayData):
                 int(prev_item["RNGState"]), int(item["RNGState"])
             )
             item["RNGCalls"] = item["RNGDeltaCalls"] + prev_item["RNGCalls"]
+
+        item["KartDriftNeg"] = str(-int(item["KartDrift"]))
+        item["KartZSpdNeg"] = str(-float(item["KartZSpd"]))
+        item["KartHSpd"] = str(math.sqrt(float(item["KartZSpd"])**2 + float(item["KartXSpd"])**2))
 
 
 NON_KART_COMPONENTS = [
@@ -442,6 +463,207 @@ NON_KART_COMPONENTS = [
 
 
 KART_COMPONENTS = [
+    # Background
+    game_overlay_components.StaticImageComponent(
+        image_filename="rouge.png",
+        position=(0, 0),
+        size=(480, 1080),
+    ),
+    # LRT timer
+    game_overlay_components.TextComponent(
+        text_fn=lambda _: "Time (LRT):",
+        position=(30, 50),
+    ),
+    game_overlay_components.TextComponent(
+        text_fn=lambda game_data: (
+            f"{int(game_data.get('LRTMin', '0')):02d}:{int(game_data.get('LRTSec', '0')):02d}:{int(game_data.get('LRTCenti', '0')):02d}"
+        ),
+        position=(200, 50),
+        monospace=True,
+    ),
+    # Local Speed
+    game_overlay_components.TextComponent(
+        text_fn=lambda _: "H Speed",
+        position=(150, 160),
+        align="middle",
+    ),
+    game_overlay_components.SpeedDialComponentV2(
+        variable="KartHSpd",
+        max_value=20.0,
+        center=(150, 260),
+        size=(180, 30),
+    ),
+    game_overlay_components.TextComponent(
+        text_fn=lambda _: "H:",
+        position=(140, 285),
+        align="right",
+        **SMALL_NUMBERS_CONFIG,
+    ),
+    game_overlay_components.TextComponent(
+        text_fn=lambda game_data: f"{float(game_data.get('KartHSpd', 0.0)):8.4f}",
+        position=(170, 285),
+        align="middle",
+        **SMALL_NUMBERS_CONFIG,
+    ),
+    # Global Speed
+    game_overlay_components.TextComponent(
+        text_fn=lambda _: "Global",
+        position=(350, 160),
+        align="middle",
+    ),
+    game_overlay_components.Speed2DPlaneComponent(
+        x_variable="KartXSpd",
+        y_variable="KartZSpdNeg",
+        max_value=20.0,
+        center=(350, 260),
+        size=60,
+        line_width_override=5,
+        positive_x_label="+20",
+        positive_y_label="-20",
+        negative_x_label="-X",
+        negative_y_label="+Z",
+        draw_axes=True,
+    ),
+    game_overlay_components.TextComponent(
+        text_fn=lambda _: "Y",
+        position=(450, 160),
+        align="middle",
+    ),
+    game_overlay_components.SpeedDialComponent(
+        variable="KartYSpd",
+        max_value=16.0,
+        center=(450, 260),
+        size=(30, 120),
+        orientation="vertical",
+    ),
+    game_overlay_components.TextComponent(
+        text_fn=lambda _: "X:",
+        position=(330, 330),
+        align="right",
+        **SMALL_NUMBERS_CONFIG,
+    ),
+    game_overlay_components.TextComponent(
+        text_fn=lambda game_data: f"{float(game_data.get('KartXSpd', 0.0)):8.4f}",
+        position=(360, 330),
+        align="middle",
+        **SMALL_NUMBERS_CONFIG,
+    ),
+    game_overlay_components.TextComponent(
+        text_fn=lambda _: "Y:",
+        position=(330, 345),
+        align="right",
+        **SMALL_NUMBERS_CONFIG,
+    ),
+    game_overlay_components.TextComponent(
+        text_fn=lambda game_data: f"{float(game_data.get('KartYSpd', 0.0)):8.4f}",
+        position=(360, 345),
+        align="middle",
+        **SMALL_NUMBERS_CONFIG,
+    ),
+    game_overlay_components.TextComponent(
+        text_fn=lambda _: "Z:",
+        position=(330, 360),
+        align="right",
+        **SMALL_NUMBERS_CONFIG,
+    ),
+    game_overlay_components.TextComponent(
+        text_fn=lambda game_data: f"{float(game_data.get('KartZSpd', 0.0)):8.4f}",
+        position=(360, 360),
+        align="middle",
+        **SMALL_NUMBERS_CONFIG,
+    ),
+    # Position
+    game_overlay_components.TextComponent(
+        text_fn=lambda _: "Position",
+        position=(150, 420),
+        align="middle",
+    ),
+    game_overlay_components.TextComponent(
+        text_fn=lambda _: "X:",
+        position=(30, 470),
+        font_size_override=24,
+    ),
+    game_overlay_components.TextComponent(
+        text_fn=lambda _: "Y:",
+        position=(30, 500),
+        font_size_override=24,
+    ),
+    game_overlay_components.TextComponent(
+        text_fn=lambda _: "Z:",
+        position=(30, 530),
+        font_size_override=24,
+    ),
+    game_overlay_components.TextComponent(
+        text_fn=lambda game_data: f"{float(game_data.get('XPos', 0.0)):11.4f}",
+        position=(60, 470),
+        monospace=True,
+        font_size_override=24,
+        font_monospace_gap_override=16,
+    ),
+    game_overlay_components.TextComponent(
+        text_fn=lambda game_data: f"{float(game_data.get('YPos', 0.0)):11.4f}",
+        position=(60, 500),
+        monospace=True,
+        font_size_override=24,
+        font_monospace_gap_override=16,
+    ),
+    game_overlay_components.TextComponent(
+        text_fn=lambda game_data: f"{float(game_data.get('ZPos', 0.0)):11.4f}",
+        position=(60, 530),
+        monospace=True,
+        font_size_override=24,
+        font_monospace_gap_override=16,
+    ),
+    # Drift Angle
+    game_overlay_components.TextComponent(
+        text_fn=lambda _: "Drift Angle",
+        position=(380, 420),
+        align="middle",
+    ),
+    game_overlay_components.AngleDirectionComponent(
+        variable="KartDriftNeg",
+        center=(380, 500),
+        size=PLOT_SIZE,
+        draw_axes=False,
+    ),
+    game_overlay_components.TextComponent(
+        text_fn=lambda _: "Drift Angle:",
+        position=(385, 565),
+        align="right",
+        **SMALL_NUMBERS_CONFIG,
+    ),
+    game_overlay_components.TextComponent(
+        text_fn=lambda game_data: f"{_kart_drift_angle_to_bam(int(game_data.get('KartDrift', 0))):+#07x}",
+        position=(415, 565),
+        align="middle",
+        **SMALL_NUMBERS_MONO_CONFIG,
+    ),
+    # Extras
+    game_overlay_components.TextComponent(
+        text_fn=lambda game_data: f"Action: {game_data['KartState']}",
+        position=(30, 850),
+        font_size_override=20,
+    ),
+    game_overlay_components.TextComponent(
+        text_fn=lambda game_data: f"Checkpoint: {game_data['KartCheckpoint']}",
+        position=(30, 880),
+        font_size_override=20,
+    ),
+    game_overlay_components.TextComponent(
+        text_fn=lambda game_data: f"BoostPoints: {game_data['KartBoostPoints']}",
+        position=(30, 910),
+        font_size_override=20,
+    ),
+    game_overlay_components.TextComponent(
+        text_fn=lambda game_data: f"BoostTimer: {game_data['KartBoostTimer']}",
+        position=(30, 940),
+        font_size_override=20,
+    ),
+    game_overlay_components.TextComponent(
+        text_fn=lambda game_data: f"AirTime: {game_data['KartAirTime']}",
+        position=(30, 970),
+        font_size_override=20,
+    ),
 ]
 
 
