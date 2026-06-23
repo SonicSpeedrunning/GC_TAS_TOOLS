@@ -83,13 +83,12 @@ class GameOverlay:
             if component.supersample_ratio == 1:
                 component_img = Image.new("RGBA", component.size, color=(0, 0, 0, 0))
                 component.draw(component_img, game_data)
-                overlay_img.paste(
+                overlay_img.alpha_composite(
                     component_img,
                     (
                         component.position[0] - component.anchor[0],
                         component.position[1] - component.anchor[1],
                     ),
-                    mask=component_img,
                 )
             else:
                 component_resolution = (
@@ -101,13 +100,12 @@ class GameOverlay:
                 )
                 component.draw(component_img, game_data)
                 component_img = component_img.resize(component.size)
-                overlay_img.paste(
+                overlay_img.alpha_composite(
                     component_img,
                     (
                         component.position[0] - component.anchor[0],
                         component.position[1] - component.anchor[1],
                     ),
-                    mask=component_img,
                 )
 
     def _draw_composite_image(
