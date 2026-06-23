@@ -1,7 +1,7 @@
 __pycache__
 .env
-input/*.mp4
-input/*.avi
-input/*.csv
+input/**/*.mp4
+input/**/*.avi
+input/**/*.csv
 output/*.mp4
 output/*.png
