@@ -443,10 +443,6 @@ NON_KART_COMPONENTS = [
         position=(150, 940),
         font_size_override=20,
     ),
-    game_overlay_components.InputViewerComponent(
-        center=(1200, 950),
-        input_skin_name="TronStyleSA2B",
-    ),
     game_overlay_components.BlinkenlightComponent(
         variable="StatusBitfield",
         center=(350, 1010),
@@ -704,6 +700,10 @@ OVERLAY = game_overlay.GameOverlay(
                 "kart": KART_COMPONENTS,
             },
             selector=_kart_select,
+        ),
+        game_overlay_components.InputViewerComponent(
+            center=(1200, 950),
+            input_skin_name="TronStyleSA2B",
         ),
     ],
     resolution=(1920, 1080),
