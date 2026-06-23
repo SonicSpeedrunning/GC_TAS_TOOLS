@@ -484,24 +484,32 @@ KART_COMPONENTS = [
     # Local Speed
     game_overlay_components.TextComponent(
         text_fn=lambda _: "H Speed",
-        position=(150, 160),
+        position=(150, 125),
         align="middle",
     ),
-    game_overlay_components.SpeedDialComponentV2(
+    #game_overlay_components.SpeedDialComponentV2(
+    #    variable="KartHSpd",
+    #    max_value=20.0,
+    #    center=(150, 260),
+    #    size=(180, 30),
+    #),
+    game_overlay_components.SpeedometerComponent(
         variable="KartHSpd",
         max_value=20.0,
+        boost_variable="KartBoostTimer",
         center=(150, 260),
-        size=(180, 30),
+        background_image_path="speed.png",
+        arrow_image_path="arrow.png",
     ),
     game_overlay_components.TextComponent(
         text_fn=lambda _: "H:",
-        position=(140, 285),
+        position=(125, 310),
         align="right",
         **SMALL_NUMBERS_CONFIG,
     ),
     game_overlay_components.TextComponent(
         text_fn=lambda game_data: f"{float(game_data.get('KartHSpd', 0.0)):8.4f}",
-        position=(170, 285),
+        position=(155, 310),
         align="middle",
         **SMALL_NUMBERS_CONFIG,
     ),

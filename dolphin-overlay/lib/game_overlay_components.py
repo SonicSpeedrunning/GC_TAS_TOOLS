@@ -1680,3 +1680,50 @@ class BlinkenlightComponent(game_overlay.GameOverlayComponent):
                     radius=e_size / 12 * self.supersample_ratio,
                     fill=blinkenlight_color
                 )
+
+
+class SpeedometerComponent(game_overlay.GameOverlayComponent):
+    def __init__(
+        self,
+        variable: str,
+        max_value: float,
+        boost_variable: str,
+        center: types.Vec2,
+        background_image_path: str,
+        arrow_image_path: str,
+    ) -> None:
+        self._variable = variable
+        self._max_value = max_value
+        self._boost_variable = boost_variable
+        self._center = center
+
+        self._background_image = Image.open(
+            constants.PROJECT_ROOT / "data" / "images" / background_image_path,
+            "r"
+        )
+        self._arrow_image = Image.open(
+            constants.PROJECT_ROOT / "data" / "images" / arrow_image_path,
+            "r"
+        )
+
+        size = self._background_image.size
+
+        self.position = center
+        self.anchor = (size[0] // 2, size[0] // 2)
+        self.size = size
+        self.supersample_ratio = 1
+
+    def apply_defaults(self, defaults: game_overlay.GameOverlayDefaults) -> None:
+        pass
+
+    def update(self, game_data: dict) -> None:
+        pass
+
+    def draw(self, image: Image.Image, game_data: dict) -> None:
+        draw = ImageDraw.Draw(image)
+
+        # calculate arrow rotation value
+        arrow_rot = 112.71 - float(game_data[self._variable]) / self._max_value * 112.71 * 2
+
+        image.alpha_composite(self._background_image)
+        image.alpha_composite(self._arrow_image.rotate(arrow_rot, Image.Resampling.BILINEAR))
