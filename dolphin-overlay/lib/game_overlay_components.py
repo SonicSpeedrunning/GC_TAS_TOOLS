@@ -1406,6 +1406,12 @@ class InputViewerComponent(game_overlay.GameOverlayComponent):
 
         controller_data = self._extract_controller_data(game_data)
 
+        # NOTE: hotfix so DRight inputs show as stick inputs
+        if controller_data["buttons"]["DRight"]:
+            controller_data["analog_sticks"]["Main"]["X"] = 1
+            controller_data["analog_sticks"]["Main"]["Y"] = 0
+            controller_data["buttons"]["DRight"] = 0
+
         # Draw buttons
         for but_name, but_value in controller_data["buttons"].items():
             if but_value:
@@ -1468,7 +1474,6 @@ class InputViewerComponent(game_overlay.GameOverlayComponent):
                 continue
             shoulder = self._input_skin.shoulders[shoulder_name]
             match shoulder.direction:
-                # TODO: no idea if this is actually working
                 case "right":
                     image_draw.rectangle(
                         xy=(
