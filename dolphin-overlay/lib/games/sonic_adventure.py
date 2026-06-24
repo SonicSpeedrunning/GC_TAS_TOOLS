@@ -145,13 +145,17 @@ NON_KART_COMPONENTS = [
                     size=(480, 1080),
                 ),
                 game_overlay_components.TextComponent(
-                    text_fn=lambda game_data: f"Ongoing Missiles: {game_data['NumberOngoingMissiles']}",
-                    position=(30, 910),
+                    text_fn=lambda game_data: (
+                        f"Ongoing Missiles: {game_data['NumberOngoingMissiles']}"
+                    ),
+                    position=(30, 950),
                     font_size_override=20,
                 ),
                 game_overlay_components.TextComponent(
-                    text_fn=lambda game_data: f"Cannon Cooldown: {game_data['CannonShotCooldown']}",
-                    position=(30, 940),
+                    text_fn=lambda game_data: (
+                        f"Cannon Cooldown: {game_data['CannonShotCooldown']}"
+                    ),
+                    position=(30, 980),
                     font_size_override=20,
                 ),
             ],
@@ -162,13 +166,17 @@ NON_KART_COMPONENTS = [
                     size=(480, 1080),
                 ),
                 game_overlay_components.TextComponent(
-                    text_fn=lambda game_data: f"Spindash Charge: {game_data['SpindashCharge']}",
-                    position=(30, 910),
+                    text_fn=lambda game_data: (
+                        f"Spindash Charge: {game_data['SpindashCharge']}"
+                    ),
+                    position=(30, 950),
                     font_size_override=20,
                 ),
                 game_overlay_components.TextComponent(
-                    text_fn=lambda game_data: f"Stored Speed: {game_data['StSpd']:8.4f}",
-                    position=(30, 940),
+                    text_fn=lambda game_data: (
+                        f"Stored Speed: {game_data['StSpd']:8.4f}"
+                    ),
+                    position=(30, 980),
                     font_size_override=20,
                 ),
             ],
@@ -179,13 +187,17 @@ NON_KART_COMPONENTS = [
                     size=(480, 1080),
                 ),
                 game_overlay_components.TextComponent(
-                    text_fn=lambda game_data: f"Total RNG Calls: {game_data['RNGCalls']}",
-                    position=(30, 910),
+                    text_fn=lambda game_data: (
+                        f"Total RNG Calls: {game_data['RNGCalls']}"
+                    ),
+                    position=(30, 950),
                     font_size_override=20,
                 ),
                 game_overlay_components.TextComponent(
-                    text_fn=lambda game_data: f"RNG Calls per Frame: {game_data['RNGDeltaCalls']}",
-                    position=(30, 940),
+                    text_fn=lambda game_data: (
+                        f"RNG Calls per Frame: {game_data['RNGDeltaCalls']}"
+                    ),
+                    position=(30, 980),
                     font_size_override=20,
                 ),
             ],
@@ -408,9 +420,9 @@ NON_KART_COMPONENTS = [
         text_fn=lambda game_data: _signed_hex_format(
             _unsigned_angle_to_bam(int(game_data.get("YRot", 0)))
         ),
-        position=(432, 565),
+        position=(437, 565),
         align="right",
-        **SMALL_NUMBERS_CONFIG,
+        **SMALL_NUMBERS_MONO_CONFIG,
     ),
     # Rotation section
     game_overlay_components.TextComponent(
@@ -436,9 +448,9 @@ NON_KART_COMPONENTS = [
         text_fn=lambda game_data: _signed_hex_format(
             _unsigned_angle_to_bam(int(game_data.get("XRot", 0)))
         ),
-        position=(202, 765),
+        position=(207, 765),
         align="right",
-        **SMALL_NUMBERS_CONFIG,
+        **SMALL_NUMBERS_MONO_CONFIG,
     ),
     game_overlay_components.TextComponent(
         text_fn=lambda _: "ZRot:",
@@ -450,9 +462,9 @@ NON_KART_COMPONENTS = [
         text_fn=lambda game_data: _signed_hex_format(
             _unsigned_angle_to_bam(int(game_data.get("ZRot", 0)))
         ),
-        position=(202, 780),
+        position=(207, 780),
         align="right",
-        **SMALL_NUMBERS_CONFIG,
+        **SMALL_NUMBERS_MONO_CONFIG,
     ),
     game_overlay_components.TextComponent(
         text_fn=lambda _: "Gravity Tilt",
@@ -469,16 +481,21 @@ NON_KART_COMPONENTS = [
     game_overlay_components.TextComponent(
         text_fn=lambda game_data: f"Action: {game_data['Action']}",
         position=(30, 850),
-        font_size_override=20,
+        font_size_override=28,
     ),
     game_overlay_components.TextComponent(
         text_fn=lambda game_data: f"Hover: {game_data['Hover']}",
-        position=(30, 880),
-        font_size_override=20,
+        position=(30, 890),
+        font_size_override=28,
+    ),
+    game_overlay_components.TextComponent(
+        text_fn=lambda _: "Bitfield",
+        position=(380, 855),
+        align="middle",
     ),
     game_overlay_components.BlinkenlightComponent(
         variable="StatusBitfield",
-        center=(380, 895),
+        center=(380, 930),
         size=PLOT_SIZE * 2,
         bit_color_override=[
             (0,250,0), None, None, None,
