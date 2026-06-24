@@ -1032,9 +1032,11 @@ class SpeedDialComponentV2(game_overlay.GameOverlayComponent):
     def __init__(
         self,
         variable: str,
-        max_value: float,
         center: types.Vec2,
         size: types.Vec2,
+        hardmax_value: float,
+        softmax_value: float = 16.0,
+        nonlinear: bool = False,
         orientation: Literal["horizontal", "vertical"] = "horizontal",
         background_color_override: types.Color | None = None,
         positive_color_override: types.Color | None = None,
@@ -1045,7 +1047,9 @@ class SpeedDialComponentV2(game_overlay.GameOverlayComponent):
     ) -> None:
         super().__init__()
         self._variable = variable
-        self._max_value = max_value
+        self._softmax_value = softmax_value
+        self._hardmax_value = hardmax_value
+        self._nonlinear = nonlinear
         self._center = center
         self._size = size
         self._orientation = orientation
@@ -1095,6 +1099,12 @@ class SpeedDialComponentV2(game_overlay.GameOverlayComponent):
         )
 
         var_value = float(game_data.get(self._variable, 0))
+
+        if self._nonlinear:
+            relative_val = math.tanh(var_value / self._softmax_value) / math.tanh(self._hardmax_value / self._softmax_value)
+        else:
+            relative_val = var_value / self._hardmax_value
+
         if self._orientation == "horizontal":
             if var_value >= 0:
                 draw.rectangle(
@@ -1103,7 +1113,7 @@ class SpeedDialComponentV2(game_overlay.GameOverlayComponent):
                         self._outline_width * self.supersample_ratio,
                         (
                             self._outline_width
-                            + (var_value / self._max_value)
+                            + relative_val
                             * (self._size[0] - self._outline_width * 2)
                         )
                         * self.supersample_ratio,
@@ -1116,7 +1126,7 @@ class SpeedDialComponentV2(game_overlay.GameOverlayComponent):
                     xy=(
                         (
                             self._outline_width
-                            + (1.0 + (var_value / self._max_value))
+                            + (1.0 + relative_val)
                             * (self._size[0] - self._outline_width * 2)
                         )
                         * self.supersample_ratio,
@@ -1133,7 +1143,7 @@ class SpeedDialComponentV2(game_overlay.GameOverlayComponent):
                         self._outline_width * self.supersample_ratio,
                         (
                             self._outline_width
-                            + (1.0 - var_value / self._max_value)
+                            + (1.0 - relative_val)
                             * (self._size[1] - self._outline_width * 2)
                         )
                         * self.supersample_ratio,
@@ -1150,7 +1160,7 @@ class SpeedDialComponentV2(game_overlay.GameOverlayComponent):
                         (self._size[0] - self._outline_width) * self.supersample_ratio,
                         (
                             self._outline_width
-                            - (var_value / self._max_value)
+                            - (relative_val)
                             * (self._size[1] - self._outline_width * 2)
                         )
                         * self.supersample_ratio,

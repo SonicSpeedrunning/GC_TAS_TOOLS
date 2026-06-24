@@ -231,7 +231,9 @@ NON_KART_COMPONENTS = [
     ),
     game_overlay_components.SpeedDialComponentV2(
         variable="FSpd",
-        max_value=24.0,
+        softmax_value=16,
+        hardmax_value=27.713,
+        nonlinear=True,
         center=(160, 215),
         size=(180, 30),
     ),
@@ -241,7 +243,9 @@ NON_KART_COMPONENTS = [
     ),
     game_overlay_components.SpeedDialComponentV2(
         variable="VSpd",
-        max_value=24.0,
+        softmax_value=16,
+        hardmax_value=27.713,
+        nonlinear=True,
         center=(160, 260),
         size=(180, 30),
     ),
@@ -251,7 +255,9 @@ NON_KART_COMPONENTS = [
     ),
     game_overlay_components.SpeedDialComponentV2(
         variable="SdSpd",
-        max_value=24.0,
+        softmax_value=16,
+        hardmax_value=27.713,
+        nonlinear=True,
         center=(160, 305),
         size=(180, 30),
     ),
