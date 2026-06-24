@@ -174,7 +174,7 @@ NON_KART_COMPONENTS = [
                 ),
                 game_overlay_components.TextComponent(
                     text_fn=lambda game_data: (
-                        f"Stored Speed: {game_data['StSpd']:8.4f}"
+                        f"Stored Speed: {float(game_data['StSpd']):8.4f}"
                     ),
                     position=(30, 980),
                     font_size_override=20,
