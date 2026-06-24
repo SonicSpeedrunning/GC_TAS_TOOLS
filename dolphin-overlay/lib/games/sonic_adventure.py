@@ -84,11 +84,16 @@ def _frames_to_timer(frames_count: int) -> tuple[int, int, int]:
     )
 
 
-def _kart_drift_angle_to_bam(angle: int) -> int:
+def _unsigned_angle_to_bam(angle: int) -> int:
     angle %= 0x10000
-    if angle > 0x7fff:
+    if angle > 0x7FFF:
         angle -= 0x10000
     return angle
+
+
+def _signed_hex_format(value: int) -> str:
+    sign = "-" if value < 0 else ""
+    return f"{sign}0x{abs(value):04X} "
 
 
 def augment_game_data(game_data: game_overlay.GameOverlayData):
@@ -114,10 +119,14 @@ def augment_game_data(game_data: game_overlay.GameOverlayData):
             item["LRTMin"], item["LRTSec"], item["LRTCenti"] = _frames_to_timer(
                 item["LRTFrame"]
             )
-            item["RNGDeltaCalls"] = _count_rng_calls(
-                int(prev_item["RNGState"]), int(item["RNGState"])
-            )
-            item["RNGCalls"] = item["RNGDeltaCalls"] + prev_item["RNGCalls"]
+            if int(item["RNGState"]) == 0xDEAD0CAB:
+                item["RNGDeltaCalls"] = 0
+                item["RNGCalls"] = 0
+            else:
+                item["RNGDeltaCalls"] = _count_rng_calls(
+                    int(prev_item["RNGState"]), int(item["RNGState"])
+                )
+                item["RNGCalls"] = item["RNGDeltaCalls"] + prev_item["RNGCalls"]
 
         item["KartDriftNeg"] = str(-int(item["KartDrift"]))
         item["KartZSpdNeg"] = str(-float(item["KartZSpd"]))
@@ -391,14 +400,16 @@ NON_KART_COMPONENTS = [
     ),
     game_overlay_components.TextComponent(
         text_fn=lambda _: "YRot:",
-        position=(375, 565),
-        align="right",
+        position=(330, 565),
+        align="left",
         **SMALL_NUMBERS_CONFIG,
     ),
     game_overlay_components.TextComponent(
-        text_fn=lambda game_data: f"{int(game_data.get('YRot', 0)):05d}",
-        position=(405, 565),
-        align="middle",
+        text_fn=lambda game_data: _signed_hex_format(
+            _unsigned_angle_to_bam(int(game_data.get("YRot", 0)))
+        ),
+        position=(432, 565),
+        align="right",
         **SMALL_NUMBERS_CONFIG,
     ),
     # Rotation section
@@ -417,26 +428,30 @@ NON_KART_COMPONENTS = [
     ),
     game_overlay_components.TextComponent(
         text_fn=lambda _: "XRot:",
-        position=(145, 765),
-        align="right",
+        position=(100, 765),
+        align="left",
         **SMALL_NUMBERS_CONFIG,
     ),
     game_overlay_components.TextComponent(
-        text_fn=lambda game_data: f"{int(game_data.get('XRot', 0)):05d}",
-        position=(175, 765),
-        align="middle",
+        text_fn=lambda game_data: _signed_hex_format(
+            _unsigned_angle_to_bam(int(game_data.get("XRot", 0)))
+        ),
+        position=(202, 765),
+        align="right",
         **SMALL_NUMBERS_CONFIG,
     ),
     game_overlay_components.TextComponent(
         text_fn=lambda _: "ZRot:",
-        position=(145, 780),
-        align="right",
+        position=(100, 780),
+        align="left",
         **SMALL_NUMBERS_CONFIG,
     ),
     game_overlay_components.TextComponent(
-        text_fn=lambda game_data: f"{int(game_data.get('ZRot', 0)):05d}",
-        position=(175, 780),
-        align="middle",
+        text_fn=lambda game_data: _signed_hex_format(
+            _unsigned_angle_to_bam(int(game_data.get("ZRot", 0)))
+        ),
+        position=(202, 780),
+        align="right",
         **SMALL_NUMBERS_CONFIG,
     ),
     game_overlay_components.TextComponent(
@@ -650,14 +665,16 @@ KART_COMPONENTS = [
     ),
     game_overlay_components.TextComponent(
         text_fn=lambda _: "Drift Angle:",
-        position=(385, 565),
+        position=(390, 565),
         align="right",
         **SMALL_NUMBERS_CONFIG,
     ),
     game_overlay_components.TextComponent(
-        text_fn=lambda game_data: f"{_kart_drift_angle_to_bam(int(game_data.get('KartDrift', 0))):+#07x}",
-        position=(415, 565),
-        align="middle",
+        text_fn=lambda game_data: _signed_hex_format(
+            _unsigned_angle_to_bam(int(game_data.get("KartDrift", 0)))
+        ),
+        position=(452, 565),
+        align="right",
         **SMALL_NUMBERS_MONO_CONFIG,
     ),
     # Extras
