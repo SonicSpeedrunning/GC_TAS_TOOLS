@@ -59,6 +59,9 @@ def create_overlay_batch(project: str, n_proc: int, n_files: int | None):
     full_overlay_data = game_overlay.GameOverlayData.load_from_csv(
         overlay_data_filepath
     )
+    # NOTE: Was getting an "off-by-two" issue in every movie if I didn't do this. Not
+    # sure why, but for now just accepting it.
+    full_overlay_data.data = [full_overlay_data.data[0]] * 2 + full_overlay_data.data
     sonic_adventure.augment_game_data(full_overlay_data)
 
     video_lengths: list[int] = []

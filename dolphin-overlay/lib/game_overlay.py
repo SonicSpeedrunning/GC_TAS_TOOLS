@@ -176,7 +176,7 @@ class GameOverlay:
             overlay_img = base_img.copy()
 
             assert game_feed_frame.pts is not None
-            overlay_frame = max(0, game_feed_frame.pts - 1)
+            overlay_frame = max(0, game_feed_frame.pts)
 
             # TODO: the overlay_frame as is might not work for multiple files; rework
             # this
