@@ -135,6 +135,16 @@ NON_KART_COMPONENTS = [
                     position=(0, 0),
                     size=(480, 1080),
                 ),
+                game_overlay_components.TextComponent(
+                    text_fn=lambda game_data: f"Ongoing Missiles: {game_data['NumberOngoingMissiles']}",
+                    position=(30, 910),
+                    font_size_override=20,
+                ),
+                game_overlay_components.TextComponent(
+                    text_fn=lambda game_data: f"Cannon Cooldown: {game_data['CannonShotCooldown']}",
+                    position=(30, 940),
+                    font_size_override=20,
+                ),
             ],
             "shadow": [
                 game_overlay_components.StaticImageComponent(
@@ -142,12 +152,32 @@ NON_KART_COMPONENTS = [
                     position=(0, 0),
                     size=(480, 1080),
                 ),
+                game_overlay_components.TextComponent(
+                    text_fn=lambda game_data: f"Spindash Charge: {game_data['SpindashCharge']}",
+                    position=(30, 910),
+                    font_size_override=20,
+                ),
+                game_overlay_components.TextComponent(
+                    text_fn=lambda game_data: f"Stored Speed: {game_data['StSpd']:8.4f}",
+                    position=(30, 940),
+                    font_size_override=20,
+                ),
             ],
             "rouge": [
                 game_overlay_components.StaticImageComponent(
                     image_filename="rouge.png",
                     position=(0, 0),
                     size=(480, 1080),
+                ),
+                game_overlay_components.TextComponent(
+                    text_fn=lambda game_data: f"Total RNG Calls: {game_data['RNGCalls']}",
+                    position=(30, 910),
+                    font_size_override=20,
+                ),
+                game_overlay_components.TextComponent(
+                    text_fn=lambda game_data: f"RNG Calls per Frame: {game_data['RNGDeltaCalls']}",
+                    position=(30, 940),
+                    font_size_override=20,
                 ),
             ],
         },
@@ -423,29 +453,17 @@ NON_KART_COMPONENTS = [
     ),
     game_overlay_components.TextComponent(
         text_fn=lambda game_data: f"Action: {game_data['Action']}",
-        position=(150, 850),
+        position=(30, 850),
         font_size_override=20,
     ),
     game_overlay_components.TextComponent(
         text_fn=lambda game_data: f"Hover: {game_data['Hover']}",
-        position=(150, 880),
-        font_size_override=20,
-    ),
-    game_overlay_components.TextComponent(
-        text_fn=lambda game_data: f"Total RNG Calls: {game_data['RNGCalls']}",
-        position=(150, 910),
-        font_size_override=20,
-    ),
-    game_overlay_components.TextComponent(
-        text_fn=lambda game_data: (
-            f"RNG Calls per Frame: {game_data['RNGDeltaCalls']}"
-        ),
-        position=(150, 940),
+        position=(30, 880),
         font_size_override=20,
     ),
     game_overlay_components.BlinkenlightComponent(
         variable="StatusBitfield",
-        center=(350, 1010),
+        center=(380, 895),
         size=PLOT_SIZE * 2,
         bit_color_override=[
             (0,250,0), None, None, None,
