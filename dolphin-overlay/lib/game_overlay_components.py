@@ -1749,7 +1749,7 @@ class BlinkenlightComponent(game_overlay.GameOverlayComponent):
         )
         self._outline_color = self._outline_color_override or defaults.outline_color
 
-        self._bit_color = self._bit_color_override or [defaults.positive_color] * 16
+        self._bit_color = self._bit_color_override or [(255, 255, 255, 255)] * 16
         if len(self._bit_color) < 16:
             self._bit_color.extend(
                 defaults.positive_color * (16 - len(self._bit_color))

@@ -11,7 +11,8 @@ from lib.games import sonic_adventure
 PARSER = argparse.ArgumentParser()
 PARSER.add_argument("project", type=str)
 PARSER.add_argument("--n_proc", type=int, default=6)
-PARSER.add_argument("--n_files", type=int)
+PARSER.add_argument("--start_file", type=int)
+PARSER.add_argument("--end_file", type=int)
 
 OVERLAY = sonic_adventure.OVERLAY
 
@@ -36,7 +37,9 @@ def _get_framedump_filepath(base_path: Path, video_number: int) -> Path | None:
     return None
 
 
-def create_overlay_batch(project: str, n_proc: int, n_files: int | None):
+def create_overlay_batch(
+    project: str, n_proc: int, start_file: int | None, end_file: int | None
+):
     project_path = constants.INPUT_PATH / project
     video_number = 0
     framedump_filepaths: list[Path] = []
@@ -47,8 +50,8 @@ def create_overlay_batch(project: str, n_proc: int, n_files: int | None):
         framedump_filepaths.append(framedump_filepath)
         video_number += 1
 
-    if n_files is not None:
-        framedump_filepaths = framedump_filepaths[:n_files]
+    if end_file is not None:
+        framedump_filepaths = framedump_filepaths[: end_file + 1]
 
     if len(framedump_filepaths) == 0:
         raise ValueError(f"No video found in {project_path}")
@@ -59,6 +62,14 @@ def create_overlay_batch(project: str, n_proc: int, n_files: int | None):
     full_overlay_data = game_overlay.GameOverlayData.load_from_csv(
         overlay_data_filepath
     )
+
+    # NOTE: This is to ignore WB time post completion
+    for i in range(36410, 37270):
+        if i < len(full_overlay_data.data):
+            full_overlay_data.data[i]["StageMinutes"] = 0
+            full_overlay_data.data[i]["StageSeconds"] = 0
+            full_overlay_data.data[i]["StageCentiseconds"] = 0
+
     # NOTE: Was getting an "off-by-two" issue in every movie if I didn't do this. Not
     # sure why, but for now just accepting it.
     full_overlay_data.data = [full_overlay_data.data[0]] * 2 + full_overlay_data.data
@@ -81,6 +92,10 @@ def create_overlay_batch(project: str, n_proc: int, n_files: int | None):
             )
         )
         prev_split += video_length
+
+    if start_file is not None:
+        framedump_filepaths = framedump_filepaths[start_file:]
+        overlay_data_splits = overlay_data_splits[start_file:]
 
     overlays_base_path = constants.OUTPUT_PATH / project
     overlays_base_path.mkdir(exist_ok=True)
@@ -112,4 +127,4 @@ def create_overlay_batch(project: str, n_proc: int, n_files: int | None):
 
 if __name__ == "__main__":
     args = PARSER.parse_args()
-    create_overlay_batch(args.project, args.n_proc, args.n_files)
+    create_overlay_batch(args.project, args.n_proc, args.start_file, args.end_file)
