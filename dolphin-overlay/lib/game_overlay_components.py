@@ -1040,7 +1040,8 @@ class SpeedDialComponent(game_overlay.GameOverlayComponent):
         size: types.Vec2,
         orientation: Literal["horizontal", "vertical"] = "horizontal",
         background_color_override: types.Color | None = None,
-        fill_color_override: types.Color | None = None,
+        positive_color_override: types.Color | None = None,
+        negative_color_override: types.Color | None = None,
         outline_width_override: int | None = None,
         outline_color_override: types.Color | None = None,
         supersample_ratio_override: int | None = None,
@@ -1052,7 +1053,8 @@ class SpeedDialComponent(game_overlay.GameOverlayComponent):
         self._size = size
         self._orientation = orientation
         self._background_color_override = background_color_override
-        self._fill_color_override = fill_color_override
+        self._positive_color_override = positive_color_override
+        self._negative_color_override = negative_color_override
         self._outline_width_override = outline_width_override
         self._outline_color_override = outline_color_override
         self._supersample_ratio_override = supersample_ratio_override
@@ -1065,7 +1067,8 @@ class SpeedDialComponent(game_overlay.GameOverlayComponent):
         self._background_color = (
             self._background_color_override or defaults.component_background_color
         )
-        self._fill_color = self._fill_color_override or defaults.positive_color
+        self._positive_color = self._positive_color_override or defaults.positive_color
+        self._negative_color = self._negative_color_override or defaults.negative_color
         self._outline_width = (
             self._outline_width_override
             if self._outline_width_override is not None
@@ -1119,6 +1122,10 @@ class SpeedDialComponent(game_overlay.GameOverlayComponent):
             raise ValueError(f"Unknown orientation {self._orientation}")
 
         normalized = float(game_data.get(self._variable, 0)) / self._max_value
+        if normalized < 0:
+            fill_color = self._negative_color
+        else:
+            fill_color = self._positive_color
 
         if self._orientation == "horizontal":
             max_width = self._size[0] // 2 - self._outline_width
@@ -1131,7 +1138,7 @@ class SpeedDialComponent(game_overlay.GameOverlayComponent):
                     ((self._size[0] // 2) + right * max_width) * self.supersample_ratio,
                     (self._size[1] - self._outline_width) * self.supersample_ratio,
                 ),
-                fill=self._fill_color,
+                fill=fill_color,
             )
         elif self._orientation == "vertical":
             max_width = self._size[1] // 2 - self._outline_width
@@ -1145,7 +1152,7 @@ class SpeedDialComponent(game_overlay.GameOverlayComponent):
                     ((self._size[1] // 2) - bottom * max_width)
                     * self.supersample_ratio,
                 ),
-                fill=self._fill_color,
+                fill=fill_color,
             )
         else:
             raise ValueError(f"Unknown orientation {self._orientation}")
