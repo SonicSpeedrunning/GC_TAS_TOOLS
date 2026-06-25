@@ -1,6 +1,6 @@
 import math
 
-from .. import game_overlay, game_overlay_components
+from .. import game_overlay, game_overlay_components, math_utils
 
 WHITE = (255, 255, 255, 255)
 BLACK = (0, 0, 0, 255)
@@ -128,9 +128,25 @@ def augment_game_data(game_data: game_overlay.GameOverlayData):
                 )
                 item["RNGCalls"] = item["RNGDeltaCalls"] + prev_item["RNGCalls"]
 
+        x_rot = int(item["XRot"])
+        y_rot = int(item["YRot"])
+        z_rot = int(item["ZRot"])
+
+        # generate a rotation from the incoming bcd values
+        rot = math_utils.Rotation.from_bcd(x_rot, y_rot, z_rot)
+
+        # make a global down vector and rotate it by our rotation to get our local down
+        global_down = math_utils.Vector(0, -1, 0)
+        local_down = global_down.rotate(rot)
+
+        # find the angle of the tilt using local_down.y
+        item["TiltAngle"] = math.asin(local_down.y) * 360 / math.tau
+
         item["KartDriftNeg"] = str(-int(item["KartDrift"]))
         item["KartZSpdNeg"] = str(-float(item["KartZSpd"]))
-        item["KartHSpd"] = str(math.sqrt(float(item["KartZSpd"])**2 + float(item["KartXSpd"])**2))
+        item["KartHSpd"] = str(
+            math.sqrt(float(item["KartZSpd"]) ** 2 + float(item["KartXSpd"]) ** 2)
+        )
 
 
 NON_KART_COMPONENTS = [
@@ -317,50 +333,50 @@ NON_KART_COMPONENTS = [
     ),
     game_overlay_components.TextComponent(
         text_fn=lambda _: "Y",
-        position=(450, 160),
+        position=(445, 160),
         align="middle",
     ),
     game_overlay_components.SpeedDialComponent(
         variable="YSpd",
         max_value=16.0,
-        center=(450, 260),
+        center=(445, 260),
         size=(30, 120),
         orientation="vertical",
     ),
     game_overlay_components.TextComponent(
         text_fn=lambda _: "X:",
-        position=(330, 330),
-        align="right",
+        position=(315, 330),
+        align="left",
         **SMALL_NUMBERS_CONFIG,
     ),
     game_overlay_components.TextComponent(
         text_fn=lambda game_data: f"{float(game_data.get('XSpd', 0.0)):8.4f}",
-        position=(360, 330),
-        align="middle",
+        position=(385, 330),
+        align="right",
         **SMALL_NUMBERS_CONFIG,
     ),
     game_overlay_components.TextComponent(
         text_fn=lambda _: "Y:",
-        position=(330, 345),
-        align="right",
+        position=(315, 345),
+        align="left",
         **SMALL_NUMBERS_CONFIG,
     ),
     game_overlay_components.TextComponent(
         text_fn=lambda game_data: f"{float(game_data.get('YSpd', 0.0)):8.4f}",
-        position=(360, 345),
-        align="middle",
-        **SMALL_NUMBERS_CONFIG,
-    ),
-    game_overlay_components.TextComponent(
-        text_fn=lambda _: "Z:",
-        position=(330, 360),
+        position=(385, 345),
         align="right",
         **SMALL_NUMBERS_CONFIG,
     ),
     game_overlay_components.TextComponent(
+        text_fn=lambda _: "Z:",
+        position=(315, 360),
+        align="left",
+        **SMALL_NUMBERS_CONFIG,
+    ),
+    game_overlay_components.TextComponent(
         text_fn=lambda game_data: f"{float(game_data.get('ZSpd', 0.0)):8.4f}",
-        position=(360, 360),
-        align="middle",
+        position=(385, 360),
+        align="right",
         **SMALL_NUMBERS_CONFIG,
     ),
     # Position section
@@ -442,7 +458,12 @@ NON_KART_COMPONENTS = [
         z_rot_var="ZRot",
         center=(150, 700),
         size=PLOT_SIZE,
-        draw_axes=False,
+        draw_axes=True,
+        positive_x_label="+Z",
+        positive_y_label="+X",
+        negative_x_label="-Z",
+        negative_y_label="-X",
+        axis_rotation_variable="CameraYRot",
     ),
     game_overlay_components.TextComponent(
         text_fn=lambda _: "XRot:",
@@ -481,8 +502,14 @@ NON_KART_COMPONENTS = [
         x_rot_var="XRot",
         y_rot_var="YRot",
         z_rot_var="ZRot",
-        center=(380, 700),
+        center=(358, 700),
         size=PLOT_SIZE,
+    ),
+    game_overlay_components.TextComponent(
+        text_fn=lambda game_data: f"{float(game_data['TiltAngle']) + 90:.1f}°",
+        position=(380, 765),
+        align="middle",
+        **SMALL_NUMBERS_CONFIG,
     ),
     game_overlay_components.TextComponent(
         text_fn=lambda game_data: f"Action: {game_data['Action']}",
@@ -495,7 +522,7 @@ NON_KART_COMPONENTS = [
         font_size_override=28,
     ),
     game_overlay_components.TextComponent(
-        text_fn=lambda _: "Bitfield",
+        text_fn=lambda _: "Status",
         position=(380, 855),
         align="middle",
     ),
@@ -504,12 +531,24 @@ NON_KART_COMPONENTS = [
         center=(380, 930),
         size=PLOT_SIZE * 2,
         bit_color_override=[
-            (0,250,0), None, None, None,
-            None, None, None, None,
-            None, None, (240, 160, 0), None,
-            None, None, None, None,
+            (0, 250, 0),
+            None,
+            None,
+            None,
+            None,
+            None,
+            None,
+            None,
+            None,
+            None,
+            (240, 160, 0),
+            None,
+            None,
+            None,
+            None,
+            None,
         ],
-        bit_inactive_color_override=(20,20,20),
+        bit_inactive_color_override=(20, 20, 20),
     ),
 ]
 
@@ -539,12 +578,12 @@ KART_COMPONENTS = [
         position=(150, 125),
         align="middle",
     ),
-    #game_overlay_components.SpeedDialComponentV2(
+    # game_overlay_components.SpeedDialComponentV2(
     #    variable="KartHSpd",
     #    max_value=20.0,
     #    center=(150, 260),
     #    size=(180, 30),
-    #),
+    # ),
     game_overlay_components.SpeedometerComponent(
         variable="KartHSpd",
         max_value=20.0,

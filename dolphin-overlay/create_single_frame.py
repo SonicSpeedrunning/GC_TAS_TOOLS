@@ -23,6 +23,7 @@ def create_single_frame(filename: str, n: int):
     if not overlay_data_filepath.exists():
         raise ValueError(f"Overlay data {filename}.csv not found")
     overlay_data = game_overlay.GameOverlayData.load_from_csv(overlay_data_filepath)
+    sonic_adventure.augment_game_data(overlay_data)
     print(f"Creating overlay frame {n}...")
     constants.OUTPUT_PATH.mkdir(exist_ok=True)
     overlay_image = OVERLAY.draw_single_frame(n, overlay_data, framedump_filepath)

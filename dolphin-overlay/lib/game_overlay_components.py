@@ -182,7 +182,6 @@ class StaticImageComponent(game_overlay.GameOverlayComponent):
 
 
 class Plane2DBackgroundComponent(game_overlay.GameOverlayComponent):
-    # TODO: support some sort of log scale
     positive_x_label_position = (0.75, -0.1)
     positive_y_label_position = (-0.2, -0.85)
     negative_x_label_position = (-0.82, 0.12)
@@ -308,25 +307,64 @@ class Plane2DBackgroundComponent(game_overlay.GameOverlayComponent):
                 )
 
 
+def _rotate_around_pivot(
+    point: tuple[float, float], pivot: tuple[float, float], angle_radians: float
+) -> tuple[float, float]:
+    px, py = point
+    cx, cy = pivot
+    translated_x = px - cx
+    translated_y = py - cy
+    rotated_x = translated_x * math.cos(angle_radians) - translated_y * math.sin(
+        angle_radians
+    )
+    rotated_y = translated_x * math.sin(angle_radians) + translated_y * math.cos(
+        angle_radians
+    )
+    return rotated_x + cx, rotated_y + cy
+
+
 class CircularPlotBackgroundComponent(game_overlay.GameOverlayComponent):
+    positive_x_label_position = (0.7, -0.3)
+    positive_y_label_position = (-0.3, -0.7)
+    negative_x_label_position = (-0.7, 0.3)
+    negative_y_label_position = (0.3, 0.7)
+
     def __init__(
         self,
         center: types.Vec2,
         radius: int,
         draw_axes: bool,
+        draw_box: bool = True,
         background_color_override: types.Color | None = None,
         outline_width_override: int | None = None,
         outline_color_override: types.Color | None = None,
+        positive_x_label: str | None = None,
+        positive_y_label: str | None = None,
+        negative_x_label: str | None = None,
+        negative_y_label: str | None = None,
+        axis_label_font_name_override: str | list[str] | None = None,
+        axis_label_font_size_override: int | None = None,
+        axis_label_font_color_override: types.Color | None = None,
+        axis_rotation_variable: str | None = None,
         supersample_ratio_override: int | None = None,
     ) -> None:
         super().__init__()
         self._center = center
         self._radius = radius
         self._draw_axes = draw_axes
+        self._draw_box = draw_box
         self._background_color_override = background_color_override
         self._outline_width_override = outline_width_override
         self._outline_color_override = outline_color_override
         self._supersample_ratio_override = supersample_ratio_override
+        self._positive_x_label = positive_x_label
+        self._positive_y_label = positive_y_label
+        self._negative_x_label = negative_x_label
+        self._negative_y_label = negative_y_label
+        self._axis_label_font_name_override = axis_label_font_name_override
+        self._axis_label_font_size_override = axis_label_font_size_override
+        self._axis_label_font_color_override = axis_label_font_color_override
+        self._axis_rotation_variable = axis_rotation_variable
 
         self.position = center
         self.anchor = (radius, radius)
@@ -342,56 +380,120 @@ class CircularPlotBackgroundComponent(game_overlay.GameOverlayComponent):
             else defaults.outline_width
         )
         self._outline_color = self._outline_color_override or defaults.outline_color
+        self._axis_label_font_color = (
+            self._axis_label_font_color_override or defaults.axis_label_font_color
+        )
         self.supersample_ratio = (
             self._supersample_ratio_override or defaults.supersample_ratio
         )
+        axis_label_font_name = (
+            self._axis_label_font_name_override or defaults.axis_label_font_name
+        )
+        axis_label_font_size = (
+            self._axis_label_font_size_override or defaults.axis_label_font_size
+        ) * self.supersample_ratio
+        self._axis_label_font = _load_font(axis_label_font_name, axis_label_font_size)
 
     def update(self, game_data: dict) -> None:
         pass
 
     def draw(self, image: Image.Image, game_data: dict) -> None:
         draw = ImageDraw.Draw(image)
-        draw.rectangle(
-            xy=(
-                0,
-                0,
-                self._radius * 2 * self.supersample_ratio,
-                self._radius * 2 * self.supersample_ratio,
-            ),
-            fill=self._background_color,
-            outline=self._outline_color,
-            width=self._outline_width * self.supersample_ratio,
-        )
+        if self._draw_box:
+            draw.rectangle(
+                xy=(
+                    0,
+                    0,
+                    self._radius * 2 * self.supersample_ratio,
+                    self._radius * 2 * self.supersample_ratio,
+                ),
+                fill=self._background_color,
+                outline=self._outline_color,
+                width=self._outline_width * self.supersample_ratio,
+            )
         draw.circle(
             xy=(
                 self._radius * self.supersample_ratio,
                 self._radius * self.supersample_ratio,
             ),
             radius=self._radius * self.supersample_ratio,
+            fill=self._background_color,
             outline=self._outline_color,
             width=self._outline_width * self.supersample_ratio,
         )
+        axis_rotation = math.pi / 2 + math_utils.bcd_to_rad(
+            int(game_data.get(self._axis_rotation_variable, 0))
+        )
         if self._draw_axes:
-            draw.line(
-                xy=(
+            axes_lines_points = [
+                (
                     self._radius * self.supersample_ratio,
                     0,
+                ),
+                (
                     self._radius * self.supersample_ratio,
                     self._radius * 2 * self.supersample_ratio,
+                ),
+                (
+                    0,
+                    self._radius * self.supersample_ratio,
+                ),
+                (
+                    self._radius * 2 * self.supersample_ratio,
+                    self._radius * self.supersample_ratio,
+                ),
+            ]
+            rotated_axes_lines_points = []
+            for point in axes_lines_points:
+                rotated_axes_lines_points.append(
+                    _rotate_around_pivot(
+                        point,
+                        (
+                            self._radius * self.supersample_ratio,
+                            self._radius * self.supersample_ratio,
+                        ),
+                        axis_rotation,
+                    )
+                )
+            draw.line(
+                xy=(
+                    rotated_axes_lines_points[0],
+                    rotated_axes_lines_points[1],
                 ),
                 fill=self._outline_color,
                 width=self._outline_width * self.supersample_ratio,
             )
             draw.line(
                 xy=(
-                    0,
-                    self._radius * self.supersample_ratio,
-                    self._radius * 2 * self.supersample_ratio,
-                    self._radius * self.supersample_ratio,
+                    rotated_axes_lines_points[2],
+                    rotated_axes_lines_points[3],
                 ),
                 fill=self._outline_color,
                 width=self._outline_width * self.supersample_ratio,
             )
+        axis_labels = [
+            (self._positive_x_label, self.positive_x_label_position),
+            (self._positive_y_label, self.positive_y_label_position),
+            (self._negative_x_label, self.negative_x_label_position),
+            (self._negative_y_label, self.negative_y_label_position),
+        ]
+        for label_text, label_position in axis_labels:
+            if label_text is not None:
+                rotated_label_position = _rotate_around_pivot(
+                    label_position, (0, 0), axis_rotation
+                )
+                text_position = (
+                    (self._radius + rotated_label_position[0] * self._radius)
+                    * self.supersample_ratio,
+                    (self._radius + rotated_label_position[1] * self._radius)
+                    * self.supersample_ratio,
+                )
+                draw.text(
+                    xy=text_position,
+                    text=label_text,
+                    font=self._axis_label_font,
+                    anchor="mm",
+                )
 
 
 class Speed2DPlaneComponent(game_overlay.GameOverlayComponent):
@@ -491,6 +593,14 @@ class GravityAngleComponent(game_overlay.GameOverlayComponent):
         line_color_override: types.Color | None = None,
         outline_width_override: int | None = None,
         outline_color_override: types.Color | None = None,
+        positive_x_label: str | None = None,
+        positive_y_label: str | None = None,
+        negative_x_label: str | None = None,
+        negative_y_label: str | None = None,
+        axis_label_font_name_override: str | list[str] | None = None,
+        axis_label_font_size_override: int | None = None,
+        axis_label_font_color_override: types.Color | None = None,
+        axis_rotation_variable: str | None = None,
         supersample_ratio_override: int | None = None,
     ) -> None:
         super().__init__()
@@ -501,6 +611,14 @@ class GravityAngleComponent(game_overlay.GameOverlayComponent):
             background_color_override=background_color_override,
             outline_width_override=outline_width_override,
             outline_color_override=outline_color_override,
+            positive_x_label=positive_x_label,
+            positive_y_label=positive_y_label,
+            negative_x_label=negative_x_label,
+            negative_y_label=negative_y_label,
+            axis_label_font_name_override=axis_label_font_name_override,
+            axis_label_font_size_override=axis_label_font_size_override,
+            axis_label_font_color_override=axis_label_font_color_override,
+            axis_rotation_variable=axis_rotation_variable,
             supersample_ratio_override=supersample_ratio_override,
         )
         self._x_rot_var = x_rot_var
@@ -511,6 +629,7 @@ class GravityAngleComponent(game_overlay.GameOverlayComponent):
         self._line_width_override = line_width_override
         self._line_color_override = line_color_override
         self._supersample_ratio_override = supersample_ratio_override
+        self._axis_rotation_variable = axis_rotation_variable
 
         self.position = center
         self.anchor = (size, size)
@@ -530,6 +649,10 @@ class GravityAngleComponent(game_overlay.GameOverlayComponent):
     def draw(self, image: Image.Image, game_data: dict) -> None:
         self._background.draw(image, game_data)
 
+        axis_rotation = math.pi / 2 + math_utils.bcd_to_rad(
+            int(game_data.get(self._axis_rotation_variable, 0))
+        )
+
         draw = ImageDraw.Draw(image)
         x_var_value = int(game_data.get(self._x_rot_var, 0))
         y_var_value = int(game_data.get(self._y_rot_var, 0))
@@ -548,6 +671,7 @@ class GravityAngleComponent(game_overlay.GameOverlayComponent):
                 local_down.x / gravity_angle_length,
                 local_down.z / gravity_angle_length,
             )
+            gravity_angle = _rotate_around_pivot(gravity_angle, (0, 0), axis_rotation)
             draw.line(
                 (
                     self._size * self.supersample_ratio,
@@ -698,7 +822,9 @@ class GravityTiltGaugeComponent(game_overlay.GameOverlayComponent):
     def apply_defaults(self, defaults: game_overlay.GameOverlayDefaults) -> None:
         self._line_color = self._line_color_override or defaults.main_line_color
 
-        self._background_color = self._background_color_override or defaults.component_background_color
+        self._background_color = (
+            self._background_color_override or defaults.component_background_color
+        )
         self._outline_width = (
             self._outline_width_override
             if self._outline_width_override is not None
@@ -739,7 +865,7 @@ class GravityTiltGaugeComponent(game_overlay.GameOverlayComponent):
             ),
             start=-90,
             end=90,
-            fill=self._background_color
+            fill=self._background_color,
         )
 
         # draw gague value
@@ -903,9 +1029,6 @@ class GravityAngleAltitudeIndicator(game_overlay.GameOverlayComponent):
         rot_image = image.rotate(ball_rot * 360 / math.tau)
         # not sure if this technically could allow the unrotated ball to peek through
         image.paste(rot_image)
-
-
-# TODO: continue design of speed dial (2 versions)
 
 
 class SpeedDialComponent(game_overlay.GameOverlayComponent):
@@ -1101,7 +1224,9 @@ class SpeedDialComponentV2(game_overlay.GameOverlayComponent):
         var_value = float(game_data.get(self._variable, 0))
 
         if self._nonlinear:
-            relative_val = math.tanh(var_value / self._softmax_value) / math.tanh(self._hardmax_value / self._softmax_value)
+            relative_val = math.tanh(var_value / self._softmax_value) / math.tanh(
+                self._hardmax_value / self._softmax_value
+            )
         else:
             relative_val = var_value / self._hardmax_value
 
@@ -1113,8 +1238,7 @@ class SpeedDialComponentV2(game_overlay.GameOverlayComponent):
                         self._outline_width * self.supersample_ratio,
                         (
                             self._outline_width
-                            + relative_val
-                            * (self._size[0] - self._outline_width * 2)
+                            + relative_val * (self._size[0] - self._outline_width * 2)
                         )
                         * self.supersample_ratio,
                         (self._size[1] - self._outline_width) * self.supersample_ratio,
@@ -1160,8 +1284,7 @@ class SpeedDialComponentV2(game_overlay.GameOverlayComponent):
                         (self._size[0] - self._outline_width) * self.supersample_ratio,
                         (
                             self._outline_width
-                            - (relative_val)
-                            * (self._size[1] - self._outline_width * 2)
+                            - (relative_val) * (self._size[1] - self._outline_width * 2)
                         )
                         * self.supersample_ratio,
                     ),
@@ -1190,6 +1313,7 @@ class AngleDirectionComponent(game_overlay.GameOverlayComponent):
             center=center,
             radius=size,
             draw_axes=draw_axes,
+            draw_box=False,
             background_color_override=background_color_override,
             outline_width_override=outline_width_override,
             outline_color_override=outline_color_override,
@@ -1620,11 +1744,15 @@ class BlinkenlightComponent(game_overlay.GameOverlayComponent):
 
         self._bit_color = self._bit_color_override or [defaults.positive_color] * 16
         if len(self._bit_color) < 16:
-            self._bit_color.extend(defaults.positive_color * (16 - len(self._bit_color)))
+            self._bit_color.extend(
+                defaults.positive_color * (16 - len(self._bit_color))
+            )
         self._bit_color = self._bit_color[:16]
         self._bit_color = [x or defaults.positive_color for x in self._bit_color]
 
-        self._bit_inactive_color = self._bit_inactive_color_override or defaults.negative_color
+        self._bit_inactive_color = (
+            self._bit_inactive_color_override or defaults.negative_color
+        )
 
         self.supersample_ratio = (
             self._supersample_ratio_override or defaults.supersample_ratio
@@ -1681,7 +1809,7 @@ class BlinkenlightComponent(game_overlay.GameOverlayComponent):
         bitfield = int(game_data[self._variable])
         for y in range(4):
             for x in range(4):
-                bit_idx = (15 - (y * 4 + x))
+                bit_idx = 15 - (y * 4 + x)
                 bit = (bitfield >> bit_idx) & 0x01
                 if bit:
                     blinkenlight_color = self._bit_color[bit_idx]
@@ -1693,7 +1821,7 @@ class BlinkenlightComponent(game_overlay.GameOverlayComponent):
                         (e_size * (2 * y + 1) / 8 + offset) * self.supersample_ratio,
                     ),
                     radius=e_size / 12 * self.supersample_ratio,
-                    fill=blinkenlight_color
+                    fill=blinkenlight_color,
                 )
 
 
@@ -1713,12 +1841,10 @@ class SpeedometerComponent(game_overlay.GameOverlayComponent):
         self._center = center
 
         self._background_image = Image.open(
-            constants.PROJECT_ROOT / "data" / "images" / background_image_path,
-            "r"
+            constants.PROJECT_ROOT / "data" / "images" / background_image_path, "r"
         )
         self._arrow_image = Image.open(
-            constants.PROJECT_ROOT / "data" / "images" / arrow_image_path,
-            "r"
+            constants.PROJECT_ROOT / "data" / "images" / arrow_image_path, "r"
         )
 
         size = self._background_image.size
@@ -1738,7 +1864,11 @@ class SpeedometerComponent(game_overlay.GameOverlayComponent):
         draw = ImageDraw.Draw(image)
 
         # calculate arrow rotation value
-        arrow_rot = 112.71 - float(game_data[self._variable]) / self._max_value * 112.71 * 2
+        arrow_rot = (
+            112.71 - float(game_data[self._variable]) / self._max_value * 112.71 * 2
+        )
 
         image.alpha_composite(self._background_image)
-        image.alpha_composite(self._arrow_image.rotate(arrow_rot, Image.Resampling.BILINEAR))
+        image.alpha_composite(
+            self._arrow_image.rotate(arrow_rot, Image.Resampling.BILINEAR)
+        )
