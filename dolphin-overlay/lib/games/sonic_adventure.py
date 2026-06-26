@@ -30,17 +30,32 @@ SMALL_NUMBERS_MONO_CONFIG = {
 
 
 def _character_select(game_data: dict) -> str | None:
-    game_state = int(game_data["GameState"])
-    character = int(game_data["CurrentCharacter"])
-
-    if game_state in [7, 9, 16, 17]:
-        if character == 7:
-            return "eggman"
-        elif character == 1:
-            return "shadow"
-        elif character == 5:
-            return "rouge"
-    return None
+    stage_map = {
+        "0": None,
+        "4": "shadow",
+        "6": "shadow",
+        "8": "rouge",
+        "11": "eggman",
+        "12": "eggman",
+        "14": "shadow",
+        "18": "rouge",
+        "19": "shadow",
+        "20": "eggman",
+        "21": "eggman",
+        "26": "rouge",
+        "27": "eggman",
+        "29": "eggman",
+        "33": "rouge",
+        "40": "shadow",
+        "42": "shadow",
+        "43": "eggman",
+        "44": "rouge",
+        "61": "shadow",
+        "62": "rouge",
+        "67": "eggman",
+        "70": "rouge",
+    }
+    return stage_map.get(game_data["CurrentStage"])
 
 
 def _kart_select(game_data: dict) -> str | None:
@@ -218,6 +233,13 @@ NON_KART_COMPONENTS = [
                 ),
             ],
         },
+        default=[
+            game_overlay_components.StaticImageComponent(
+                image_filename="eggman.png",
+                position=(0, 0),
+                size=(480, 1080),
+            ),
+        ],
         selector=_character_select,
     ),
     game_overlay_components.TextComponent(
