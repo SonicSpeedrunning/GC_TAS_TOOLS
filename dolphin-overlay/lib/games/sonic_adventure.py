@@ -72,15 +72,12 @@ def _rng_call(rng_state: int) -> int:
 
 
 def _count_rng_calls(initial_rng_state: int, ending_rng_state: int):
-    if initial_rng_state == ending_rng_state:
-        return 0
     rng_state = initial_rng_state
-    max_calls = 10000
-    for i in range(max_calls):
+    num_calls = 0
+    while rng_state != ending_rng_state and num_calls < 10000:
         rng_state = _rng_call(rng_state)
-        if rng_state == ending_rng_state:
-            return i
-    return max_calls
+        num_calls += 1
+    return num_calls
 
 
 def _level_timer_in_frames(item: dict) -> int:
